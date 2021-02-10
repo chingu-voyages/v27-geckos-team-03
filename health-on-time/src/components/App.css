@@ -1,0 +1,26 @@
+main {
+  margin: 5rem auto 0 auto;
+  max-width: 900px;
+}
+
+main h1 {
+  text-align: center;
+  margin: 3rem 0;
+}
+
+main img {
+  height: 200px;
+}
+
+.hero {
+  height: 25rem !important;
+  width: 100%;
+  margin-bottom: 2rem;
+}
+.jumbtron {
+  font-size: 1.6rem;
+}
+
+main button {
+  margin: 1rem 0 0 1rem;
+}
