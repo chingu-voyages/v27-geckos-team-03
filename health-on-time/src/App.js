@@ -5,7 +5,7 @@ import * as ReactBootStrap from "react-bootstrap";
 function App() {
   return (
     <div className="App">
-      <ReactBootStrap.Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+      <ReactBootStrap.Navbar collapseOnSelect expand="sm" bg="dark" variant="dark">
   <ReactBootStrap.Navbar.Brand href="#home">Health on Time</ReactBootStrap.Navbar.Brand>
   <ReactBootStrap.Navbar.Toggle aria-controls="responsive-navbar-nav" />
   <ReactBootStrap.Navbar.Collapse id="responsive-navbar-nav">
