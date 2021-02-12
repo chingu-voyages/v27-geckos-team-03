@@ -1,10 +1,12 @@
 import "../App.css";
 import { Jumbotron, Button, Card, CardDeck } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import SearchMedication from "./SearchMedication";
 
 function LaningPage() {
   return (
     <div className="App">
+      <SearchMedication />
       <header className="App-header"></header>
       <main>
         <img alt="hero" className="hero" src="/hero.jpg" />
