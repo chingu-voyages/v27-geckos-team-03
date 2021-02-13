@@ -6,9 +6,9 @@ import SearchMedication from "./SearchMedication";
 function LaningPage() {
   return (
     <div className="App">
-      <SearchMedication />
       <header className="App-header"></header>
       <main>
+        <SearchMedication />
         <img alt="hero" className="hero" src="/hero.jpg" />
         <Jumbotron className="jumbtron">
           <p>
