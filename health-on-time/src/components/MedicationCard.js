@@ -6,10 +6,11 @@ const MedicationCard = ({ medications }) => {
     <div>
       <CardDeck>
         {medications.map((medication) => (
-          <Card>
+          <Card key={medication.appNumber}>
             <Card.Body>
               <Card.Title>{medication.brandName}</Card.Title>
-              <Card.Text>{medication.manifacturer}</Card.Text>
+              <Card.Text>From: {medication.manifacturer}</Card.Text>
+              <Card.Text>FDA num: {medication.appNumber}</Card.Text>
               <Button>Add</Button>
             </Card.Body>
           </Card>
