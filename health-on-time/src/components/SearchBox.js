@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 
 const SearchBox = (props) => {
+  // Change the state whenever theere's change in the input fileld
   const [title, setTitle] = useState("");
 
   return (
@@ -12,7 +13,10 @@ const SearchBox = (props) => {
           props.setSearchValue(title);
         }}
       >
-        <input onChange={(event) => setTitle(event.target.value)} />
+        <input
+          placeholder="Type to search..."
+          onChange={(event) => setTitle(event.target.value)}
+        ></input>
         <Button
           onClick={(e) => {
             e.preventDefault();
@@ -27,10 +31,3 @@ const SearchBox = (props) => {
 };
 
 export default SearchBox;
-
-// <input
-//   className="form-control"
-//   value={props.value}
-//   placeholder="Type to search..."
-//   onChange={(event) => props.setSearchValue(event.target.value)}
-// ></input>;

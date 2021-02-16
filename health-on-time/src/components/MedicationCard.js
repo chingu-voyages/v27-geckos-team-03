@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Card, CardDeck } from "react-bootstrap";
+import { Button, Card, CardDeck, CardGroup } from "react-bootstrap";
 
 const MedicationCard = ({ medications }) => {
   return (
@@ -9,7 +9,9 @@ const MedicationCard = ({ medications }) => {
           <Card key={medication.appNumber}>
             <Card.Body>
               <Card.Title>{medication.brandName}</Card.Title>
-              <Card.Text>From: {medication.manifacturer}</Card.Text>
+              <Card.Subtitle className="mb-2 text-muted">
+                {medication.manifacturer}
+              </Card.Subtitle>
               <Card.Text>FDA num: {medication.appNumber}</Card.Text>
               <Button>Add</Button>
             </Card.Body>
@@ -17,18 +19,6 @@ const MedicationCard = ({ medications }) => {
         ))}
       </CardDeck>
     </div>
-
-    // <div>
-    //   <CardDeck>
-    //     <Card>
-    //       <Card.Body>
-    //         <Card.Title>{medications.brandName}</Card.Title>
-    //         <Card.Text>{medications.manifacturer}</Card.Text>
-    //         {medications ? <Button>Add</Button> : ""}
-    //       </Card.Body>
-    //     </Card>
-    //   </CardDeck>
-    // </div>
   );
 };
 // const MedicationCard = (props) => {
