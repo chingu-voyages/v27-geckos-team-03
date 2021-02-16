@@ -1,8 +1,9 @@
 import "../App.css";
+import React from "react";
 import { Jumbotron, Button, Card, CardDeck } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-function LaningPage() {
+const LaningPage = () => {
   return (
     <div className="App">
       <header className="App-header"></header>
@@ -57,6 +58,6 @@ function LaningPage() {
       </main>
     </div>
   );
-}
+};
 
 export default LaningPage;

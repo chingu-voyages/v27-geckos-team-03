@@ -13,7 +13,7 @@ main img {
 }
 
 .hero {
-  height: 25rem !important;
+  height: 25rem;
   width: 100%;
   margin-bottom: 2rem;
 }
