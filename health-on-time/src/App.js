@@ -1,14 +1,18 @@
-import "./App.css";
 import React from "react";
-import LandingPage from "./components/landingPage";
-import Navbar from "./components/Navbar";
-function App() {
+import { BrowserRouter, Route } from "react-router-dom";
+import Navbar from "./Components/Navbar";
+import Home from "./Pages/Home";
+import MedicineCabinet from "./Pages/MedicineCabinet";
+import "./Styles/App.css";
+
+const App = () => {
   return (
-    <div className="App">
+    <BrowserRouter>
       <Navbar />
-      <LandingPage />
-    </div>
+      <Route path="/" component={Home} exact={true} />
+      <Route path="/medicine" component={MedicineCabinet} />
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
