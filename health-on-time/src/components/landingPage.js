@@ -1,9 +1,10 @@
 import "../App.css";
+import React from "react";
 import { Jumbotron, Button, Card, CardDeck } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import SearchMedication from "./SearchMedication";
 
-function LaningPage() {
+const LaningPage = () => {
   return (
     <div className="App">
       <header className="App-header"></header>
@@ -13,7 +14,7 @@ function LaningPage() {
         <Jumbotron className="jumbtron">
           <p>
             COVID has made it difficult to care of those we love, so we created
-            APP NAME so we can hold one eachother accountable on taking our
+            APP NAME so we can hold one each other accountable on taking our
             medication
           </p>
           <p>
@@ -59,6 +60,6 @@ function LaningPage() {
       </main>
     </div>
   );
-}
+};
 
 export default LaningPage;
