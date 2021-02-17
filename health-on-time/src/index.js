@@ -1,11 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-<<<<<<< HEAD
-import LandingPage from "./components/landingPage";
-=======
 import App from "./App";
->>>>>>> Development
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
 
