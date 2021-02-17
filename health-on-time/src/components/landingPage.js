@@ -2,12 +2,14 @@ import "../App.css";
 import React from "react";
 import { Jumbotron, Button, Card, CardDeck } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import SearchMedication from "./SearchMedication";
 
 const LaningPage = () => {
   return (
     <div className="App">
       <header className="App-header"></header>
       <main>
+        <SearchMedication />
         <img alt="hero" className="hero" src="/hero.jpg" />
         <Jumbotron className="jumbtron">
           <p>
