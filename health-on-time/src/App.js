@@ -1,8 +1,13 @@
-import logo from "./logo.svg";
+import React from 'react';
 import "./App.css";
+import Navbar from "./Components/Navbar.js";
 
 function App() {
-  return <div className="App">Health on Time</div>;
+  return (
+    <div className="App">
+       <Navbar/>
+    </div>
+  );
 }
 
 export default App;
