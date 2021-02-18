@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 
 const SearchBox = (props) => {
-  // Change the state whenever theere's change in the input fileld
+  // Change the state whenever there's change in the input fileld
   const [title, setTitle] = useState("");
 
   return (
