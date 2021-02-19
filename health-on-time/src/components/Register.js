@@ -104,6 +104,7 @@ const Register = (props) => {
     if (checkBtn.current.context._errors.length === 0) {
       AuthService.register(name, username, email, phoneNumber, password).then(
         (response) => {
+          console.log(response.data);
           setMessage(response.data.message);
           setSuccessful(true);
         },

@@ -56,9 +56,12 @@ const Login = (props) => {
 
     if (checkBtn.current.context._errors.length === 0) {
       AuthService.login(email, password).then(
-        () => {
-          props.history.push("/profile");
-          window.location.reload();
+        (data) => {
+          // props.history.push("/profile");
+          // window.location.reload();
+          const { user, token } = data;
+          console.log(data);
+          props.handleLogin(data);
         },
         (error) => {
           const resMessage =

@@ -10,11 +10,20 @@ const register = (name, username, email, phoneNumber, password) => {
     phoneNumber,
     password,
   });
+  // .then((data) => {
+  // console.log(data);
+  // if (data.token) {
+  //   console.log(data);
+  //   // const { user, token } = data;
+  // } else {
+  //   alert(data);
+  // }
+  // });
 };
 
 const login = (email, password) => {
   return axios
-    .post(API_URL + "signin", {
+    .post(API_URL + "login", {
       email,
       password,
     })
