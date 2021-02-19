@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import { isEmail, isMobilePhone } from "validator";
 import "./Login.css";
 import AuthService from "../services/auth.service";
@@ -27,8 +27,7 @@ const validEmail = (value) => {
   }
 };
 
-
- const validPhoneNumber = (value) => {
+const validPhoneNumber = (value) => {
   if (!isMobilePhone(value)) {
     return (
       <div className="alert alert-danger" role="alert">
@@ -62,6 +61,7 @@ const Register = (props) => {
   const form = useRef();
   const checkBtn = useRef();
 
+  const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -69,6 +69,10 @@ const Register = (props) => {
   const [successful, setSuccessful] = useState(false);
   const [message, setMessage] = useState("");
 
+  const onChangeName = (e) => {
+    const name = e.target.value;
+    setName(name);
+  };
   const onChangeUsername = (e) => {
     const username = e.target.value;
     setUsername(username);
@@ -78,7 +82,6 @@ const Register = (props) => {
     const email = e.target.value;
     setEmail(email);
   };
-
 
   const onPhoneNumber = (e) => {
     const phoneNumber = e.target.value;
@@ -99,7 +102,7 @@ const Register = (props) => {
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
-      AuthService.register(username, email, phoneNumber,password).then(
+      AuthService.register(name, username, email, phoneNumber, password).then(
         (response) => {
           setMessage(response.data.message);
           setSuccessful(true);
@@ -117,7 +120,7 @@ const Register = (props) => {
         }
       );
     }
-};
+  };
   return (
     <div className="col-md-12">
       <div className="card card-container">
@@ -130,6 +133,17 @@ const Register = (props) => {
         <Form onSubmit={handleRegister} ref={form}>
           {!successful && (
             <div>
+              <div className="form-group">
+                <label htmlFor="name">Full Name</label>
+                <Input
+                  type="text"
+                  className="form-control"
+                  name="name"
+                  value={name}
+                  onChange={onChangeName}
+                  // validations={[required, vusername]}
+                />
+              </div>
               <div className="form-group">
                 <label htmlFor="username">Username</label>
                 <Input
@@ -153,7 +167,7 @@ const Register = (props) => {
                   validations={[required, validEmail]}
                 />
               </div>
-          
+
               <div className="form-group">
                 <label htmlFor="phone">Phone Number</label>
                 <Input
@@ -187,7 +201,9 @@ const Register = (props) => {
           {message && (
             <div className="form-group">
               <div
-                className={ successful ? "alert alert-success" : "alert alert-danger" }
+                className={
+                  successful ? "alert alert-success" : "alert alert-danger"
+                }
                 role="alert"
               >
                 {message}

@@ -27,18 +27,14 @@ const validEmail = (value) => {
   }
 };
 
-
 const Login = (props) => {
   const form = useRef();
   const checkBtn = useRef();
 
- 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
-
-
 
   const onChangeEmail = (e) => {
     const email = e.target.value;
@@ -59,7 +55,7 @@ const Login = (props) => {
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
-        AuthService.login(email, password).then(    
+      AuthService.login(email, password).then(
         () => {
           props.history.push("/profile");
           window.location.reload();
@@ -78,7 +74,7 @@ const Login = (props) => {
       );
     } else {
       setLoading(false);
-    } 
+    }
   };
 
   return (
@@ -91,23 +87,22 @@ const Login = (props) => {
         />
 
         <Form onSubmit={handleLogin} ref={form}>
-     
           <div className="form-group">
-                <label htmlFor="email">Email</label>
-                <Input
-                  type="text"
-                  className="form-control"
-                  name="email"
-                  value={email}
-                  onChange={onChangeEmail}
-                  validations={[required, validEmail]}
-                />
-              </div>
+            <label htmlFor="email">Email</label>
+            <Input
+              type="text"
+              className="form-control"
+              name="email"
+              value={email}
+              onChange={onChangeEmail}
+              validations={[required, validEmail]}
+            />
+          </div>
 
           <div className="form-group">
             <label htmlFor="password">Password</label>
             <Input
-              type="text"
+              type="password"
               className="form-control"
               name="password"
               value={password}
