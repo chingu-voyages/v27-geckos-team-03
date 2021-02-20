@@ -1,11 +1,11 @@
 import React from "react";
 import { BrowserRouter, Route } from "react-router-dom";
-import HomePage from "./Pages/HomePage";
-import MedicineCabinet from "./Pages/MedicineCabinet";
-import CalendarPage from "./Pages/CalendarPage";
-import Navbar from "./Components/Navbar";
-import Footer from "./Components/Footer";
-import "./Styles/App.css";
+import HomePage from "./pages/HomePage";
+import MedicineCabinet from "./pages/MedicineCabinet";
+import CalendarPage from "./pages/CalendarPage";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import "./styles/App.css";
 
 const App = () => {
   return (

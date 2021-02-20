@@ -1,4 +1,4 @@
-import "../Styles/App.css";
+import "../styles/App.css";
 import React from "react";
 import { Jumbotron, Button, Card, CardDeck } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
