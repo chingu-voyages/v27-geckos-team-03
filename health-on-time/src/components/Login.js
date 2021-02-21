@@ -5,7 +5,7 @@ import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
 import "./Login.css";
-import AuthService from "../services/auth.service";
+// import AuthService from "../services/auth.service";
 
 const required = (value) => {
   if (!value) {
@@ -55,28 +55,24 @@ const Login = (props) => {
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
-      AuthService.login(email, password).then(
-        (data) => {
-          // props.history.push("/profile");
-          // window.location.reload();
+      fetch(`${props.BASE_URL}login`, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ email: email, password: password }),
+      })
+        .then((r) => r.json())
+        .then((data) => {
           const { user, token } = data;
           console.log(data);
-          props.handleLogin(data);
-        },
-        (error) => {
-          const resMessage =
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString();
-
+          console.log(user);
+          props.handleLogin(user);
+          localStorage.token = token;
           setLoading(false);
-          setMessage(resMessage);
-        }
-      );
+        })
+        .catch(message);
     } else {
-      setLoading(false);
     }
   };
 

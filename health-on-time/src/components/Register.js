@@ -5,7 +5,7 @@ import CheckButton from "react-validation/build/button";
 import { Link } from "react-router-dom";
 import { isEmail, isMobilePhone } from "validator";
 import "./Login.css";
-import AuthService from "../services/auth.service";
+// import AuthService from "../services/auth.service";
 
 const required = (value) => {
   if (!value) {
@@ -102,24 +102,23 @@ const Register = (props) => {
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
-      AuthService.register(name, username, email, phoneNumber, password).then(
-        (response) => {
-          console.log(response.data);
-          setMessage(response.data.message);
-          setSuccessful(true);
-        },
-        (error) => {
-          const resMessage =
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString();
-
-          setMessage(resMessage);
-          setSuccessful(false);
-        }
-      );
+      // AuthService.register(name, username, email, phoneNumber, password).then(
+      //   (response) => {
+      //     console.log(response.data);
+      //     setMessage(response.data.message);
+      //     setSuccessful(true);
+      //   },
+      //   (error) => {
+      //     const resMessage =
+      //       (error.response &&
+      //         error.response.data &&
+      //         error.response.data.message) ||
+      //       error.message ||
+      //       error.toString();
+      //     setMessage(resMessage);
+      //     setSuccessful(false);
+      //   }
+      // );
     }
   };
   return (
