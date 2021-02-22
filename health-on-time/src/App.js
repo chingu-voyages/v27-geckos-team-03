@@ -1,17 +1,22 @@
-import "./App.css";
 import React from "react";
-import LandingPage from "./components/landingPage";
+import { BrowserRouter, Route } from "react-router-dom";
+import HomePage from "./pages/HomePage";
+import MedicineCabinet from "./pages/MedicineCabinet";
+import CalendarPage from "./pages/CalendarPage";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import "./styles/App.css";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
+    <BrowserRouter>
       <Navbar />
-      <LandingPage />
+      <Route path="/" component={HomePage} exact={true} />
+      <Route path="/medicine" component={MedicineCabinet} />
+      <Route path="/calendar" component={CalendarPage} />
       <Footer />
-    </div>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
