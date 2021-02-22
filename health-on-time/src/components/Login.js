@@ -64,14 +64,20 @@ const Login = (props) => {
       })
         .then((r) => r.json())
         .then((data) => {
-          const { user, token } = data;
-          console.log(data);
-          console.log(user);
-          props.handleLogin(user);
-          localStorage.token = token;
-          setLoading(false);
+          if (data.user && data.token) {
+            props.handleLogin(data);
+            setLoading(false);
+          } else {
+            // alert(data.message);
+            setMessage(data.message);
+            // console.log(data.message);
+            setLoading(false);
+          }
         })
-        .catch(message);
+        .catch((error) => {
+          setLoading(false);
+          alert(error);
+        });
     } else {
     }
   };

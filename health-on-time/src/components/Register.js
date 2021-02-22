@@ -102,23 +102,30 @@ const Register = (props) => {
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
-      // AuthService.register(name, username, email, phoneNumber, password).then(
-      //   (response) => {
-      //     console.log(response.data);
-      //     setMessage(response.data.message);
-      //     setSuccessful(true);
-      //   },
-      //   (error) => {
-      //     const resMessage =
-      //       (error.response &&
-      //         error.response.data &&
-      //         error.response.data.message) ||
-      //       error.message ||
-      //       error.toString();
-      //     setMessage(resMessage);
-      //     setSuccessful(false);
-      //   }
-      // );
+      fetch(`${props.BASE_URL}signup`, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          name: name,
+          username: username,
+          email: email,
+          password: password,
+          phone: phoneNumber,
+        }),
+      })
+        .then((r) => r.json())
+        .then((data) => {
+          if (data.user) {
+            props.handleLogin(data);
+          } else {
+            setMessage(data.error[0]);
+          }
+        })
+        .catch((error) => {
+          alert(error);
+        });
     }
   };
   return (
@@ -169,11 +176,11 @@ const Register = (props) => {
               </div>
 
               <div className="form-group">
-                <label htmlFor="phone">Phone Number</label>
+                <label htmlFor="phoneNumber">Phone Number</label>
                 <Input
-                  type="Phone Number"
+                  type="text"
                   className="form-control"
-                  name="phone"
+                  name="phoneNumber"
                   value={phoneNumber}
                   onChange={onPhoneNumber}
                   validations={[required, validPhoneNumber]}
