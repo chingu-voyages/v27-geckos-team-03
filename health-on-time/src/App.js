@@ -1,9 +1,14 @@
-import "./App.css";
-import { Switch, Route, useHistory } from "react-router-dom";
+import { BrowserRouter, Route, useHistory } from "react-router-dom";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import HomePage from "./Pages/HomePage";
+import MedicineCabinet from "./Pages/MedicineCabinet";
+import CalendarPage from "./Pages/CalendarPage";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 import { React, useState } from "react";
-import P from "./components/P.js";
+import "./Styles/App.css";
+
 function App() {
   const history = useHistory();
   const [user, setUser] = useState(null);
@@ -15,7 +20,7 @@ function App() {
     localStorage.token = token;
     setUser(user);
     setLoggedIn(true);
-    history.push("/P");
+    history.push("/");
   };
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -25,20 +30,28 @@ function App() {
   };
 
   return (
-    <div className="container mt-3">
-      <Switch>
-        <Route exact path="/login">
-          <Login handleLogin={handleLogin} BASE_URL={BASE_URL} />
-        </Route>
-        <Route exact path="/register">
-          <Register handleLogin={handleLogin} BASE_URL={BASE_URL} />
-        </Route>
-        <Route exact path="/P">
-          <P user={user} />
-        </Route>
-      </Switch>
-    </div>
+    <BrowserRouter>
+      <Navbar />
+      <Route exact path="/login">
+        <Login handleLogin={handleLogin} BASE_URL={BASE_URL} />
+      </Route>
+      <Route exact path="/signup">
+        <Register handleLogin={handleLogin} BASE_URL={BASE_URL} />
+      </Route>
+      <Route path="/" component={HomePage} exact={true} />
+      <Route path="/medicine" component={MedicineCabinet} />
+      <Route path="/calendar" component={CalendarPage} />
+      <Footer />
+    </BrowserRouter>
   );
 }
+// import React from "react";
+// import { BrowserRouter, Route } from "react-router-dom";
+// import HomePage from "./pages/HomePage";
+// import MedicineCabinet from "./pages/MedicineCabinet";
+// import CalendarPage from "./pages/CalendarPage";
+// import Navbar from "./components/Navbar";
+// import Footer from "./components/Footer";
+// import "./styles/App.css";
 
 export default App;
