@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Card, CardDeck } from "react-bootstrap";
+import { Button, Card, CardDeck, CardGroup } from "react-bootstrap";
 
 const MedicationCard = ({ medications }) => {
   return (
@@ -12,7 +12,7 @@ const MedicationCard = ({ medications }) => {
               <Card.Subtitle className="mb-2 text-muted">
                 {medication.manifacturer}
               </Card.Subtitle>
-              <Card.Text>FDA-No: {medication.appNumber}</Card.Text>
+              <Card.Text>FDA num: {medication.appNumber}</Card.Text>
               <Button>Add</Button>
             </Card.Body>
           </Card>
@@ -21,5 +21,20 @@ const MedicationCard = ({ medications }) => {
     </div>
   );
 };
+// const MedicationCard = (props) => {
+//   return (
+//     <div>
+//       <CardDeck>
+//         <Card>
+//           <Card.Body>
+//             <Card.Title>Your Medication</Card.Title>
+//             <Card.Text>{props.medications}</Card.Text>
+//             {props.medications ? <Button>Add</Button> : ""}
+//           </Card.Body>
+//         </Card>
+//       </CardDeck>
+//     </div>
+//   );
+// };
 
 export default MedicationCard;

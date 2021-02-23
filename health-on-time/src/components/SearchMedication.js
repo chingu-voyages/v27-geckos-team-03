@@ -19,7 +19,7 @@ const SearchMedication = () => {
     //const url = `https://api.fda.gov/drug/drugsfda.json?search=openfda.generic_name:"methadone"&limit=5`;
     const response = await fetch(url);
     const responseJson = await response.json();
-    // Clear previous search result
+    // Remove previous search result
     setMedications([]);
 
     if (responseJson.results) {
