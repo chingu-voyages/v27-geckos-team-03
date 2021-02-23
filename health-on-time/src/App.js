@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, useHistory } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import HomePage from "./Pages/HomePage";
@@ -6,20 +6,22 @@ import MedicineCabinet from "./Pages/MedicineCabinet";
 import CalendarPage from "./Pages/CalendarPage";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import "./Styles/App.css";
 
 function App() {
   const [user, setUser] = useState(null);
+  const initialToken = window.localStorage.getItem("token") || null;
+  const [token, setToken] = useState(initialToken);
   const [loggedIn, setLoggedIn] = useState(false);
+
   const BASE_URL = "http://localhost:3000/";
-  // const history = useHistory();
   const handleLogin = (data) => {
     const { user, token } = data;
     console.log(user);
     localStorage.token = token;
     setUser(user);
-
+    // setToken(token);
     setLoggedIn(true);
   };
   const handleLogout = () => {
@@ -28,10 +30,26 @@ function App() {
     setUser(null);
     // history.push("/");
   };
+  useEffect(() => {
+    if (localStorage.token) {
+      fetch(`${BASE_URL}/autologin`, {
+        headers: {
+          Authorization: `Bear ${localStorage.token}`,
+        },
+      })
+        .then((r) => r.json())
+        .then((loggedInUser) => {
+          handleLogin(loggedInUser);
+        })
+        .catch((error) => {
+          alert(error.message);
+        });
+    }
+  }, []);
 
   return (
     <BrowserRouter>
-      <Navbar />
+      <Navbar loggedIn={loggedIn} handleLogout={handleLogout} />
       <Route exact path="/login">
         <Login handleLogin={handleLogin} BASE_URL={BASE_URL} />
       </Route>

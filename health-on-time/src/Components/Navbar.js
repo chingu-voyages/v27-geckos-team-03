@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import * as ReactBootStrap from "react-bootstrap";
 
-const Navbar = () => {
+const Navbar = ({ loggedIn, handleLogout }) => {
   return (
     <div className="Navbar">
       <ReactBootStrap.Navbar
@@ -50,11 +50,19 @@ const Navbar = () => {
             <ReactBootStrap.Nav.Link href="#about">
               About
             </ReactBootStrap.Nav.Link>
-            <NavLink to="/signup" exact={true}>
-              <ReactBootStrap.Nav.Link eventKey={2} href="#signup">
-                Signup
-              </ReactBootStrap.Nav.Link>
-            </NavLink>
+            {loggedIn ? (
+              <NavLink to="/" exact={true} onClick={handleLogout}>
+                <ReactBootStrap.Nav.Link eventKey={2} href="#">
+                  Logout
+                </ReactBootStrap.Nav.Link>
+              </NavLink>
+            ) : (
+              <NavLink to="/signup" exact={true}>
+                <ReactBootStrap.Nav.Link eventKey={2} href="#signup">
+                  Signup
+                </ReactBootStrap.Nav.Link>
+              </NavLink>
+            )}
           </ReactBootStrap.Nav>
         </ReactBootStrap.Navbar.Collapse>
       </ReactBootStrap.Navbar>
