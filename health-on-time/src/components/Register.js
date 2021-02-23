@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { isEmail, isMobilePhone } from "validator";
 import "./Login.css";
 // import AuthService from "../services/auth.service";
@@ -60,7 +60,7 @@ const vpassword = (value) => {
 const Register = (props) => {
   const form = useRef();
   const checkBtn = useRef();
-
+  let history = useHistory();
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -119,6 +119,7 @@ const Register = (props) => {
         .then((data) => {
           if (data.user) {
             props.handleLogin(data);
+            history.push("/");
           } else {
             setMessage(data.error[0]);
           }

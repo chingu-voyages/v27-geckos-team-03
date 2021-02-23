@@ -1,11 +1,10 @@
-import React, { useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useRef, useImperativeHandle } from "react";
+import { Link, useHistory } from "react-router-dom";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
 import "./Login.css";
-// import AuthService from "../services/auth.service";
 
 const required = (value) => {
   if (!value) {
@@ -30,7 +29,7 @@ const validEmail = (value) => {
 const Login = (props) => {
   const form = useRef();
   const checkBtn = useRef();
-
+  let history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -67,16 +66,15 @@ const Login = (props) => {
           if (data.user && data.token) {
             props.handleLogin(data);
             setLoading(false);
+            history.push("/");
           } else {
-            // alert(data.message);
             setMessage(data.message);
-            // console.log(data.message);
             setLoading(false);
           }
         })
         .catch((error) => {
+          alert(error.message);
           setLoading(false);
-          alert(error);
         });
     } else {
     }
