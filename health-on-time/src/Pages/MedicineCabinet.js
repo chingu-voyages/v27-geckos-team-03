@@ -1,5 +1,5 @@
 import React from "react";
-import SearchMedication from "../components/SearchMedication";
+import SearchMedication from "../Components/SearchMedication";
 
 const MedicineCabinet = () => {
   return (

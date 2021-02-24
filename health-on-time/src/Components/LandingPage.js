@@ -1,9 +1,9 @@
-import "../styles/App.css";
+import "../Styles/App.css";
 import React from "react";
 import { Jumbotron, Button, Card, CardDeck } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const LaningPage = () => {
+const LandingPage = () => {
   return (
     <div className="App">
       <header className="App-header"></header>
@@ -60,4 +60,4 @@ const LaningPage = () => {
   );
 };
 
-export default LaningPage;
+export default LandingPage;
