@@ -2,6 +2,7 @@ import "../Styles/App.css";
 import React from "react";
 import { Jumbotron, Button, Card, CardDeck } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Link } from "react-router-dom";
 
 const LandingPage = () => {
   return (
@@ -16,8 +17,12 @@ const LandingPage = () => {
             medication
           </p>
           <p>
-            <Button variant="primary">Login</Button>
-            <Button variant="primary">Sign up</Button>
+            <Link to="/login">
+              <Button variant="primary">Login</Button>
+            </Link>
+            <Link to="/signup">
+              <Button variant="primary">Sign up</Button>
+            </Link>
           </p>
         </Jumbotron>
         <h1>Why Choose Us ?</h1>
