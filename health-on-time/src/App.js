@@ -1,11 +1,11 @@
 import { BrowserRouter, Route } from "react-router-dom";
-import Login from "./components/Login";
-import Register from "./components/Register";
+import Login from "./Components/Login";
+import Register from "./Components/Register";
 import HomePage from "./Pages/HomePage";
 import MedicineCabinet from "./Pages/MedicineCabinet";
 import CalendarPage from "./Pages/CalendarPage";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
+import Navbar from "./Components/Navbar";
+import Footer from "./Components/Footer";
 import { React, useState, useEffect } from "react";
 import "./Styles/App.css";
 
@@ -34,7 +34,7 @@ function App() {
     if (localStorage.token) {
       fetch(`${BASE_URL}/autologin`, {
         headers: {
-          Authorization: `Bear ${localStorage.token}`,
+          Authorization: `Bearer ${localStorage.token}`,
         },
       })
         .then((r) => r.json())
