@@ -2,9 +2,12 @@ import "../Styles/App.css";
 import React from "react";
 import { Jumbotron, Button, Card, CardDeck } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+<<<<<<< HEAD:health-on-time/src/components/landingPage.js
 import { Link } from "react-router-dom";
+=======
+>>>>>>> 89d463c6e821451797015a1bfb5869852f65d623:health-on-time/src/Components/LandingPage.js
 
-const LaningPage = () => {
+const LandingPage = () => {
   return (
     <div className="App">
       <header className="App-header"></header>
@@ -65,4 +68,4 @@ const LaningPage = () => {
   );
 };
 
-export default LaningPage;
+export default LandingPage;
