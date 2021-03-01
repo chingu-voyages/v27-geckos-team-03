@@ -1,14 +1,18 @@
 import "./App.css";
 import React from "react";
-import LandingPage from "./components/landingPage";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
+import LandingPage from "./Components/landingPage";
+import Navbar from "./Components/Navbar";
+import Footer from "./Components/Footer";
 
 function App() {
   return (
-    <div className="App">
+    <div className="page-container">
+      <div className="content-wrap">
+
       <Navbar />
       <LandingPage />
+      </div>
+      
       <Footer />
     </div>
   );
