@@ -1,5 +1,8 @@
 import React from "react";
 import "../Components/Footer.css";
+import { FaFacebookF } from "react-icons/fa";
+import { FaTwitter } from "react-icons/fa";
+import { FaInstagram } from "react-icons/fa";
 
 const Footer = () => {
   return(
@@ -7,29 +10,34 @@ const Footer = () => {
       <div className="container">
         <div className="row">
           {/* Column1 */}
-          {/* <div className="col">
-            <h4>Health on Time</h4>
-            {/* <ul className="list-unstyled"> 
+          <div className="col">
+            {/* <h4>Health on Time</h4> */}
+             <ul className="list-unstyled"> 
+              <li>
+                <FaTwitter />
+              </li>
               <li></li>
-              <li></li>
-              </ul> */}
-           {/* </div> */}
+              </ul>
+           </div> 
           {/* Column2 */}
           <div className="col">
-            <h4>Health on Time</h4>
-            {/* <ul className="list-unstyled"> 
-              <li></li>
-              <li></li>
-              </ul> */}
-          </div>
+            {/* <h4>Health on Time</h4> */}
+             <ul className="list-unstyled"> 
+              <li>
+                <FaFacebookF />
+              </li>
+              </ul> 
+              </div>
           {/* Column3 */}
-          {/* <div className="col">
-            <h4>Health on Time</h4>
-              {/* <ul className="list-unstyled"> 
+          <div className="col">
+           {/* <h4>Health on Time</h4> */}
+               <ul className="list-unstyled"> 
+              <li>
+              <FaInstagram />
+              </li>
               <li></li>
-              <li></li>
-              </ul> */}
-          {/* </div> */}
+              </ul> 
+          </div>
         </div>
         <hr />
         <div className="row">

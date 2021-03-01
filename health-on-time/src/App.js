@@ -12,7 +12,7 @@ function App() {
       <Navbar />
       <LandingPage />
       </div>
-      
+
       <Footer />
     </div>
   );
