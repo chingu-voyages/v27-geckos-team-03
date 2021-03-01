@@ -1,9 +1,8 @@
 import React from "react";
-import "../App.css";
+import { NavLink } from "react-router-dom";
 import * as ReactBootStrap from "react-bootstrap";
-import "../App.js";
 
-const Navbar = () => {
+const Navbar = ({ loggedIn, handleLogout }) => {
   return (
     <div className="Navbar">
       <ReactBootStrap.Navbar
@@ -12,9 +11,11 @@ const Navbar = () => {
         bg="dark"
         variant="dark"
       >
-        <ReactBootStrap.Navbar.Brand href="#home">
-          Health on Time
-        </ReactBootStrap.Navbar.Brand>
+        <NavLink to="/" exact={true}>
+          <ReactBootStrap.Navbar.Brand href="#home">
+            Health on Time
+          </ReactBootStrap.Navbar.Brand>
+        </NavLink>
         <ReactBootStrap.Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <ReactBootStrap.Navbar.Collapse id="responsive-navbar-nav">
           <ReactBootStrap.Nav className="mr-auto">
@@ -25,26 +26,43 @@ const Navbar = () => {
               <ReactBootStrap.NavDropdown.Item href="#action/3.1">
                 Profile Page
               </ReactBootStrap.NavDropdown.Item>
-              <ReactBootStrap.NavDropdown.Item href="#action/3.2">
-                Medicine Cabinet
-              </ReactBootStrap.NavDropdown.Item>
-              <ReactBootStrap.NavDropdown.Item href="#action/3.3">
-                Calendar
-              </ReactBootStrap.NavDropdown.Item>
+              <NavLink to="/medicine">
+                <ReactBootStrap.NavDropdown.Item href="#action/3.2">
+                  Medicine Cabinet
+                </ReactBootStrap.NavDropdown.Item>
+              </NavLink>
+              <NavLink to="/calendar">
+                <ReactBootStrap.NavDropdown.Item href="#action/3.3">
+                  Calendar
+                </ReactBootStrap.NavDropdown.Item>
+              </NavLink>
+
               <ReactBootStrap.NavDropdown.Divider />
               <ReactBootStrap.NavDropdown.Item href="#action/3.4"></ReactBootStrap.NavDropdown.Item>
             </ReactBootStrap.NavDropdown>
           </ReactBootStrap.Nav>
           <ReactBootStrap.Nav>
-            <ReactBootStrap.Nav.Link href="#home">
-              Home{" "}
-            </ReactBootStrap.Nav.Link>
+            <NavLink to="/" exact={true}>
+              <ReactBootStrap.Nav.Link href="#home">
+                Home
+              </ReactBootStrap.Nav.Link>
+            </NavLink>
             <ReactBootStrap.Nav.Link href="#about">
               About
             </ReactBootStrap.Nav.Link>
-            <ReactBootStrap.Nav.Link eventKey={2} href="#signup">
-              Signup
-            </ReactBootStrap.Nav.Link>
+            {loggedIn ? (
+              <NavLink to="/" exact={true} onClick={handleLogout}>
+                <ReactBootStrap.Nav.Link eventKey={2} href="#">
+                  Logout
+                </ReactBootStrap.Nav.Link>
+              </NavLink>
+            ) : (
+              <NavLink to="/signup" exact={true}>
+                <ReactBootStrap.Nav.Link eventKey={2} href="#signup">
+                  Signup
+                </ReactBootStrap.Nav.Link>
+              </NavLink>
+            )}
           </ReactBootStrap.Nav>
         </ReactBootStrap.Navbar.Collapse>
       </ReactBootStrap.Navbar>
