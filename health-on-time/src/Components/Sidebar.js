@@ -14,7 +14,7 @@ not really used here but could be - see react router sidebar example */
 const routes = [
     {
     //path: "/", 
-    path: '/app',
+    path: '/calendar',
     exact: true,
         sidebar: () => <div>Calendar sidebar</div>,
         main: () => <div><CalendarPage /></div>
@@ -27,7 +27,7 @@ const routes = [
     main: () => <div>Accountability Partners</div>
   },
   {
-    path: '/cabinet',
+    path: '/medicine',
     exact: true,
       sidebar: () => (
         <div>Med Cabinet sidebar</div>
@@ -80,9 +80,9 @@ function Sidebar({ profileImgUrl }) {
                                 <ul id="sidemenu" className="sidebar-nav">
 
                                     <li>
-                                        <Link to="/app">
+                                        <Link to="/calendar">
                                             <span className="sidebar-icon"><i className="fa fa-calendar"></i></span>
-                                            <span className="sidebar-title">Home</span>
+                                            <span className="sidebar-title">Calendar</span>
                                         </Link>
                                     </li>
                                     <li>
@@ -92,7 +92,7 @@ function Sidebar({ profileImgUrl }) {
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to="/cabinet">
+                                        <Link to="/medicine">
                                             <span className="sidebar-icon"><i className="fa fa-plus-square"></i></span>
                                             <span className="sidebar-title">Medicine Cabinet</span>
                                         </Link>
