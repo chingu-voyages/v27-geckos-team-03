@@ -8,9 +8,12 @@
     display: inline-block;
 }
 
+
 #wrapper {
-    padding-top: 30px;
-    padding-left: 0;
+    /* background-color: green;  For troubleshooting layout */
+    padding-top: 0px;
+    padding-left: 20px; /* Affects right-hand side component when sidebar is collapsed */
+    /* See media query below for padding-left when min-width: 992px */
     -webkit-transition: all .5s ease;
     -moz-transition: all .5s ease;
     -o-transition: all .5s ease;
@@ -19,9 +22,8 @@
 
 @media (min-width: 992px) {
     #wrapper {
-        padding-left: 225px;
+        padding-left: 250px;
     }
-
 }
 
 @media (max-width: 991px) {
@@ -37,11 +39,11 @@
 }
 /*
 #sidebar-wrapper {
-    border-right: 1px solid #e7e7e7; WAS EXTENDING ENTIRE LENGTH OF PAGE 
+    border-right: 1px solid #e7e7e7; BORDER WAS EXTENDING DOWN ENTIRE HEIGHT OF PAGE 
 }
 */
 #sidebar-wrapper {
-    /* z-index: 1000; Removed to stay behind footer*/
+    /* z-index: 1000; Removed so sidebar stays behind footer*/
     position: fixed;
     left: 225px;
     width: 0;
@@ -53,6 +55,7 @@
     -moz-transition: all .5s ease;
     -o-transition: all .5s ease;
     transition: all .5s ease;
+    
 }
 
 #sidebar-wrapper .sidebar-nav {
@@ -76,6 +79,12 @@
     color: #428bca;
 
 }
+#sidebar-wrapper .sidebar-nav li a:hover{
+    border: 1px solid white;
+    opacity: 0.9;
+    transform: scale(1.02);
+    transition-duration: 0.2s;
+}
 
 .sidebar-nav li:first-child a {
     background: #92bce0 !important;
@@ -86,7 +95,7 @@
     width: 45px;
     height: 45px;
     font-size: 14px;
-    padding-top: 14px;
+    padding-top: 10px;
     padding-left: 2px;
     padding-right: 2px;
     display: inline-block;
@@ -94,14 +103,14 @@
     margin-right: 10px;
     color: #fff;
 }
-
+/* Maybe panel-collapse class is supposed to be added with Javascript? */
 #sidebar-wrapper .sidebar-nav li ul.panel-collapse {
     list-style: none;
     padding: 0;
 }
 
 #sidebar-wrapper .sidebar-nav li ul.panel-collapse li i {
-    margin-right: 10px;
+    margin-right: 10px; /* I don't see this having ANY effect */
 }
 
 #sidebar-wrapper .sidebar-nav li ul.panel-collapse li {
@@ -114,7 +123,7 @@
     }
 
     #mainSection{
-        padding-left: 50px;
+        padding-left: 50px; /* Only when sidebar is collapsed apparently */
     }
 
     #wrapper #sidebar-wrapper #sidebar #sidemenu li ul {
@@ -128,7 +137,7 @@
 }
 
 .sidebar-nav li a {
-    height: 75px;
+    height: 60px;
     /* padding-top: 20px */
 }
 
@@ -159,5 +168,6 @@
 /*
 #mainSection{
     padding: 200px;
+    backgroundColor:"pink";
 }
 */

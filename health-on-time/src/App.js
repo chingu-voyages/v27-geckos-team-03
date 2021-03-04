@@ -61,7 +61,12 @@ function App() {
       <Route path="/" component={HomePage} exact={true} />
       <Route path="/medicine" component={MedicineCabinet} />
       <Route path="/calendar" component={CalendarPage} />
-      <Route path="/app" component={Sidebar} />
+      <Route
+        path="/app"
+        render={(props) => (
+          <Sidebar profileImgUrl="https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png" />
+        )}
+      />
       <Footer />
     </BrowserRouter>
   );
