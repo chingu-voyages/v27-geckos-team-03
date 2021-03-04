@@ -1,11 +1,59 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function App() {
-  return <Chart doses={doses1} />;
+  const [medications, setMedications] = useState([]);
+
+  // A functions that sets Prescriptions to the calendar
+  // For now it uses fetch API to get data. It may take props in the future.
+
+  const setPrescriptions = async () => {
+    const url = `https://health-on-time-api.herokuapp.com/prescriptions`;
+    const response = await fetch(url);
+    const responseJson = await response.json();
+
+    responseJson.forEach((prescription) => {
+      const medName = prescription.medication.name;
+
+      //Dealing with the "single dose per day" Meds
+      if (!prescription.hours[1]) {
+        const hour = prescription.hours;
+
+        prescription.weekdays.forEach((day) => {
+          const nObj = {
+            medName,
+            day,
+            hour,
+          };
+          setMedications((medications) => medications.concat(nObj));
+        });
+
+        // Multiple meds per day
+      } else {
+        prescription.hours.forEach((hour) => {
+          prescription.weekdays.forEach((day) => {
+            const nObj = {
+              medName,
+              day,
+              hour,
+            };
+            setMedications((medications) => medications.concat(nObj));
+          });
+        });
+      }
+    });
+  };
+  useEffect(() => {
+    setPrescriptions();
+    console.log("useEffect used");
+    //Prevents endless loop
+  }, []);
+
+  return <Chart doses={medications} />;
 }
+
 function sortedDay(desiredDay, arr) {
-  let dayDoses = arr.filter((el) => el.day == desiredDay);
+  let dayDoses = arr.filter((el) => el.day === desiredDay);
   return dayDoses.sort((a, b) => a.hour > b.hour);
 }
 
@@ -17,7 +65,7 @@ function toTwelveHr(hour) {
   return null;
 }
 
-function makeRow(rowColor, dayString, doseArr) {
+const makeRow = (rowColor, dayString, doseArr) => {
   return (
     <tr className={rowColor}>
       <td className="day">{dayString}</td>
@@ -26,8 +74,8 @@ function makeRow(rowColor, dayString, doseArr) {
           style={{ width: "200px" }}
           className="table table-sm table-borderless"
         >
-          {doseArr.map((el) => (
-            <tr>
+          {doseArr.map((el, i) => (
+            <tr key={i}>
               <td>{el.medName}</td>
               <td>
                 <div className={"float-right"}>{toTwelveHr(el.hour)}</div>
@@ -38,26 +86,9 @@ function makeRow(rowColor, dayString, doseArr) {
       </td>
     </tr>
   );
-}
+};
 
-const doses1 = [
-  { medName: "Prozac", day: 0, hour: 8 },
-  { medName: "Prozac", day: 1, hour: 8 },
-  { medName: "Prozac", day: 2, hour: 8 },
-  { medName: "Prozac", day: 3, hour: 8 },
-  { medName: "Prozac", day: 4, hour: 8 },
-  { medName: "Prozac", day: 5, hour: 8 },
-  { medName: "Prozac", day: 6, hour: 8 }, //
-  { medName: "Tegretol", day: 0, hour: 12 },
-  { medName: "Tegretol", day: 0, hour: 6 },
-  { medName: "Tegretol", day: 0, hour: 18 },
-  { medName: "Tegretol", day: 3, hour: 6 },
-  { medName: "Tegretol", day: 3, hour: 18 },
-  { medName: "Tegretol", day: 3, hour: 12 }, //
-  { medName: "Vitamin D", day: 6, hour: 23 }, //
-  { medName: "Vitamin D", day: 4, hour: 0 },
-  { medName: "Vitamin D", day: 2, hour: 20 },
-];
+//let testHour;
 
 function Chart(props) {
   const doses = props.doses;
@@ -72,13 +103,13 @@ function Chart(props) {
   return (
     <div>
       <table className="table table-bordered">
-        {makeRow("table-primary", "Monday", monDoses)}
-        {makeRow("table-secondary", "Tuesday", tuesDoses)}
-        {makeRow("table-success", "Wednesday", wedDoses)}
-        {makeRow("table-light", "Thursday", thurDoses)}
-        {makeRow("table-warning", "Friday", friDoses)}
-        {makeRow("table-info", "Saturday", satDoses)}
-        {makeRow("table-danger", "Sunday", sunDoses)}
+        {makeRow("table-primary", "Mon", monDoses)}
+        {makeRow("table-secondary", "Tue", tuesDoses)}
+        {makeRow("table-success", "Wed", wedDoses)}
+        {makeRow("table-light", "Thu", thurDoses)}
+        {makeRow("table-warning", "Fri", friDoses)}
+        {makeRow("table-info", "Sat", satDoses)}
+        {makeRow("table-danger", "Sun", sunDoses)}
       </table>
     </div>
   );
