@@ -60,7 +60,7 @@ function App() {
       </Route>
       <Route path="/" component={HomePage} exact={true} />
       <Route path="/medicine" component={Sidebar} />
-      <Route path="/calendar" component={Sidebar} />
+      <Route path="/profile" component={Sidebar} />
       {/* <Route
         path="/app"
         render={(props) => (

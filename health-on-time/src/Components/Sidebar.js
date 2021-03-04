@@ -1,5 +1,5 @@
 import "../Styles/Sidebar.css";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
 import Image from "react-bootstrap/Image";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -124,6 +124,8 @@ function Sidebar({ profileImgUrl }) {
                                         children={<route.main />} 
                                     />
                                 ))}
+                                <Redirect to="/calendar" /> 
+                                {/* Above redirects to calendar upon arriving to sidebar */}
                             </Switch>
                         </div>
                     </div> {/* end div wrapper */}
