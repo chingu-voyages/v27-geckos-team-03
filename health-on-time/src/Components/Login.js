@@ -66,7 +66,7 @@ const Login = (props) => {
           if (data.user && data.token) {
             props.handleLogin(data);
             setLoading(false);
-            history.push("/");
+            history.push("/profile");
           } else {
             setMessage(data.message);
             setLoading(false);

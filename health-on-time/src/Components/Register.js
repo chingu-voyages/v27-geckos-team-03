@@ -119,7 +119,7 @@ const Register = (props) => {
         .then((data) => {
           if (data.user) {
             props.handleLogin(data);
-            history.push("/");
+            history.push("/profile");
           } else {
             setMessage(data.error[0]);
           }
