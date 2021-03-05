@@ -1,4 +1,4 @@
-import "../Styles/App.css";
+import "../Styles/LandingPage.css";
 import React from "react";
 import { Jumbotron, Button, Card, CardDeck } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 const LandingPage = () => {
   return (
     <div className="App">
-      <header className="App-header"></header>
       <main>
         <img alt="hero" className="hero" src="/hero.jpg" />
         <Jumbotron className="jumbtron">

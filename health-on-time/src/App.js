@@ -6,7 +6,6 @@ import MedicineCabinet from "./Pages/MedicineCabinet";
 import CalendarPage from "./Pages/CalendarPage";
 import Navbar from "./Components/Navbar";
 import Footer from "./Components/Footer";
-import LandingPage from "./Components/LandingPage";
 import { React, useState, useEffect } from "react";
 import "./Styles/App.css";
 
@@ -49,10 +48,8 @@ function App() {
   }, []);
 
   return (
-    <div className="page-container">
-      <div className="content-wrap">
-
-      </div>
+    <div className="main-container">
+  
 
     <BrowserRouter>
       <Navbar loggedIn={loggedIn} handleLogout={handleLogout} />
@@ -67,7 +64,7 @@ function App() {
       <Route path="/calendar" component={CalendarPage} />
       <Footer />
     </BrowserRouter>
-    </div>
+    </div> /* end .main-container */
   );
 }
 
