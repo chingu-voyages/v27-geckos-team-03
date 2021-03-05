@@ -1,4 +1,4 @@
-import { BrowserRouter, Route } from "react-router-dom";
+import { Route, Switch, useHistory } from "react-router-dom";
 import Login from "./Components/Login";
 import Register from "./Components/Register";
 import HomePage from "./Pages/HomePage";
@@ -16,13 +16,32 @@ function App() {
   const initialToken = window.localStorage.getItem("token") || null;
   const [token, setToken] = useState(initialToken);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [profile_pic, setProfilePic] = useState(null);
+  const [name, setName] = useState(null);
+  const [username, setUserName] = useState(null);
+  const [email, setEmail] = useState(null);
+  const [phone, setPhone] = useState(null);
+  const [partners, setPartners] = useState(null);
+  const [patients, setPatients] = useState(null);
+  const [prescriptions, setPrescriptions] = useState(null);
+  const [medications, setMedications] = useState([]);
 
-  const BASE_URL = "http://localhost:3000/";
+  let history = useHistory();
+  const BASE_URL = "https://health-on-time-api.herokuapp.com/";
   const handleLogin = (data) => {
     const { user, token } = data;
     console.log(user);
     localStorage.token = token;
     setUser(user);
+    setProfilePic(user.profile_pic);
+    setName(user.name);
+    setUserName(user.username);
+    setEmail(user.email);
+    setPhone(user.phone);
+    setPartners(user.partners);
+    setPatients(user.patients);
+    setPrescriptions(user.prescriptions);
+    setMedications(user.medications);
     // setToken(token);
     setLoggedIn(true);
   };
@@ -30,7 +49,7 @@ function App() {
     localStorage.removeItem("token");
     setLoggedIn(false);
     setUser(null);
-    // history.push("/");
+    history.push("/");
   };
   useEffect(() => {
     if (localStorage.token) {
@@ -50,29 +69,32 @@ function App() {
   }, []);
 
   return (
-    <div className="main-container">
-  
-
-    <BrowserRouter>
+    <>
       <Navbar loggedIn={loggedIn} handleLogout={handleLogout} />
-      <Route exact path="/login">
-        <Login handleLogin={handleLogin} BASE_URL={BASE_URL} />
-      </Route>
-      <Route exact path="/signup">
-        <Register handleLogin={handleLogin} BASE_URL={BASE_URL} />
-      </Route>
-      <Route path="/" component={HomePage} exact={true} />
-      <Route path="/medicine" component={Sidebar} />
-      <Route path="/profile" component={Sidebar} />
+
+      <Switch>
+        <Route exact path="/login">
+          <Login handleLogin={handleLogin} BASE_URL={BASE_URL} />
+        </Route>
+        <Route exact path="/signup">
+          <Register handleLogin={handleLogin} BASE_URL={BASE_URL} />
+        </Route>
+        <Route path="/" component={HomePage} exact={true} />
+        <Route path="/medicine" component={Sidebar}>
+          <MedicineCabinet medications={medications} />
+        </Route>
+        <Route exact path="/profile" component={Sidebar}>
+          <Sidebar profile_pic={profile_pic} name={name} />
+        </Route>
+      </Switch>
       {/* <Route
         path="/app"
         render={(props) => (
           <Sidebar profileImgUrl="https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png" />
-        )}
+          )}
         />*/}
       <Footer />
-    </BrowserRouter>
-    </div> /* end .main-container */
+    </>
   );
 }
 
