@@ -65,7 +65,6 @@ function App() {
       <Route path="/" component={HomePage} exact={true} />
       <Route path="/medicine" component={MedicineCabinet} />
       <Route path="/calendar" component={CalendarPage} />
-      <LandingPage />
       <Footer />
     </BrowserRouter>
     </div>
