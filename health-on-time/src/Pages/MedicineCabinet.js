@@ -5,8 +5,20 @@ import { Button, Card, CardDeck } from "react-bootstrap";
 
 const MedicineCabinet = ({medications}) => {
 
+/*   turnToCards.map((med) => {
+    return medications.map((med) => (
+        <Card key={med.id}>
+            <Card.Body>
+              <Card.Title>{med.Name}</Card.Title>
+              <Card.Text>Description {med.Description}</Card.Text>
+              <Button>Delete</Button>
+            </Card.Body>
+          </Card>
+  ));
+ */
   let deleteMedication = (e) => {
     console.log(e.target.value);
+/* {turnToCards()} */
   };
 
   return (
