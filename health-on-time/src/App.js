@@ -50,6 +50,9 @@ function App() {
   }, []);
 
   return (
+    <div className="main-container">
+  
+
     <BrowserRouter>
       <Navbar loggedIn={loggedIn} handleLogout={handleLogout} />
       <Route exact path="/login">
@@ -69,6 +72,7 @@ function App() {
         />*/}
       <Footer />
     </BrowserRouter>
+    </div> /* end .main-container */
   );
 }
 
