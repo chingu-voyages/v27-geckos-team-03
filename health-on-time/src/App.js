@@ -6,6 +6,8 @@ import MedicineCabinet from "./Pages/MedicineCabinet";
 import CalendarPage from "./Pages/CalendarPage";
 import Navbar from "./Components/Navbar";
 import Footer from "./Components/Footer";
+import Sidebar from "./Components/Sidebar";
+
 import { React, useState, useEffect } from "react";
 import "./Styles/App.css";
 
@@ -57,8 +59,14 @@ function App() {
         <Register handleLogin={handleLogin} BASE_URL={BASE_URL} />
       </Route>
       <Route path="/" component={HomePage} exact={true} />
-      <Route path="/medicine" component={MedicineCabinet} />
-      <Route path="/calendar" component={CalendarPage} />
+      <Route path="/medicine" component={Sidebar} />
+      <Route path="/profile" component={Sidebar} />
+      {/* <Route
+        path="/app"
+        render={(props) => (
+          <Sidebar profileImgUrl="https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png" />
+        )}
+        />*/}
       <Footer />
     </BrowserRouter>
   );
