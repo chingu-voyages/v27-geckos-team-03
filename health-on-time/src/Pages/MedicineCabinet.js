@@ -3,30 +3,16 @@ import SearchMedication from "../Components/SearchMedication";
 
 const MedicineCabinet = (props) => {
 
-    const initialMeidcationState = {
-        id: null,
-        title: "",
-        description: "",
-        published: false
-      };
-
-      const [currentMedication, setCurrentMedication] = useState(initialMeidcationState);
-
-
-  /* const getMedication = id => {
-    fetch(`${props.BASE_URL}medicineCabinet`).get(id)
-      .then(response => {
-        setCurrentMedication(response.data);
-        console.log(response.data);
-      })
-      .catch(e => {
-        console.log(e);
-      });
+  const initialMeidcationState = {
+    id: null,
+    title: "",
+    description: "",
+    published: false
   };
 
-  useEffect(() => {
-    getMedication(props.match.params.id);
-  }, [props.match.params.id]); */
+  const [currentMedication, setCurrentMedication] = useState(initialMeidcationState);
+
+
 
   const handleInputChange = event => {
     const { name, value } = event.target;
