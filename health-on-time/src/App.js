@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Switch, useHistory } from "react-router-dom";
+import { Route, Switch, useHistory } from "react-router-dom";
 import Login from "./Components/Login";
 import Register from "./Components/Register";
 import HomePage from "./Pages/HomePage";
@@ -24,6 +24,7 @@ function App() {
   const [partners, setPartners] = useState(null);
   const [patients, setPatients] = useState(null);
   const [prescriptions, setPrescriptions] = useState(null);
+  const [medications, setMedications] = useState([]);
 
   let history = useHistory();
   const BASE_URL = "https://health-on-time-api.herokuapp.com/";
@@ -40,6 +41,7 @@ function App() {
     setPartners(user.partners);
     setPatients(user.patients);
     setPrescriptions(user.prescriptions);
+    setMedications(user.medications);
     // setToken(token);
     setLoggedIn(true);
   };
@@ -47,7 +49,7 @@ function App() {
     localStorage.removeItem("token");
     setLoggedIn(false);
     setUser(null);
-    // history.push("/");
+    history.push("/");
   };
   useEffect(() => {
     if (localStorage.token) {
@@ -67,8 +69,9 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter>
+    <>
       <Navbar loggedIn={loggedIn} handleLogout={handleLogout} />
+
       <Switch>
         <Route exact path="/login">
           <Login handleLogin={handleLogin} BASE_URL={BASE_URL} />
@@ -77,7 +80,9 @@ function App() {
           <Register handleLogin={handleLogin} BASE_URL={BASE_URL} />
         </Route>
         <Route path="/" component={HomePage} exact={true} />
-        <Route path="/medicine" component={Sidebar} />
+        <Route path="/medicine" component={Sidebar}>
+          <MedicineCabinet medications={medications} />
+        </Route>
         <Route exact path="/profile" component={Sidebar}>
           <Sidebar profile_pic={profile_pic} name={name} />
         </Route>
@@ -89,7 +94,7 @@ function App() {
           )}
         />*/}
       <Footer />
-    </BrowserRouter>
+    </>
   );
 }
 

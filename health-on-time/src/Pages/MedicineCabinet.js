@@ -1,7 +1,7 @@
 import React from "react";
 import SearchMedication from "../Components/SearchMedication";
 
-const MedicineCabinet = () => {
+const MedicineCabinet = ({ medications }) => {
   return (
     <div>
       <h1>MedicineCabinet</h1>
