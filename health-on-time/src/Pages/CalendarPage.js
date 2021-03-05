@@ -25,7 +25,10 @@ export default function App() {
             day,
             hour,
           };
-          setMedications((medications) => medications.concat(nObj));
+          //setMedications((medications) => medications.concat(nObj));
+          setMedications((medications) =>
+            medications.concat(nObj).sort((a, b) => a.hour - b.hour)
+          );
         });
 
         // Multiple meds per day
@@ -37,7 +40,10 @@ export default function App() {
               day,
               hour,
             };
-            setMedications((medications) => medications.concat(nObj));
+            //setMedications((medications) => medications.concat(nObj));
+            setMedications((medications) =>
+              medications.concat(nObj).sort((a, b) => a.hour - b.hour)
+            );
           });
         });
       }
