@@ -35,12 +35,12 @@ const routes = [
     sidebar: () => <div>Partners sidebar</div>,
     main: () => <div>Accountability Partners</div>,
   },
-  {
-    path: "/medicine",
-    exact: true,
-    sidebar: () => <div>Med Cabinet sidebar</div>,
-    main: () => <MedicineCabinet />,
-  },
+  // {
+  //   path: "/medicine",
+  //   exact: true,
+  //   sidebar: () => <div>Med Cabinet sidebar</div>,
+  //   main: () => <MedicineCabinet />,
+  // },
   {
     path: "/search",
     exact: true,

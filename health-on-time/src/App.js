@@ -7,9 +7,11 @@ import CalendarPage from "./Pages/CalendarPage";
 import Navbar from "./Components/Navbar";
 import Footer from "./Components/Footer";
 import Sidebar from "./Components/Sidebar";
+import AccountabilityPartners from "./Pages/Partners";
 
 import { React, useState, useEffect } from "react";
 import "./Styles/App.css";
+import AddMedication from "./Pages/AddMedication";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -70,38 +72,40 @@ function App() {
   return (
     <>
       <Navbar loggedIn={loggedIn} handleLogout={handleLogout} />
-      <Switch>
-        <Route exact path="/login">
-          <Login handleLogin={handleLogin} BASE_URL={BASE_URL} />
-        </Route>
-        <Route exact path="/signup">
-          <Register handleLogin={handleLogin} BASE_URL={BASE_URL} />
-        </Route>
-        <Route path="/" component={HomePage} exact={true} />
-        <Route path="/medicine" component={Sidebar}>
-          <MedicineCabinet medications={medications} />
-        </Route>
-        <Route exact path="/profile" component={Sidebar}>
-          <Sidebar
-            profile_pic={profile_pic}
-            name={name}
-            prescriptions={prescriptions}
+      {loggedIn && (
+        <Sidebar
+          profile_pic={profile_pic}
+          name={name}
+          prescriptions={prescriptions}
+        />
+      )}
+      <div id="mainSection">
+        <Switch>
+          <Route path="/" component={HomePage} exact={true} />
+          <Route
+            path="/login"
+            render={() => (
+              <Login handleLogin={handleLogin} BASE_URL={BASE_URL} />
+            )}
           />
-        </Route>
-        {/*
-        <Route
-          path="/calendar"
-          render={() => <CalendarPage prescriptions={prescriptions} />}
-  /> */}
-      </Switch>
+          <Route
+            path="/signup"
+            render={() => (
+              <Register handleLogin={handleLogin} BASE_URL={BASE_URL} />
+            )}
+          />
+          <Route path="/friends" component={AccountabilityPartners} />
+          <Route path="/medicine" component={MedicineCabinet} />
+          <Route exact path="/addmed" component={AddMedication} />
+          <Route exact path="/profile" component={Sidebar} />
+          <Route
+            path="/calendar"
+            render={() => <CalendarPage prescriptions={prescriptions} />}
+          />
 
-      {/* <Route
-        path="/app"
-        render={(props) => (
-          <Sidebar profileImgUrl="https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png" />
-          )}
-        />*/}
-      <Footer />
+        </Switch>
+        <Footer />
+      </div>
     </>
   );
 }
