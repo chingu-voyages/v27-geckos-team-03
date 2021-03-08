@@ -18,17 +18,17 @@ sidebar example https://reactrouter.com/web/example/sidebar - Note: sidebar prop
 not really used here but could be - see react router sidebar example */
 
 const routes = [
-  // {
-  //   //path: "/",
-  //   path: "/calendar",
-  //   exact: true,
-  //   sidebar: () => <div>Calendar sidebar</div>,
-  //   main: () => (
-  //     <div>
-  //      <CalendarPage />
-  //     </div>
-  //   ),
-  // },
+  {
+    //path: "/",
+    path: "/calendar",
+    exact: true,
+    sidebar: () => <div>Calendar sidebar</div>,
+    main: () => (
+      <div>
+        <CalendarPage />
+      </div>
+    ),
+  },
   {
     path: "/friends",
     exact: true,
@@ -60,7 +60,7 @@ const routes = [
   },
 ]; // end routes
 
-function Sidebar({ profile_pic, name, prescriptions }) {
+function Sidebar({ profile_pic, name }) {
   // If the url to a profile image wasn't provided, use default image
   //   if (profile_pic === null) {
   let defaultImageUrl = "https://ssl.gstatic.com/accounts/ui/avatar_2x.png";
@@ -145,14 +145,8 @@ function Sidebar({ profile_pic, name, prescriptions }) {
                     children={<route.main />}
                   />
                 ))}
-                <Route
-                  path="/calendar"
-                  render={() => <CalendarPage prescriptions={prescriptions} />}
-                />
-                {/*
                 <Redirect to="/calendar" />
-                
-                <Redirect to="/" /> */}
+                {/* <Redirect to="/" /> */}
                 {/* Above redirects to calendar upon arriving to sidebar */}
               </Switch>
             </div>
@@ -164,5 +158,4 @@ function Sidebar({ profile_pic, name, prescriptions }) {
     </>
   );
 }
-
 export default Sidebar;

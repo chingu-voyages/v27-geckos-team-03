@@ -67,9 +67,11 @@ function App() {
         });
     }
   }, []);
+
   return (
     <>
       <Navbar loggedIn={loggedIn} handleLogout={handleLogout} />
+
       <Switch>
         <Route exact path="/login">
           <Login handleLogin={handleLogin} BASE_URL={BASE_URL} />
@@ -82,19 +84,9 @@ function App() {
           <MedicineCabinet medications={medications} />
         </Route>
         <Route exact path="/profile" component={Sidebar}>
-          <Sidebar
-            profile_pic={profile_pic}
-            name={name}
-            prescriptions={prescriptions}
-          />
+          <Sidebar profile_pic={profile_pic} name={name} />
         </Route>
-        {/*
-        <Route
-          path="/calendar"
-          render={() => <CalendarPage prescriptions={prescriptions} />}
-  /> */}
       </Switch>
-
       {/* <Route
         path="/app"
         render={(props) => (
