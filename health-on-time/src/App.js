@@ -12,6 +12,7 @@ import AccountabilityPartners from "./Pages/Partners";
 import { React, useState, useEffect } from "react";
 import "./Styles/App.css";
 import AddMedication from "./Pages/AddMedication";
+import SettingsPage from "./Pages/Settings";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -81,6 +82,7 @@ function App() {
       )}
       <div id="mainSection">
         <Switch>
+          {/*//TODO:  change components to dashboard when logged in//*/}
           <Route path="/" component={HomePage} exact={true} />
           <Route
             path="/login"
@@ -97,15 +99,16 @@ function App() {
           <Route path="/friends" component={AccountabilityPartners} />
           <Route path="/medicine" component={MedicineCabinet} />
           <Route exact path="/addmed" component={AddMedication} />
+          {/*//TODO:  change components//*/}
           <Route exact path="/profile" component={Sidebar} />
+          <Route exact path="/settings" component={SettingsPage} />
           <Route
             path="/calendar"
             render={() => <CalendarPage prescriptions={prescriptions} />}
           />
-
         </Switch>
-        <Footer />
       </div>
+      <Footer />
     </>
   );
 }
