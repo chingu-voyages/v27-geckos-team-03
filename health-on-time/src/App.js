@@ -68,7 +68,7 @@ function App() {
     }
   }, []);
   return (
-    <>
+    <div className="main-container">
       <Navbar loggedIn={loggedIn} handleLogout={handleLogout} />
       <Switch>
         <Route exact path="/login">
@@ -102,7 +102,7 @@ function App() {
           )}
         />*/}
       <Footer />
-    </>
+    </div>
   );
 }
 
