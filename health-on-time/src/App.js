@@ -29,9 +29,10 @@ function App() {
   const [partners, setPartners] = useState(null);
   const [patients, setPatients] = useState(null);
   const [prescriptions, setPrescriptions] = useState(null);
-  const [medications, setMedications] = useState([]);
+  const [medications, setMedications] = useState(null);
 
   let history = useHistory();
+  // const BASE_URL = "http://localhost:3000/";
   const BASE_URL = "https://health-on-time-api.herokuapp.com/";
   const handleLogin = (data) => {
     const { user, token } = data;
@@ -50,6 +51,7 @@ function App() {
     // setToken(token);
     setLoggedIn(true);
   };
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     setLoggedIn(false);
@@ -72,8 +74,20 @@ function App() {
         });
     }
   }, []);
+  let deleteMedication = (medicationID) => {
+    console.log(medicationID, "med id");
+    fetch(`${BASE_URL}medications/${medicationID}`, {
+      method: "DELETE",
+    })
+      .then((r) => r.json())
+      .then((deletedMedication) => {
+        let copyOfMeds = medications.filter((med) => {
+          return med.id !== medicationID;
+        });
+        setMedications(copyOfMeds);
+      });
+  };
   return (
-
     <div className="main-container">
       <Navbar loggedIn={loggedIn} handleLogout={handleLogout} />
       <div id={loggedIn && "wrapper"}>
@@ -105,7 +119,15 @@ function App() {
               )}
             />
             <Route path="/friends" component={AccountabilityPartners} />
-            <Route path="/medicine" component={MedicineCabinet} />
+            <Route
+              path="/medicine"
+              render={() => (
+                <MedicineCabinet
+                  medications={medications}
+                  deleteMedication={deleteMedication}
+                />
+              )}
+            />
             <Route exact path="/addmed" component={AddMedication} />
             <Route exact path="/settings" component={SettingsPage} />
             <Route
