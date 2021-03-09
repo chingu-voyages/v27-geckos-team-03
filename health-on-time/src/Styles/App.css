@@ -23,6 +23,10 @@ body {
   padding-bottom: 100px; /* height of footer */
 }
 
+.Navbar {
+  margin-bottom: 2rem;
+}
+
 /* #wrapper {
   color: red!;
 } */

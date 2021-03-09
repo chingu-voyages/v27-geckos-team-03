@@ -75,7 +75,7 @@ function App() {
   return (
     <div>
       <Navbar loggedIn={loggedIn} handleLogout={handleLogout} />
-      <div id="wrapper">
+      <div id={loggedIn && "wrapper"}>
         {loggedIn && <Sidebar prescriptions={prescriptions} />}
         <div className="display">
           <Switch>
