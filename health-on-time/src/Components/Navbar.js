@@ -19,6 +19,7 @@ const Navbar = ({ loggedIn, handleLogout }) => {
         <ReactBootStrap.Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <ReactBootStrap.Navbar.Collapse id="responsive-navbar-nav">
           <ReactBootStrap.Nav className="mr-auto">
+            {/* 
             <ReactBootStrap.NavDropdown
               title="Settings"
               id="collasible-nav-dropdown"
@@ -40,6 +41,7 @@ const Navbar = ({ loggedIn, handleLogout }) => {
               <ReactBootStrap.NavDropdown.Divider />
               <ReactBootStrap.NavDropdown.Item href="#action/3.4"></ReactBootStrap.NavDropdown.Item>
             </ReactBootStrap.NavDropdown>
+            */}
           </ReactBootStrap.Nav>
           <ReactBootStrap.Nav>
             <NavLink to="/" exact={true}>
@@ -47,9 +49,10 @@ const Navbar = ({ loggedIn, handleLogout }) => {
                 Home
               </ReactBootStrap.Nav.Link>
             </NavLink>
+            {/*
             <ReactBootStrap.Nav.Link href="#about">
               About
-            </ReactBootStrap.Nav.Link>
+            </ReactBootStrap.Nav.Link> */}
             {loggedIn ? (
               <NavLink to="/" exact={true} onClick={handleLogout}>
                 <ReactBootStrap.Nav.Link eventKey={2} href="#">

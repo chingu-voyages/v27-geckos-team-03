@@ -10,43 +10,43 @@
 }
 */
 
-.main-footer{
+.main-footer {
   color: white;
   /* background-color: #212529; */
   background-color: #343a40; /* CHANGED TO MATCH NAVBAR's Bootstrap bg-dark */
-
+  margin-top: 5rem;
   padding-top: 0.5em;
   text-align: center;
-  position: absolute;
+  /* position: absolute; */
   bottom: 0;
   width: 100%;
 }
 
-#theLine{
+#theLine {
   border-top: 1px solid white;
   margin: 6px 0px 20px 0px;
 }
 
-.footerIcon{
+.footerIcon {
   vertical-align: bottom;
-  transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
-.footerIcon:hover{
-  transform: scale(2.0);
+.footerIcon:hover {
+  transform: scale(2);
 }
 
-.iconLi{
+.iconLi {
   padding-top: 4px;
 }
 
-.footerLink{
+.footerLink {
   color: white;
 }
 
-.footerIconLink{
+.footerIconLink {
   color: white;
 }
 
-.footerIcon:hover{
+.footerIcon:hover {
   transform: scale(1.4);
 }
