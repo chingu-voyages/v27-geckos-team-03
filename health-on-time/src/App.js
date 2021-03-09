@@ -1,4 +1,6 @@
+import { React, useState, useEffect } from "react";
 import { Route, Switch, useHistory } from "react-router-dom";
+
 import Login from "./Components/Login";
 import Register from "./Components/Register";
 import HomePage from "./Pages/HomePage";
@@ -8,11 +10,11 @@ import Navbar from "./Components/Navbar";
 import Footer from "./Components/Footer";
 import Sidebar from "./Components/Sidebar";
 import AccountabilityPartners from "./Pages/Partners";
-
-import { React, useState, useEffect } from "react";
-import "./Styles/App.css";
 import AddMedication from "./Pages/AddMedication";
 import SettingsPage from "./Pages/Settings";
+import DashboardPage from "./Pages/Dashboard";
+import NotFoundPage from "./Pages/NotFoundPage";
+import "./Styles/App.css";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -71,45 +73,50 @@ function App() {
     }
   }, []);
   return (
-    <>
+    <div>
       <Navbar loggedIn={loggedIn} handleLogout={handleLogout} />
-      {loggedIn && (
-        <Sidebar
-          profile_pic={profile_pic}
-          name={name}
-          prescriptions={prescriptions}
-        />
-      )}
-      <div id="mainSection">
-        <Switch>
-          {/*//TODO:  change components to dashboard when logged in//*/}
-          <Route path="/" component={HomePage} exact={true} />
-          <Route
-            path="/login"
-            render={() => (
-              <Login handleLogin={handleLogin} BASE_URL={BASE_URL} />
+      <div id="wrapper">
+        {loggedIn && <Sidebar prescriptions={prescriptions} />}
+        <div className="display">
+          <Switch>
+            {loggedIn ? (
+              <Route
+                path="/"
+                render={() => (
+                  <DashboardPage profile_pic={profile_pic} name={name} />
+                )}
+                exact={true}
+              />
+            ) : (
+              <Route path="/" component={HomePage} exact />
             )}
-          />
-          <Route
-            path="/signup"
-            render={() => (
-              <Register handleLogin={handleLogin} BASE_URL={BASE_URL} />
-            )}
-          />
-          <Route path="/friends" component={AccountabilityPartners} />
-          <Route path="/medicine" component={MedicineCabinet} />
-          <Route exact path="/addmed" component={AddMedication} />
-          {/*//TODO:  change components//*/}
-          <Route exact path="/profile" component={Sidebar} />
-          <Route exact path="/settings" component={SettingsPage} />
-          <Route
-            path="/calendar"
-            render={() => <CalendarPage prescriptions={prescriptions} />}
-          />
-        </Switch>
+
+            <Route
+              path="/login"
+              render={() => (
+                <Login handleLogin={handleLogin} BASE_URL={BASE_URL} />
+              )}
+            />
+            <Route
+              path="/signup"
+              render={() => (
+                <Register handleLogin={handleLogin} BASE_URL={BASE_URL} />
+              )}
+            />
+            <Route path="/friends" component={AccountabilityPartners} />
+            <Route path="/medicine" component={MedicineCabinet} />
+            <Route exact path="/addmed" component={AddMedication} />
+            <Route exact path="/settings" component={SettingsPage} />
+            <Route
+              path="/calendar"
+              render={() => <CalendarPage prescriptions={prescriptions} />}
+            />
+            <Route component={NotFoundPage} />
+          </Switch>
+        </div>
       </div>
       <Footer />
-    </>
+    </div>
   );
 }
 
