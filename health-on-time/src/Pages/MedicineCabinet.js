@@ -31,7 +31,7 @@ function MedicineCabinet({ medications, deleteMedication }) {
   return (
     <div>
       <h1>MedicineCabinet</h1>
-      {medications.length > 0 ? (
+      {medications ? (
         <CardDeck>{medCards}</CardDeck>
       ) : (
         <h2>
