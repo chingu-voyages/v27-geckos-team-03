@@ -1,22 +1,52 @@
+// import React from "react";
+
+// const CalendarPage = ({ prescriptions }) => {
+//   console.log(prescriptions);
+//   return (
+//     <div>
+//       <h1>Calendar desu</h1>
+//     </div>
+//   );
+// };
+
+// export default CalendarPage;
+
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-export default function CalendarPage({ prescriptions }) {
+export default function CalendarPage({prescriptions}) {
   const [medications, setMedications] = useState([]);
   // A functions that sets Prescriptions to the calendar
   // For now it uses fetch API to get data. It may take props in the future.
-
   console.log(prescriptions);
-  useEffect(() => {
-    const setPrescriptions = () => {
-      prescriptions.forEach((prescription) => {
-        //prescriptions.forEach((prescription) => {
-        const medName = prescription.medication.name;
+  const setPrescriptions = async () => {
+    const url = `https://health-on-time-api.herokuapp.com/prescriptions`;
+    const response = await fetch(url);
+    const responseJson = await response.json();
 
-        //Dealing with the "single dose per day" Meds
-        if (!prescription.hours[1]) {
-          const hour = prescription.hours;
+    responseJson.forEach((prescription) => {
+    //prescriptions.forEach((prescription) => {
+      const medName = prescription.medication.name;
 
+      //Dealing with the "single dose per day" Meds
+      if (!prescription.hours[1]) {
+        const hour = prescription.hours;
+
+        prescription.weekdays.forEach((day) => {
+          const nObj = {
+            medName,
+            day,
+            hour,
+          };
+          //setMedications((medications) => medications.concat(nObj));
+          setMedications((medications) =>
+            medications.concat(nObj).sort((a, b) => a.hour - b.hour)
+          );
+        });
+
+        // Multiple meds per day
+      } else {
+        prescription.hours.forEach((hour) => {
           prescription.weekdays.forEach((day) => {
             const nObj = {
               medName,
@@ -28,29 +58,15 @@ export default function CalendarPage({ prescriptions }) {
               medications.concat(nObj).sort((a, b) => a.hour - b.hour)
             );
           });
-
-          // Multiple meds per day
-        } else {
-          prescription.hours.forEach((hour) => {
-            prescription.weekdays.forEach((day) => {
-              const nObj = {
-                medName,
-                day,
-                hour,
-              };
-              //setMedications((medications) => medications.concat(nObj));
-              setMedications((medications) =>
-                medications.concat(nObj).sort((a, b) => a.hour - b.hour)
-              );
-            });
-          });
-        }
-      });
-    };
-    //useEffect(() => {
-    prescriptions && setPrescriptions();
+        });
+      }
+    });
+  };
+  useEffect(() => {
+    setPrescriptions();
     console.log("useEffect used");
-  }, [prescriptions]);
+    //Prevents endless loop
+  }, []);
 
   return <Chart doses={medications} />;
 }

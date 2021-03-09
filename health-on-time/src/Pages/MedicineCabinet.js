@@ -19,6 +19,10 @@ const MedicineCabinet = ({ medications }) => {
     /* {turnToCards()} */
   };
 
+<<<<<<< HEAD
+=======
+const MedicineCabinet = ({ medications }) => {
+>>>>>>> f9e3300e71a2170223b96aead0a79db142445d42
   return (
     <div>
       {console.log(medications)}
