@@ -20,6 +20,9 @@ const MedicineCabinet = ({ medications }) => {
   };
 
   // const MedicineCabinet = ({ medications }) => {
+
+  // const MedicineCabinet = ({ medications }) => {
+
   return (
     <div>
       {console.log(medications)}
