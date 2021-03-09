@@ -73,7 +73,8 @@ function App() {
     }
   }, []);
   return (
-    <div>
+
+    <div className="main-container">
       <Navbar loggedIn={loggedIn} handleLogout={handleLogout} />
       <div id={loggedIn && "wrapper"}>
         {loggedIn && <Sidebar prescriptions={prescriptions} />}
