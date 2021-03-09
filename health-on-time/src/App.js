@@ -24,10 +24,11 @@ function App() {
   const [partners, setPartners] = useState(null);
   const [patients, setPatients] = useState(null);
   const [prescriptions, setPrescriptions] = useState(null);
-  const [medications, setMedications] = useState([]);
+  const [medications, setMedications] = useState(null);
 
   let history = useHistory();
-  const BASE_URL = "https://health-on-time-api.herokuapp.com/";
+  const BASE_URL = "http://localhost:3000/";
+  // const BASE_URL = "https://health-on-time-api.herokuapp.com/";
   const handleLogin = (data) => {
     const { user, token } = data;
     console.log(user);
@@ -45,6 +46,21 @@ function App() {
     // setToken(token);
     setLoggedIn(true);
   };
+
+  useEffect(() => {
+    localStorage.token = token;
+    // setProfilePic(user.profile_pic);
+    setName(user.name);
+    setUserName(user.username);
+    setEmail(user.email);
+    setPhone(user.phone);
+    setPartners(user.partners);
+    setPatients(user.patients);
+    setPrescriptions(user.prescriptions);
+    setMedications(user.medications);
+    // setToken(token);
+    setLoggedIn(true);
+  }, [user]);
   const handleLogout = () => {
     localStorage.removeItem("token");
     setLoggedIn(false);
