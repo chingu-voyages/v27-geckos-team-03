@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SearchMedication from "../Components/SearchMedication";
 import { Button, Card, CardDeck } from "react-bootstrap";
-
+import { GiMedicinePills } from "react-icons/gi";
 function MedicineCabinet({ medications, deleteMedication }) {
   const [medCards, setMedCards] = useState([]);
   useEffect(() => {
@@ -10,13 +10,14 @@ function MedicineCabinet({ medications, deleteMedication }) {
         medications.map((med) => {
           return (
             <Card key={med.id}>
-              <Card.Img variant="top" src="holder.js/100px180" />
+              <GiMedicinePills size={36} />
+
               <Card.Body>
                 <Card.Title>{med.name}</Card.Title>
                 <Card.Text>{med.description}</Card.Text>
                 <Button
                   onClick={() => deleteMedication(med.id)}
-                  variant="primary"
+                  variant="danger"
                 >
                   Delete Medication
                 </Button>
@@ -29,31 +30,15 @@ function MedicineCabinet({ medications, deleteMedication }) {
 
   return (
     <div>
-      {console.log(medications)}
-      <h2>Current User medications</h2>
-      <CardDeck>
-        {medCards}
-        {/* {medications
-          ? medications.map((med) => {
-              return (
-                <Card key={med.id}>
-                  <Card.Img variant="top" src="holder.js/100px180" />
-                  <Card.Body>
-                    <Card.Title>{med.name}</Card.Title>
-                    <Card.Text>{med.description}</Card.Text>
-                    <Button
-                      onClick={() => deleteMedication(med.id)}
-                      variant="primary"
-                    >
-                      Delete Medication
-                    </Button>
-                  </Card.Body>
-                </Card>
-              );
-            })
-          : null} */}
-      </CardDeck>
       <h1>MedicineCabinet</h1>
+      {medications.length > 0 ? (
+        <CardDeck>{medCards}</CardDeck>
+      ) : (
+        <h2>
+          Currently no medications have been added. Please Click on "Search for
+          meds" on your sidebar menu to update your medicine cabinet.
+        </h2>
+      )}
       <SearchMedication />
     </div>
   );

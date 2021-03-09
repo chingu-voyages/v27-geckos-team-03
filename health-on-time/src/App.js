@@ -52,20 +52,6 @@ function App() {
     setLoggedIn(true);
   };
 
-  useEffect(() => {
-    localStorage.token = token;
-    // setProfilePic(user.profile_pic);
-    setName(user.name);
-    setUserName(user.username);
-    setEmail(user.email);
-    setPhone(user.phone);
-    setPartners(user.partners);
-    setPatients(user.patients);
-    setPrescriptions(user.prescriptions);
-    setMedications(user.medications);
-    // setToken(token);
-    setLoggedIn(true);
-  }, [user]);
   const handleLogout = () => {
     localStorage.removeItem("token");
     setLoggedIn(false);
@@ -133,7 +119,15 @@ function App() {
               )}
             />
             <Route path="/friends" component={AccountabilityPartners} />
-            <Route path="/medicine" component={MedicineCabinet} />
+            <Route
+              path="/medicine"
+              render={() => (
+                <MedicineCabinet
+                  medications={medications}
+                  deleteMedication={deleteMedication}
+                />
+              )}
+            />
             <Route exact path="/addmed" component={AddMedication} />
             <Route exact path="/settings" component={SettingsPage} />
             <Route
