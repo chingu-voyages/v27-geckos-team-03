@@ -32,8 +32,8 @@ function App() {
   const [medications, setMedications] = useState(null);
 
   let history = useHistory();
-  const BASE_URL = "http://localhost:3000/";
-  // const BASE_URL = "https://health-on-time-api.herokuapp.com/";
+  // const BASE_URL = "http://localhost:3000/";
+  const BASE_URL = "https://health-on-time-api.herokuapp.com/";
   const handleLogin = (data) => {
     const { user, token } = data;
     console.log(user);
