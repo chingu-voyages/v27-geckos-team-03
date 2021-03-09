@@ -2,47 +2,36 @@ import React from "react";
 import SearchMedication from "../Components/SearchMedication";
 import { Button, Card, CardDeck } from "react-bootstrap";
 
-const MedicineCabinet = ({ medications }) => {
-  /*   turnToCards.map((med) => {
-    return medications.map((med) => (
-        <Card key={med.id}>
-            <Card.Body>
-              <Card.Title>{med.Name}</Card.Title>
-              <Card.Text>Description {med.Description}</Card.Text>
-              <Button>Delete</Button>
-            </Card.Body>
-          </Card>
-  ));
- */
-  let deleteMedication = (e) => {
-    console.log(e.target.value);
-    /* {turnToCards()} */
-  };
-
-  // const MedicineCabinet = ({ medications }) => {
-
-  // const MedicineCabinet = ({ medications }) => {
+const MedicineCabinet = ({ medications, deleteMedication }) => {
+  // let deleteMedication = (medicationID) => {
+  //   console.log(medicationID, "med id");
+  // };
 
   return (
     <div>
       {console.log(medications)}
       <h2>Current User medications</h2>
-      {medications.map((med) => (
-        <div key={med.id}>
-          <h3>{med.name}</h3>
-          <h3>{med.description}</h3>
-          <button onClick={deleteMedication}>delete</button>
-        </div>
-      ))}
-
-      {/* <Card key={med.id}>
-            <Card.Body>
-              <Card.Title>{med.Name}</Card.Title>
-              <Card.Text>Description {med.Description}</Card.Text>
-              <Button>Delete</Button>
-            </Card.Body>
-          </Card> */}
-
+      <CardDeck>
+        {medications !== undefined
+          ? medications.map((med) => {
+              return (
+                <Card key={med.id}>
+                  <Card.Img variant="top" src="holder.js/100px180" />
+                  <Card.Body>
+                    <Card.Title>{med.name}</Card.Title>
+                    <Card.Text>{med.description}</Card.Text>
+                    <Button
+                      onClick={() => deleteMedication(med.id)}
+                      variant="primary"
+                    >
+                      Delete Medication
+                    </Button>
+                  </Card.Body>
+                </Card>
+              );
+            })
+          : null}
+      </CardDeck>
       <h1>MedicineCabinet</h1>
       <SearchMedication />
     </div>

@@ -67,6 +67,19 @@ function App() {
         });
     }
   }, []);
+  let deleteMedication = (medicationID) => {
+    console.log(medicationID, "med id");
+    fetch(`${BASE_URL}medications/${medicationID}`, {
+      method: "DELETE",
+    })
+      .then((r) => r.json())
+      .then((deletedMedication) => {
+        let copyOfMeds = medications.filter((med) => {
+          return med.id !== medicationID;
+        });
+        setMedications(copyOfMeds);
+      });
+  };
   return (
     <div className="main-container">
       <Navbar loggedIn={loggedIn} handleLogout={handleLogout} />
@@ -79,7 +92,10 @@ function App() {
         </Route>
         <Route path="/" component={HomePage} exact={true} />
         <Route path="/medicine" component={Sidebar}>
-          <MedicineCabinet medications={medications} />
+          <MedicineCabinet
+            medications={medications}
+            deleteMedication={deleteMedication}
+          />
         </Route>
         <Route exact path="/profile" component={Sidebar}>
           <Sidebar
