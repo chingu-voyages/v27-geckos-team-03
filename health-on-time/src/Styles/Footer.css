@@ -14,10 +14,10 @@
   color: white;
   /* background-color: #212529; */
   background-color: #343a40; /* CHANGED TO MATCH NAVBAR's Bootstrap bg-dark */
-  margin-top: 5rem;
+
   padding-top: 0.5em;
   text-align: center;
-  /* position: absolute; */
+  position: absolute;
   bottom: 0;
   width: 100%;
 }
