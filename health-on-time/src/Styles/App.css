@@ -1,27 +1,35 @@
 /* Added by Lewis 
 as per https://medium.com/@zerox/keep-that-damn-footer-at-the-bottom-c7a921cb9551 */
-*{
+* {
   box-sizing: border-box;
 }
 
 *:before,
-*:after{
+*:after {
   box-sizing: border-box;
 }
 
 html,
-body{
+body {
   height: 100%;
   position: relative;
 }
 
-.main-container{
+.main-container {
   min-height: 100vh; /* cover 100% of viewport */
   overflow: hidden;
   display: block;
   position: relative;
   padding-bottom: 100px; /* height of footer */
 }
+
+.Navbar {
+  margin-bottom: 2rem;
+}
+
+/* #wrapper {
+  color: red!;
+} */
 
 /* End of additions by Lewis *************************************/
 
