@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import SearchBox from "./SearchBox";
 import MedicationCard from "./MedicationCard";
 
-const SearchMedication = () => {
+const SearchMedication = ({ chooseMed }) => {
+  
   const [medications, setMedications] = useState([
     {
       brandName: "Name of the medication",
@@ -60,7 +61,7 @@ const SearchMedication = () => {
     <div style={{ margin: "10rem 0" }}>
       <h1>Search Medication</h1>
       <SearchBox searchValue={searchValue} setSearchValue={setSearchValue} />
-      <MedicationCard medications={medications} />
+      <MedicationCard medications={medications} chooseMed={chooseMed} />
     </div>
   );
 };
