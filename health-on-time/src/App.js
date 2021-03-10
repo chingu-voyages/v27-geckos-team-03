@@ -16,6 +16,7 @@ import DashboardPage from "./Pages/Dashboard";
 import NotFoundPage from "./Pages/NotFoundPage";
 import PrivateRoute from "./Routes/PrivateRoutes";
 import "./Styles/App.css";
+import { UserContext } from "./Components/UserContext";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -94,51 +95,52 @@ function App() {
       <div id={loggedIn && "wrapper"}>
         {loggedIn && <Sidebar prescriptions={prescriptions} />}
         <div className="display">
-          <Switch>
-            {loggedIn ? (
-              <Route
-                path="/"
-                render={() => (
-                  <DashboardPage profile_pic={profile_pic} name={name} />
-                )}
-                exact={true}
-              />
-            ) : (
-              <Route path="/" component={HomePage} exact />
-            )}
-
-            <Route
-              path="/login"
-              render={() => (
-                <Login handleLogin={handleLogin} BASE_URL={BASE_URL} />
-              )}
-            />
-            <Route
-              path="/signup"
-              render={() => (
-                <Register handleLogin={handleLogin} BASE_URL={BASE_URL} />
-              )}
-            />
-            <Route path="/friends" component={AccountabilityPartners} />
-            <Route
-              path="/medicine"
-              render={() => (
-                <MedicineCabinet
-                  medications={medications}
-                  deleteMedication={deleteMedication}
+          <UserContext.Provider value={{ loggedIn, prescriptions }}>
+            <Switch>
+              {loggedIn ? (
+                <Route
+                  path="/"
+                  render={() => (
+                    <DashboardPage profile_pic={profile_pic} name={name} />
+                  )}
+                  exact={true}
                 />
+              ) : (
+                <Route path="/" component={HomePage} exact />
               )}
-            />
-            <Route exact path="/addmed" component={AddMedication} />
-            <Route exact path="/settings" component={SettingsPage} />
-            <PrivateRoute
-              path="/calendar"
-              children={CalendarPage}
-              prescriptions={prescriptions}
-              loggedIn={loggedIn}
-            />
-            <Route component={NotFoundPage} />
-          </Switch>
+
+              <Route
+                path="/login"
+                render={() => (
+                  <Login handleLogin={handleLogin} BASE_URL={BASE_URL} />
+                )}
+              />
+              <Route
+                path="/signup"
+                render={() => (
+                  <Register handleLogin={handleLogin} BASE_URL={BASE_URL} />
+                )}
+              />
+              <Route path="/friends" component={AccountabilityPartners} />
+              <Route
+                path="/medicine"
+                render={() => (
+                  <MedicineCabinet
+                    medications={medications}
+                    deleteMedication={deleteMedication}
+                  />
+                )}
+              />
+              <Route exact path="/addmed" component={AddMedication} />
+              <Route exact path="/settings" component={SettingsPage} />
+              <PrivateRoute
+                path="/calendar"
+                children={CalendarPage}
+                prescriptions={prescriptions}
+              />
+              <Route component={NotFoundPage} />
+            </Switch>
+          </UserContext.Provider>
         </div>
       </div>
       <Footer />
