@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import SearchBox from "./SearchBox";
 import MedicationCard from "./MedicationCard";
 
+
 const SearchMedication = ({ chooseMed }) => {
   
   const [medications, setMedications] = useState([
