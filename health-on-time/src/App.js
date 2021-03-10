@@ -14,6 +14,7 @@ import AddMedication from "./Pages/AddMedication";
 import SettingsPage from "./Pages/Settings";
 import DashboardPage from "./Pages/Dashboard";
 import NotFoundPage from "./Pages/NotFoundPage";
+import PrivateRoute from "./Routes/PrivateRoutes";
 import "./Styles/App.css";
 
 function App() {
@@ -130,9 +131,11 @@ function App() {
             />
             <Route exact path="/addmed" component={AddMedication} />
             <Route exact path="/settings" component={SettingsPage} />
-            <Route
+            <PrivateRoute
               path="/calendar"
-              render={() => <CalendarPage prescriptions={prescriptions} />}
+              children={CalendarPage}
+              prescriptions={prescriptions}
+              loggedIn={loggedIn}
             />
             <Route component={NotFoundPage} />
           </Switch>
