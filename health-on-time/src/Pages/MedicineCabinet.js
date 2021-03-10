@@ -39,7 +39,8 @@ function MedicineCabinet({ medications, deleteMedication }) {
           meds" on your sidebar menu to update your medicine cabinet.
         </h2>
       )}
-      <SearchMedication />
+      
+      {/* <SearchMedication /> MOVED TO Pages/AddMedication.js */} 
     </div>
   );
 }

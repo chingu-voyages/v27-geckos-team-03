@@ -1,9 +1,17 @@
 import React from "react";
+import SearchMedication from '../Components/SearchMedication';
+import { Container } from 'react-bootstrap';
 
 const AddMedication = () => {
   return (
     <div>
-      <h1>Add Medications</h1>
+      <Container>
+        <h1>Add Medications</h1>
+        <SearchMedication style={{ backgroundColor: "green" }}/>
+
+
+      </Container>
+
     </div>
   );
 };
