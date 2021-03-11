@@ -26,14 +26,14 @@ function App() {
   const [username, setUserName] = useState(null);
   const [email, setEmail] = useState(null);
   const [phone, setPhone] = useState(null);
-  const [partners, setPartners] = useState(null);
-  const [patients, setPatients] = useState(null);
+  const [partners, setPartners] = useState([]);
+  const [patients, setPatients] = useState([]);
   const [prescriptions, setPrescriptions] = useState(null);
   const [medications, setMedications] = useState(null);
 
   let history = useHistory();
-  // const BASE_URL = "http://localhost:3000/";
-  const BASE_URL = "https://health-on-time-api.herokuapp.com/";
+  const BASE_URL = "http://localhost:3000/";
+  // const BASE_URL = "https://health-on-time-api.herokuapp.com/";
   const handleLogin = (data) => {
     const { user, token } = data;
     console.log(user);
@@ -118,7 +118,15 @@ function App() {
                 <Register handleLogin={handleLogin} BASE_URL={BASE_URL} />
               )}
             />
-            <Route path="/friends" component={AccountabilityPartners} />
+            <Route
+              path="/friends"
+              render={() => (
+                <AccountabilityPartners
+                  patients={patients}
+                  partners={partners}
+                />
+              )}
+            />
             <Route
               path="/medicine"
               render={() => (
