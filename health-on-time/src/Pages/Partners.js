@@ -39,7 +39,7 @@ const AccountabilityPartners = ({ partners, patients }) => {
               <Card.Img variant="top" src={person.profile_pic} roundedCircle />
               <Card.Body>
                 <Card.Title>{person.name}</Card.Title>
-                {/* <Card.Text>{person.description}</Card.Text> */}
+                <Card.Text>{person.description}</Card.Text>
               </Card.Body>
             </Card>
           );
@@ -48,16 +48,14 @@ const AccountabilityPartners = ({ partners, patients }) => {
     }
   }, [partners, patients]);
   return (
-    <div>
+    <div style={{ margin: "4%" }}>
       <h1>Accountability Partners</h1>
-      <div>
-        <h2>People who I hold accountable</h2>
-        <CardDeck>{patientCards}</CardDeck>
-      </div>
-      <div>
-        <h2>People who I hold me accountable</h2>
-        <CardDeck>{partnerCards}</CardDeck>
-      </div>
+
+      <h2>People who I hold accountable</h2>
+      <CardDeck style={{ width: "45%" }}>{patientCards}</CardDeck>
+      <br></br>
+      <h2>People who I hold me accountable</h2>
+      <CardDeck style={{ width: "45%" }}>{partnerCards}</CardDeck>
     </div>
   );
 };
