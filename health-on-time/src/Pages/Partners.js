@@ -50,7 +50,6 @@ const AccountabilityPartners = ({ partners, patients }) => {
   return (
     <div style={{ margin: "4%" }}>
       <h1>Accountability Partners</h1>
-
       <h2>People who I hold accountable</h2>
       <CardDeck style={{ width: "45%" }}>{patientCards}</CardDeck>
       <br></br>
