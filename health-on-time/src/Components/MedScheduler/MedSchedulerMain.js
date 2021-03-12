@@ -1,4 +1,5 @@
 import React from "react";
+
 //import "./style.css";
 
 /* TUTORIAL available at 
@@ -8,42 +9,35 @@ https://dev.to/sametweb/how-to-create-multi-step-forms-in-react-3km4
  GITHUB: https://github.com/sametweb/react-step-builder */
  
 import {Steps, Step} from "react-step-builder";
-import Step1 from "./Step1";
-import Step2 from "./Step2";
-import Step3 from "./Step3";
-import EveryDay2 from "./EveryDay2";
-import Monday from "./Monday";
-import Tuesday from "./Tuesday";
-import Wednesday from "./Wednesday";
-import Thursday from "./Thursday";
-import Friday from "./Friday";
-import Saturday from "./Saturday";
-import Sunday from "./Sunday";
+import Step1 from "./Step1"; // check existing schedule? Confirm re-schedule if continuing.
+//import Step2 from "./Step2"; // What days
+//import Step3 from "./Step3"; // What hours
+//import EveryDay2 from "./EveryDay2"; // Accontability
 
-import FinalStep from "./FinalStep";
-import '../../Styles/MCForm.css';
+import FinalStep from "./FinalStep"; // Confirm or back
+//import '../../Styles/MCForm.css';
 //import { propTypes } from "react-bootstrap/esm/Image";
 
-export default function MCFormMain(props) {
+export default function MedSchedulerMain(props) {
 
   //const [weeklyTimes, setWeeklyTimes] = React.useState([]);
-  
+
+
   return (
     <div className="mainFormDiv">
-      <Steps>
-        <Step component={Step1} />
-        <Step component={Step2} />
-        <Step component={Step3} />
-        <Step component={EveryDay2} />
-        <Step component={Monday} />
-        <Step component={Tuesday} />
-        <Step component={Wednesday} />
-        <Step component={Thursday} />
-        <Step component={Friday} />
-        <Step component={Saturday} />
-        <Step component={Sunday} />
-        <Step component={FinalStep} /> 
+      <h1>{props.chosenMed.brandName}</h1> {/* the brand name */}
+      <Steps chosenMed={props.chosenMed}>
+        <Step component={Step1} chosenMed={props.chosenMed} medications={props.medications}/>
       </Steps>
+      
+      {/*
+      <Steps chosenMed={props.chosenMed}>
+        <Step component={Step1} /> 
+        <Step component={Step2} /> 
+        <Step component={FinalStep} /> 
+
+      </Steps>
+      */}
     </div>
   );
 }

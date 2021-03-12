@@ -128,7 +128,7 @@ function App() {
                 />
               )}
             />
-            <Route exact path="/addmed" component={AddMedication} />
+            <Route exact path="/addmed" component={AddMedication} medications={medications} />
             <Route exact path="/settings" component={SettingsPage} />
             <Route
               path="/calendar"
