@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SearchBox from "./SearchBox";
 import MedicationCard from "./MedicationCard";
+import { Container, Col, Row } from 'react-bootstrap';
 
 const SearchMedication = ({ setchosenmed, setprescriptionexistsflag }) => {
 
@@ -60,12 +61,20 @@ const SearchMedication = ({ setchosenmed, setprescriptionexistsflag }) => {
   }, [searchValue]);
 
   return (
-    <div style={{ margin: "10rem 0" }}>
-      <h1>Search Medication</h1>
-      <SearchBox searchValue={searchValue} setSearchValue={setSearchValue} />
-      <MedicationCard medications={medications} setchosenmed={setchosenmed} setprescriptionexistsflag={setprescriptionexistsflag} />
-    </div>
+    <Container>
+      <Row>
+        <Col className="d-flex justify-content-center">
+          
+            <SearchBox searchValue={searchValue} setSearchValue={setSearchValue} />
+          
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <MedicationCard medications={medications} setchosenmed={setchosenmed} setprescriptionexistsflag={setprescriptionexistsflag} />
+        </Col>
+      </Row>
+    </Container>
   );
 };
-
 export default SearchMedication;

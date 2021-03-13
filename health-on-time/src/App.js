@@ -15,6 +15,7 @@ import SettingsPage from "./Pages/Settings";
 import DashboardPage from "./Pages/Dashboard";
 import NotFoundPage from "./Pages/NotFoundPage";
 import "./Styles/App.css";
+import { faTruckLoading } from "@fortawesome/free-solid-svg-icons";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -74,6 +75,7 @@ function App() {
         });
     }
   }, []);
+  
   let deleteMedication = (medicationID) => {
     console.log(medicationID, "med id");
     fetch(`${BASE_URL}medications/${medicationID}`, {
@@ -87,6 +89,17 @@ function App() {
         setMedications(copyOfMeds);
       });
   };
+  const handleNewPrescription = (newPrescriptionObj) => {
+    fetch(`${BASE_URL}prescriptions`, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ newPrescriptionObj }),
+    })
+        .then((r) => r.json())
+        .then((createdPrescriptionObj) => { // update locally w/ setPrescriptions
+            setPrescriptions([prescriptions, ...createdPrescriptionObj]);
+        }) // can check created object
+  }
   return (
     <div className="main-container">
       <Navbar loggedIn={loggedIn} handleLogout={handleLogout} />
@@ -128,7 +141,26 @@ function App() {
                 />
               )}
             />
-            <Route exact path="/addmed" component={AddMedication} medications={medications} />
+            {/*
+            <Route
+              exact path="/addmed"
+              component={AddMedication}
+              prescriptions={prescriptions}
+              medications={medications}
+            /> */}
+            <Route
+              exact path="/addmed"
+              render={() => 
+              { return (
+                prescriptions && medications && localStorage.token ?
+                  <AddMedication
+                    token={localStorage.token}
+                    prescriptions={prescriptions}
+                    handleNewPrescription={handleNewPrescription} />
+                  : 
+                  <p>Loading...</p>
+              )}}
+            />
             <Route exact path="/settings" component={SettingsPage} />
             <Route
               path="/calendar"
@@ -138,6 +170,7 @@ function App() {
           </Switch>
         </div>
       </div>
+      <div style={{marginBottom: "100px"}}><img src="/spacer.gif" alt="spacer" /></div>
       <Footer />
     </div>
   );

@@ -10,6 +10,8 @@ https://dev.to/sametweb/how-to-create-multi-step-forms-in-react-3km4
  
 import {Steps, Step} from "react-step-builder";
 import Step1 from "./Step1"; // check existing schedule? Confirm re-schedule if continuing.
+import Step2 from './Step2';
+
 //import Step2 from "./Step2"; // What days
 //import Step3 from "./Step3"; // What hours
 //import EveryDay2 from "./EveryDay2"; // Accontability
@@ -25,17 +27,21 @@ export default function MedSchedulerMain(props) {
   return (
     <div className="mainFormDiv">
       <h1>{props.chosenMed.brandName}</h1> {/* the brand name */}
-      <Steps chosenMed={props.chosenMed}>
+      <Steps>
         <Step component={Step1}
           cancelOut={props.cancelOut}
           existingPrescription={props.existingPrescription}
           chosenMed={props.chosenMed}
-          medications={props.medications} />
+        />
+        <Step component={Step2}
+          cancelOut={props.cancelOut}
+        />
         <Step component={FinalStep}
+          handleNewPrescription={props.handleNewPrescription}
+          token={props.token}
           cancelOut={props.cancelOut}
           existingPrescription={props.existingPrescription}
           chosenMed={props.chosenMed}
-          medications={props.medications}
         />
       </Steps>
     </div>
