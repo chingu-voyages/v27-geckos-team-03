@@ -58,7 +58,7 @@ export default function Step2(props){
                     <Col>
                         <div className={"py-2 px-4 mb-4 rounded timeDisplay"} style={{ backgroundColor: "#39C0ED" }}>
                             <div>
-                                <span>Your doses will be taken at: </span>
+                                <span>Your doses of {fixCapitalization(props.chosenMed.brandName)} will be taken at: </span>
                             </div>
                             <br />
                             <ListGroup horizontal={"sm"} className="justify-content-center">

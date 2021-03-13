@@ -22,8 +22,6 @@ import FinalStep from "./FinalStep"; // Confirm or back
 
 export default function MedSchedulerMain(props) {
 
-  console.log("MedSchedulerMain.js line 23");
-
   return (
     <div className="mainFormDiv">
       {/* <h1>{props.chosenMed.brandName}</h1> */}

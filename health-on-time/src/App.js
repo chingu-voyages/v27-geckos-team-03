@@ -92,8 +92,11 @@ function App() {
   const handleNewPrescription = (newPrescriptionObj) => {
     fetch(`${BASE_URL}prescriptions`, {
         method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ newPrescriptionObj }),
+      headers: {
+        "content-type": "application/json",
+        Authorization: `Bearer ${localStorage.token}`,
+      },
+        body: JSON.stringify(newPrescriptionObj),
     })
         .then((r) => r.json())
         .then((createdPrescriptionObj) => { // update locally w/ setPrescriptions
