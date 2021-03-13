@@ -1,6 +1,7 @@
 import React from "react";
 import { Container, Row, Col, ListGroup, Button } from 'react-bootstrap';
 import { toTwelveHr, fixCapitalization, getDays, getDayNames, displayArray } from './helpers';
+import "../../Styles/MedScheduler.css";
 
 function FinalStep({ prev, chosenMed, handleNewPrescription, existingPrescription, cancelOut, getState, token }) {
   let medName = fixCapitalization(chosenMed.brandName);
@@ -21,28 +22,15 @@ function FinalStep({ prev, chosenMed, handleNewPrescription, existingPrescriptio
 
   return (
     <div>
-          
-      <p>medName: {medName}</p>
-      <p>fda_number: {fda_number}</p>
-      <p>existingPrescription: {String(existingPrescription)}</p>
-      <br />
-
-      <p>hours:  [ {displayArray(hours)}]</p>
-      {/* <p>weekdays: {weekdays}</p> */}
-      <p>weekdays2: [ {displayArray(weekdays)}]</p>
-      <p>dayNames: [ {displayArray(dayNames)}]</p>
-      <p>token: {token}</p>
-
       <Container>
         <Row>
           <Col>
-            <div className={"pt-1"} style={{ backgroundColor: "#39C0ED" }}>
-              <span>Your doses will be taken on these days: {displayArray(dayNames)}
-              at the following times: </span>
-              <br />
+            <p>Please confirm the details below and click "Finish" when ready. You may also use the "Previous" button to edit your days or times.</p>
+            <div className={"py-2 px-4 mb-4 rounded timeDisplay"} style={{ backgroundColor: "#39C0ED" }}>
+              <p className={"mt-2"}>{medName} will be scheduled at the following times for these days of the week: <b>{displayArray(dayNames)}</b></p>
               <ListGroup horizontal={"sm"} className="my-2 justify-content-center">
                 {getState('theTimes').map((time, index) =>
-                  <ListGroup.Item className={"ml-2 mr-2 mb-3"} variant={'secondary'} key={{ time } + '.' + index}>
+                  <ListGroup.Item className={"ml-2 mr-2 mb-2"} variant={'secondary'} key={{ time } + '.' + index}>
                     {toTwelveHr(time)}
                   </ListGroup.Item>
                 )}
@@ -50,12 +38,34 @@ function FinalStep({ prev, chosenMed, handleNewPrescription, existingPrescriptio
             </div>
           </Col>
         </Row>
+        <Row className={'mt-4'}>
+          <Col className="text-center">
+            <Button variant={'danger'} onClick={cancelOut}>Cancel</Button>
+          </Col>
+          <Col className="text-center">
+            <Button onClick={prev}>Previous</Button>
+          </Col>
+          <Col className="text-center">
+            <Button variant={'success'} onClick={finish}>Finish</Button>
+          </Col>
+        </Row>
+        <Row className={"mt-5"}>
+          <Col>
+            <hr />
+            <p>TESTING OUTPUT:</p>
+            <p>medName: {medName}</p>
+            <p>fda_number: {fda_number}</p>
+            <p>existingPrescription: {String(existingPrescription)}</p>
+            <p>hours:  [ {displayArray(hours)}]</p>
+            {/* <p>weekdays: {weekdays}</p> */}
+            <p>weekdays: [ {displayArray(weekdays)}]</p>
+            <p>dayNames: [ {displayArray(dayNames)}]</p>
+            <p>token: {token}</p>
+          </Col>
+        </Row>
       </Container>
       
-      <Button variant={'danger'} onClick={cancelOut}>Cancel</Button>
-      <Button onClick={prev}>Previous</Button>
-      <Button onClick={finish}>Finish</Button>
-
+      
     </div>
   );
 

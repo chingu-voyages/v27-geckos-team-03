@@ -26,7 +26,7 @@ export default function MedSchedulerMain(props) {
 
   return (
     <div className="mainFormDiv">
-      <h1>{props.chosenMed.brandName}</h1> {/* the brand name */}
+      {/* <h1>{props.chosenMed.brandName}</h1> */}
       <Steps>
         <Step component={Step1}
           cancelOut={props.cancelOut}
@@ -35,6 +35,7 @@ export default function MedSchedulerMain(props) {
         />
         <Step component={Step2}
           cancelOut={props.cancelOut}
+          chosenMed={props.chosenMed}
         />
         <Step component={FinalStep}
           handleNewPrescription={props.handleNewPrescription}

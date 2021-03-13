@@ -1,6 +1,7 @@
 // Step1.js
 import React, {useState, useEffect} from "react";
 import { Modal, Container, Row, Button, Col } from 'react-bootstrap';
+import { fixCapitalization } from './helpers';
 
 function Step1(props) {
     const [disabled, setDaysDisabled] = useState(false);
@@ -32,15 +33,15 @@ function Step1(props) {
 
     return (
         <Container>
-            <p> {props.chosenMed.brandName}</p>
-            <p>10 Step1.js {props.chosenMed.appNumber}</p>
+            <p>Which day(s) of the week would you like to schedule {fixCapitalization(props.chosenMed.brandName)}?</p>
+            
 
             <div>
                 <div className="row mb-3">
                     <div className="col">
                         <div className="form-check form-check-inline">
                             <input className="form-check-input" type="checkbox" id="inlineCheckbox1" name="everyday" value={props.getState('everyday'), false} checked={props.getState('everyday')} onChange={(e) => { setAll(); props.handleChange(e) }}/>
-                            <label className="form-check-label" htmlFor="inlineCheckbox1">Every Day</label>
+                            <label className="form-check-label" htmlFor="inlineCheckbox1"><b className="" style={{verticalAlign: "super"}}>Every day</b></label>
                         </div>
                     </div> 
                 </div>
@@ -48,43 +49,43 @@ function Step1(props) {
                     <div className="col-3">
                         <div className="form-check form-check-inline">
                             <input className="form-check-input" type="checkbox" id="inlineCheckbox2" name="monday" checked={props.getState('monday') || props.getState('everyday')} value={props.getState('monday', false)} onChange={props.handleChange} />
-                            <label className="form-check-label" htmlFor="inlineCheckbox2">Monday</label>
+                <label className="form-check-label" htmlFor="inlineCheckbox2"><span className="ml-1" style={{ verticalAlign: "super" }}>Monday</span></label>
                         </div>
                     </div> 
                 <div className="col-3">
                     <div className="form-check form-check-inline">
                     <input className="form-check-input" type="checkbox" id="inlineCheckbox3" name="tuesday" checked={props.getState('tuesday') || props.getState('everyday')} value={props.getState('tuesday', false)} onChange={props.handleChange} />
-                    <label className="form-check-label" htmlFor="inlineCheckbox3">Tuesday</label>
+                    <label className="form-check-label" htmlFor="inlineCheckbox3"><span className="ml-1" style={{ verticalAlign: "super" }}>Tuesday</span></label>
                     </div>
                 </div>
                     <div className="col-3">
                     <div className="form-check form-check-inline">
                         <input className="form-check-input" type="checkbox" id="inlineCheckbox4" name="wednesday" checked={props.getState('wednesday') || props.getState('everyday')} value={props.getState('wednesday', false)} onChange={props.handleChange} />
-                        <label className="form-check-label" htmlFor="inlineCheckbox4">Wednesday</label>
+                        <label className="form-check-label" htmlFor="inlineCheckbox4"><span className="ml-1" style={{ verticalAlign: "super" }}>Wednesday</span></label>
                     </div>
                     </div>
                     <div className="col-3">
                     <div className="form-check form-check-inline">
-                        <input className="form-check-input" type="checkbox" id="inlineCheckbox6" name="thursday" checked={props.getState('thursday') || props.getState('everyday')} value={props.getState('thursday', false)} onChange={props.handleChange}/>
-                        <label className="form-check-label" htmlFor="inlineCheckbox5">Thursday</label>
+                        <input className="form-check-input" type="checkbox" id="inlineCheckbox5" name="thursday" checked={props.getState('thursday') || props.getState('everyday')} value={props.getState('thursday', false)} onChange={props.handleChange}/>
+                        <label className="form-check-label" htmlFor="inlineCheckbox5"><span className="ml-1" style={{ verticalAlign: "super" }}>Thursday</span></label>
                     </div>
                     </div>
                     <div className="col-3">
                     <div className="form-check form-check-inline">
                         <input className="form-check-input" type="checkbox" id="inlineCheckbox6" name="friday" checked={props.getState('friday') || props.getState('everyday')} value={props.getState('friday', false)} onChange={props.handleChange} />
-                        <label className="form-check-label" htmlFor="inlineCheckbox6">Friday</label>
+                        <label className="form-check-label" htmlFor="inlineCheckbox6"><span className="ml-1" style={{ verticalAlign: "super" }}>Friday</span></label>
                     </div>
                     </div>
                     <div className="col-3">
                     <div className="form-check form-check-inline">
                         <input className="form-check-input" type="checkbox" id="inlineCheckbox7" name="saturday" checked={props.getState('saturday') || props.getState('everyday')} value={props.getState('saturday', false)} onChange={props.handleChange} />
-                        <label className="form-check-label" htmlFor="inlineCheckbox7">Saturday</label>
+                        <label className="form-check-label" htmlFor="inlineCheckbox7"><span className="ml-1" style={{ verticalAlign: "super" }}>Saturday</span></label>
                     </div>
                     </div>
                     <div className="col-3">
                     <div className="form-check form-check-inline">
                         <input className="form-check-input" type="checkbox" id="inlineCheckbox8"  name="sunday" checked={props.getState('sunday') || props.getState('everyday')} value={props.getState('sunday', false)} onChange={props.handleChange} />
-                        <label className="form-check-label" htmlFor="inlineCheckbox8">Sunday</label>
+                        <label className="form-check-label" htmlFor="inlineCheckbox8"><span className="ml-1" style={{ verticalAlign: "super" }}>Sunday</span></label>
                     </div>
                     </div>
                 </div>

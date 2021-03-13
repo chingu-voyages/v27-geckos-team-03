@@ -33,8 +33,8 @@ const AddMedication = ({ handleNewPrescription, prescriptions, token }) => {
         {/* If user clicks "Add" button on a search result */}
         {chosenMed ?
           <>
-            { existingPrescription === true ? <p>Warning: coninuing will remove your existing schedule for {chosenMed.brandName}</p> : null}
-            { existingPrescription === false ? <p>Existing prescription is false</p> : null}
+            { existingPrescription === true ? <p>Warning: continuing will remove your existing schedule for {chosenMed.brandName}</p> : null}
+            {/* existingPrescription === false ? <p>Existing prescription is false</p> : null */}
             <MedSchedulerMain
               handleNewPrescription={handleNewPrescription}
               token={token}

@@ -3,7 +3,8 @@ import "antd/dist/antd.css"; // npm install antd
 import { TimePicker } from "antd";
 //import moment from 'moment';
 import { Row, Col, Button, Container, Modal, ListGroup, Card, ButtonGroup } from 'react-bootstrap';
-import { toTwelveHr } from "./helpers"
+import { fixCapitalization, toTwelveHr } from "./helpers"
+import "../../Styles/MedScheduler.css"
 
 export default function Step2(props){
 
@@ -47,17 +48,6 @@ export default function Step2(props){
         }
     } // end function addTime
 
-    // helper function
-    {/*
-    const toTwelveHr = hour => {
-        if (hour === 0) return "12 AM";
-        if (hour <= 11) return `${hour} AM`;
-        if (hour === 12) return "12 PM";
-        if (hour <= 23) return `${hour - 12} PM`;
-        return null;
-    };
-*/}
-
     function timesList() {
         if (!props.getState('theTimes'))
             return null;
@@ -66,12 +56,12 @@ export default function Step2(props){
             <Container>
                 <Row>
                     <Col>
-                        <div className={""} style={{ backgroundColor: "#39C0ED" }}>
+                        <div className={"py-2 px-4 mb-4 rounded timeDisplay"} style={{ backgroundColor: "#39C0ED" }}>
                             <div>
                                 <span>Your doses will be taken at: </span>
                             </div>
                             <br />
-                            <ListGroup horizontal={"sm"} className="my-2 justify-content-center">
+                            <ListGroup horizontal={"sm"} className="justify-content-center">
                                 {props.getState('theTimes').map((time, index) => 
                                     <ListGroup.Item className={"ml-2 mr-2 mb-3"} variant={'secondary'} key={{ time } + '.' + index}>
                                         {toTwelveHr(time)}
@@ -96,7 +86,7 @@ export default function Step2(props){
             </Row>
             <Row className="mt-3">
                 <Col md={4}>
-                    <Card className={"timePickerCard"} border={"info rounded"} bg={"light"}>
+                    <Card className={"timePickerCard"} style={{ marginTop: "0px" }} border={"info rounded"} bg={"light"}>
                         <Card.Body>
                             <TimePicker
                                 timeValue={timeValue}
@@ -125,7 +115,7 @@ export default function Step2(props){
                 <Col md={8}>
                     <ListGroup className={"text-left"}>
                         <ListGroup.Item>
-                            Choose the times you want to take MEDNAME using the time picker to the right.
+                            Choose the times you want to take {fixCapitalization(props.chosenMed.brandName)} using the time picker to the right.
                         </ListGroup.Item>
                         <ListGroup.Item>
                             Click "Add to schedule" to save the time to your list.
@@ -148,12 +138,14 @@ export default function Step2(props){
                 </Col>
             </Row>
             <Row className={'mt-3'}>
-                <Col> 
-                    <Button
-                        variant='success'
-                        onClick={validate}//////////////////?FIXXXXXX
-                        block>Proceed
-                    </Button>
+                <Col className="text-center">
+                    <Button variant={'danger'} onClick={props.cancelOut}>Cancel</Button>
+                </Col>
+                <Col className="text-center">
+                    <Button onClick={props.prev}>Previous</Button>
+                </Col>
+                <Col className="text-center">
+                    <Button variant={'success'} onClick={validate}>Proceed</Button>
                 </Col>
             </Row>
 
