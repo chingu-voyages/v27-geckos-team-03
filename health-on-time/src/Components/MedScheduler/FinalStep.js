@@ -1,44 +1,59 @@
 import React from "react";
-import { Button } from 'react-bootstrap';
+import { Container, Row, Col, ListGroup, Button } from 'react-bootstrap';
+import { toTwelveHr, fixCapitalization, getDays, getDayNames, displayArray } from './helpers';
 
-function FinalStep(props) {
-  let medName = fixCapitalization(props.chosenMed.brandName);
-  let fda_number = props.chosenMed.appNumber;
+function FinalStep({ prev, chosenMed, handleNewPrescription, existingPrescription, cancelOut, getState, token }) {
+  let medName = fixCapitalization(chosenMed.brandName);
+  let fda_number = chosenMed.appNumber;
 
-  let mon = props.getState('monday'); 
-  let tues = props.getState('tuesday');
-  let wed = props.getState('wednesday');
-  let thur = props.getState('thursday');
-  let fri = props.getState('friday');
-  let sat = props.getState('saturday');
-  let sun = props.getState('sunday');
-  let every = props.getState('everyday');
+  let mon = getState('monday');
+  let tues = getState('tuesday');
+  let wed = getState('wednesday');
+  let thur = getState('thursday');
+  let fri = getState('friday');
+  let sat = getState('saturday');
+  let sun = getState('sunday');
+  let every = getState('everyday');
 
-  let hours = props.getState('theTimes');
-  let weekdays = getDays();
+  let hours = getState('theTimes');
+  let weekdays = getDays(every, mon, tues, wed, thur, fri, sat, sun);
+  let dayNames = getDayNames(every, mon, tues, wed, thur, fri, sat, sun);
 
   return (
     <div>
           
       <p>medName: {medName}</p>
       <p>fda_number: {fda_number}</p>
-      <p>props.existingPrescription: {String(props.existingPrescription)}</p>
+      <p>existingPrescription: {String(existingPrescription)}</p>
       <br />
-      <p>everyday: {every}</p>
-      <p>monday: {mon}</p>
-      <p>tuesday: {tues}</p>
-      <p>wednesday: {wed}</p>
-      <p>thursday: {thur}</p>
-      <p>friday: {fri}</p>
-      <p>saturday: {sat}</p>
-      <p>sunday: {sun}</p>
-      <br />
-      <p>hours: {hours}</p>
-      <p>weekdays: {weekdays}</p>
-      <p>token: {props.token}</p>
 
-      <Button variant={'danger'} onClick={props.cancelOut}>Cancel</Button>
-      <Button onClick={props.prev}>Previous</Button>
+      <p>hours:  [ {displayArray(hours)}]</p>
+      {/* <p>weekdays: {weekdays}</p> */}
+      <p>weekdays2: [ {displayArray(weekdays)}]</p>
+      <p>dayNames: [ {displayArray(dayNames)}]</p>
+      <p>token: {token}</p>
+
+      <Container>
+        <Row>
+          <Col>
+            <div className={"pt-1"} style={{ backgroundColor: "#39C0ED" }}>
+              <span>Your doses will be taken on these days: {displayArray(dayNames)}
+              at the following times: </span>
+              <br />
+              <ListGroup horizontal={"sm"} className="my-2 justify-content-center">
+                {getState('theTimes').map((time, index) =>
+                  <ListGroup.Item className={"ml-2 mr-2 mb-3"} variant={'secondary'} key={{ time } + '.' + index}>
+                    {toTwelveHr(time)}
+                  </ListGroup.Item>
+                )}
+              </ListGroup>
+            </div>
+          </Col>
+        </Row>
+      </Container>
+      
+      <Button variant={'danger'} onClick={cancelOut}>Cancel</Button>
+      <Button onClick={prev}>Previous</Button>
       <Button onClick={finish}>Finish</Button>
 
     </div>
@@ -50,29 +65,10 @@ function FinalStep(props) {
       description: "",
       weekdays: weekdays,
       hours: hours,
-      userToken: props.token
+      userToken: token
     };
-    console.log(props.handleNewPrescription(newPrescriptionObj));
-    
+    console.log(handleNewPrescription(newPrescriptionObj));
   }
-
-  function getDays() {
-    if (every)
-      return [0, 1, 2, 3, 4, 5, 6];
-    let days = [];
-    if (mon) days.push(0);
-    if (tues) days.push(1);
-    if (wed) days.push(2);
-    if (thur) days.push(3);
-    if (fri) days.push(4);
-    if (sat) days.push(5);
-    if (sun) days.push(6);
-    return days;
-  }
-}
+} // end function FinalStep
 
 export default FinalStep;
-
-function fixCapitalization(words){
-  return words.split(' ').map(el => el[0].toUpperCase() + el.slice(1).toLowerCase()).join(' ');
-}

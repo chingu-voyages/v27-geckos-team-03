@@ -32,7 +32,7 @@ const SearchBox = (props) => {
           props.setSearchValue(title);
         }}
       >
-        <label class="sr-only" for="inlineFormSearchTerm">Search</label>
+        <label className="sr-only" htmlFor="inlineFormSearchTerm">Search</label>
         <input type="text"
           className="form-control mb-2 mr-sm-2"
           id="inlineFormSearchTerm"
