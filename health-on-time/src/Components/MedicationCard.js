@@ -14,7 +14,7 @@ const MedicationCard = ({ medications, setchosenmed, setprescriptionexistsflag }
                 {medication.manifacturer}
               </Card.Subtitle>
               <Card.Text>FDA-No: {medication.appNumber}</Card.Text>
-              <Button onClick={() => { setchosenmed(medication); setprescriptionexistsflag(medication) }}>Add</Button>
+              <Button onClick={() => { setchosenmed(medication); setprescriptionexistsflag(medication); console.log("MedicationCard.js line 17"); }}>Add</Button>
             </Card.Body>
           </Card>
         ))}

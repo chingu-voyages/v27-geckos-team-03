@@ -20,12 +20,23 @@ import FinalStep from "./FinalStep"; // Confirm or back
 
 export default function MedSchedulerMain(props) {
 
+  console.log("MedSchedulerMain.js line 23");
+
   return (
     <div className="mainFormDiv">
       <h1>{props.chosenMed.brandName}</h1> {/* the brand name */}
       <Steps chosenMed={props.chosenMed}>
-        <Step component={Step1} existingPrescription={props.existingPrescription} chosenMed={props.chosenMed} medications={props.medications} />
-        <Step component={FinalStep} />
+        <Step component={Step1}
+          cancelOut={props.cancelOut}
+          existingPrescription={props.existingPrescription}
+          chosenMed={props.chosenMed}
+          medications={props.medications} />
+        <Step component={FinalStep}
+          cancelOut={props.cancelOut}
+          existingPrescription={props.existingPrescription}
+          chosenMed={props.chosenMed}
+          medications={props.medications}
+        />
       </Steps>
     </div>
   );
