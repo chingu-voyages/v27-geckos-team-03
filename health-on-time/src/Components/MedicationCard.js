@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Card, CardDeck } from "react-bootstrap";
 
-const MedicationCard = ({ medications, setChosenMed }) => {
+const MedicationCard = ({ medications, setchosenmed, setprescriptionexistsflag }) => {
 
   return (
     <div>
@@ -14,7 +14,7 @@ const MedicationCard = ({ medications, setChosenMed }) => {
                 {medication.manifacturer}
               </Card.Subtitle>
               <Card.Text>FDA-No: {medication.appNumber}</Card.Text>
-              <Button setChosenMed={setChosenMed} onClick={() => setChosenMed(medication)}>Add</Button>
+              <Button onClick={() => { setchosenmed(medication); setprescriptionexistsflag(medication) }}>Add</Button>
             </Card.Body>
           </Card>
         ))}

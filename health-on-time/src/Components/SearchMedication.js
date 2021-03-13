@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import SearchBox from "./SearchBox";
 import MedicationCard from "./MedicationCard";
 
-const SearchMedication = ({ setChosenMed }) => {
+const SearchMedication = ({ setchosenmed, setprescriptionexistsflag }) => {
 
   
   
@@ -63,7 +63,7 @@ const SearchMedication = ({ setChosenMed }) => {
     <div style={{ margin: "10rem 0" }}>
       <h1>Search Medication</h1>
       <SearchBox searchValue={searchValue} setSearchValue={setSearchValue} />
-      <MedicationCard medications={medications} setChosenMed={setChosenMed} />
+      <MedicationCard medications={medications} setchosenmed={setchosenmed} setprescriptionexistsflag={setprescriptionexistsflag} />
     </div>
   );
 };

@@ -20,24 +20,13 @@ import FinalStep from "./FinalStep"; // Confirm or back
 
 export default function MedSchedulerMain(props) {
 
-  //const [weeklyTimes, setWeeklyTimes] = React.useState([]);
-
-
   return (
     <div className="mainFormDiv">
       <h1>{props.chosenMed.brandName}</h1> {/* the brand name */}
       <Steps chosenMed={props.chosenMed}>
-        <Step component={Step1} chosenMed={props.chosenMed} medications={props.medications}/>
+        <Step component={Step1} existingPrescription={props.existingPrescription} chosenMed={props.chosenMed} medications={props.medications} />
+        <Step component={FinalStep} />
       </Steps>
-      
-      {/*
-      <Steps chosenMed={props.chosenMed}>
-        <Step component={Step1} /> 
-        <Step component={Step2} /> 
-        <Step component={FinalStep} /> 
-
-      </Steps>
-      */}
     </div>
   );
 }
