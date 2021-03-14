@@ -15,6 +15,7 @@ import SettingsPage from "./Pages/Settings";
 import DashboardPage from "./Pages/Dashboard";
 import NotFoundPage from "./Pages/NotFoundPage";
 import PrivateRoute from "./Routes/PrivateRoutes";
+import PublicRoute from "./Routes/PublicRoutes";
 import { UserContext } from "./Components/UserContext";
 
 import "./Styles/App.css";
@@ -112,31 +113,10 @@ function App() {
             }}
           >
             <Switch>
-              {loggedIn ? (
-                <Route
-                  path="/"
-                  render={() => (
-                    <DashboardPage profile_pic={profile_pic} name={name} />
-                  )}
-                  exact={true}
-                />
-              ) : (
-                <Route path="/" component={HomePage} exact />
-              )}
-
-              <Route
-                path="/login"
-                render={() => (
-                  <Login handleLogin={handleLogin} BASE_URL={BASE_URL} />
-                )}
-              />
-
-              <Route
-                path="/signup"
-                render={() => (
-                  <Register handleLogin={handleLogin} BASE_URL={BASE_URL} />
-                )}
-              />
+              <PublicRoute path="/" children={HomePage} exact />
+              <PublicRoute path="/login" children={Login} />
+              <PublicRoute path="/signup" children={Register} />
+              <PrivateRoute path="/dashboard" children={DashboardPage} />
               <PrivateRoute path="/friends" children={AccountabilityPartners} />
               <PrivateRoute path="/medicine" children={MedicineCabinet} />
               <PrivateRoute path="/addmed" children={AddMedication} />

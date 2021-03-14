@@ -27,8 +27,8 @@ const validEmail = (value) => {
   }
 };
 
-const Login = (props) => {
-  //const {handleLogin, BASE_URL } = useContext(UserContext)
+const Login = () => {
+  const { handleLogin, BASE_URL } = useContext(UserContext);
 
   const form = useRef();
   const checkBtn = useRef();
@@ -47,8 +47,8 @@ const Login = (props) => {
     const password = e.target.value;
     setPassword(password);
   };
-
-  const handleLogin = (e) => {
+  // Renameed from handleLogin to loginHandler
+  const loginHandler = (e) => {
     e.preventDefault();
 
     setMessage("");
@@ -57,7 +57,7 @@ const Login = (props) => {
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
-      fetch(`${props.BASE_URL}login`, {
+      fetch(`${BASE_URL}login`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -67,7 +67,7 @@ const Login = (props) => {
         .then((r) => r.json())
         .then((data) => {
           if (data.user && data.token) {
-            props.handleLogin(data);
+            handleLogin(data);
             setLoading(false);
             history.push("/");
           } else {
@@ -92,7 +92,7 @@ const Login = (props) => {
           className="profile-img-card"
         />
 
-        <Form onSubmit={handleLogin} ref={form}>
+        <Form onSubmit={loginHandler} ref={form}>
           <div className="form-group">
             <label htmlFor="email">Email</label>
             <Input
