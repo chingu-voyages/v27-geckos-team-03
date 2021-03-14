@@ -46,7 +46,7 @@ const AddMedication = ({ handleNewPrescription, prescriptions, token }) => {
           :
           <div className="p-4">
             <h6 className="mb-3">
-              Here's where you can setup a schedule for any medication you take.
+              Here's where you can setup a schedule for the medications you take.
               By answering a few simple questions, <i>HealthOnTime</i> can help you stay on schedule!
             </h6>
             <p className="mb-4">Enter the name of the medication you would like to schedule in the search box to begin.</p>

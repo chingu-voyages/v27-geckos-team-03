@@ -47,7 +47,7 @@ const SearchMedication = ({ setchosenmed, setprescriptionexistsflag }) => {
       });
     } else {
       const nObj = {
-        brandName: "No medication found!",
+        brandName: "No medication found",
         manifacturer: "",
         appNumber: "",
       };
@@ -62,7 +62,7 @@ const SearchMedication = ({ setchosenmed, setprescriptionexistsflag }) => {
 
   return (
     <Container>
-      <Row>
+      <Row className="mb-3">
         <Col className="d-flex justify-content-center">
           
             <SearchBox searchValue={searchValue} setSearchValue={setSearchValue} />

@@ -7,14 +7,22 @@ const MedicationCard = ({ medications, setchosenmed, setprescriptionexistsflag }
     <div>
       <CardDeck>
         {medications.map((medication) => (
-          <Card key={medication.appNumber}>
+          <Card style={{ minWidth: 200, maxWidth: 300 }} key={medication.appNumber}>
             <Card.Body>
+               
               <Card.Title>{medication.brandName}</Card.Title>
-              <Card.Subtitle className="mb-2 text-muted">
-                {medication.manifacturer}
-              </Card.Subtitle>
-              <Card.Text>FDA-No: {medication.appNumber}</Card.Text>
-              <Button onClick={() => { setchosenmed(medication); setprescriptionexistsflag(medication); console.log("MedicationCard.js line 17"); }}>Add</Button>
+              { (medication.manifacturer && medication.appNumber) ?
+                <>
+                  <Card.Subtitle className="mb-2 text-muted">
+                    {medication.manifacturer}
+                  </Card.Subtitle>
+                  <Card.Text>FDA-No: {medication.appNumber}</Card.Text>
+                  <Button onClick={() => { setchosenmed(medication); setprescriptionexistsflag(medication); console.log("MedicationCard.js line 17"); }}>Add</Button>
+                </>
+                :
+                null
+
+              }
             </Card.Body>
           </Card>
         ))}
