@@ -167,7 +167,14 @@ function App() {
             <Route exact path="/settings" component={SettingsPage} />
             <Route
               path="/calendar"
-              render={() => <CalendarPage prescriptions={prescriptions} />}
+              render={() => {
+                return (
+                  prescriptions ?
+                    <CalendarPage prescriptions={prescriptions} />
+                    :
+                    <p>Loading...</p>
+                )
+              }}
             />
             <Route component={NotFoundPage} />
           </Switch>

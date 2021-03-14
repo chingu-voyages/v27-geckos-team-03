@@ -115,16 +115,17 @@ export default function Step2(props){
                 <Col md={8}>
                     <ListGroup className={"text-left"}>
                         <ListGroup.Item>
-                            Choose the times you want to take {fixCapitalization(props.chosenMed.brandName)} using the time picker to the right.
+                            Select a time in the time picker to the left. Make sure to click "OK" to select the time. 
+                            Then Click the blue "Add to schedule" button to save the time.
                         </ListGroup.Item>
                         <ListGroup.Item>
-                            Click "Add to schedule" to save the time to your list.
+                            Continue adding additional times to the schedule in the same way.
                         </ListGroup.Item>
                         <ListGroup.Item>
-                            If you need to clear the stored times and start over, click "Clear stored values".
+                            If you need to clear the times entered so far, click "Clear stored values".
                         </ListGroup.Item>
                         <ListGroup.Item>
-                            When you are finished entering all your times, click "Proceed" at the bottom to proceed to finish.
+                            When you are finished entering the times for <b>{fixCapitalization(props.chosenMed.brandName)}</b>, click "Proceed" at the bottom to finish.
                         </ListGroup.Item>
 
                     </ListGroup>

@@ -50,7 +50,9 @@ const AddMedication = ({ handleNewPrescription, prescriptions, token }) => {
               By answering a few simple questions, <i>HealthOnTime</i> can help you stay on schedule!
             </h6>
             <p className="mb-4">Enter the name of the medication you would like to schedule in the search box to begin.</p>
-            <SearchMedication setchosenmed={setchosenmed} setprescriptionexistsflag={setprescriptionexistsflag} />
+            <div className="col ml-sm-3 ml-md-4">
+              <SearchMedication setchosenmed={setchosenmed} setprescriptionexistsflag={setprescriptionexistsflag} />
+            </div>
           </div>
         }
          

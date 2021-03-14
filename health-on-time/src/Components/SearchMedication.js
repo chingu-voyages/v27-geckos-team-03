@@ -70,7 +70,7 @@ const SearchMedication = ({ setchosenmed, setprescriptionexistsflag }) => {
         </Col>
       </Row>
       <Row>
-        <Col>
+        <Col className="d-flex justify-content-center">
           <MedicationCard medications={medications} setchosenmed={setchosenmed} setprescriptionexistsflag={setprescriptionexistsflag} />
         </Col>
       </Row>

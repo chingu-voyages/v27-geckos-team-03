@@ -1,5 +1,5 @@
 // Step1.js
-import React, {useState} from "react";
+import React from "react";
 import { Modal, Container, Button} from 'react-bootstrap';
 import { fixCapitalization } from './helpers';
 

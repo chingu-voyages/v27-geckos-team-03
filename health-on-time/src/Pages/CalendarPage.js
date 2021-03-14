@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import '../Styles/Calendar.css';
+
 
 export default function CalendarPage({ prescriptions }) {
   const [medications, setMedications] = useState([]);
@@ -70,28 +72,25 @@ function toTwelveHr(hour) {
 
 const makeRow = (rowColor, dayString, doseArr) => {
   return (
-    <tbody> {/* Added to get rid of warning that tr can't follow table - Lewis*/}
-      <tr className={rowColor}>
-        <td className="day">{dayString}</td>
-        <td>
-          <table
-            style={{ width: "200px" }}
-            className="table table-sm table-borderless"
-          >
-            <tbody> {/* Added to get rid of warning that tr can't follow table - Lewis*/}
-              {doseArr.map((el, i) => (
-                <tr key={i}>
-                  <td>{el.medName}</td>
-                  <td>
-                    <div className={"float-right"}>{toTwelveHr(el.hour)}</div>
-                  </td>
-                </tr>
-              ))}
+    <tr className={rowColor}>
+      <td className="day"><span class="h4">{dayString}</span></td>
+      <td>
+        <table
+          className="table table-sm table-borderless"
+        >
+          <tbody>
+            {doseArr.map((el, i) => (
+              <tr key={i}>
+                <td><span>{el.medName}</span></td>
+                <td>
+                  <div className={"float-right"}>{toTwelveHr(el.hour)}</div>
+                </td>
+              </tr>
+            ))}
             </tbody>
-          </table>
-        </td>
-      </tr>
-    </tbody>  
+        </table>
+      </td>
+    </tr>
   );
 };
 
@@ -108,16 +107,64 @@ function Chart(props) {
   const sunDoses = sortedDay(6, doses);
 
   return (
-    <div>
-      <table className="table table-bordered">
-        {makeRow("table-primary", "Mon", monDoses)}
-        {makeRow("table-secondary", "Tue", tuesDoses)}
-        {makeRow("table-success", "Wed", wedDoses)}
-        {makeRow("table-light", "Thu", thurDoses)}
-        {makeRow("table-warning", "Fri", friDoses)}
-        {makeRow("table-info", "Sat", satDoses)}
-        {makeRow("table-danger", "Sun", sunDoses)}
-      </table>
+    <div class="container">
+      <h1 className="text-center">Calendar</h1>
+
+      <div class="d-flex flex-wrap justify-content-center">
+        {makeTable("table-primary", "Mon", monDoses)}
+        {makeTable("table-secondary", "Tue", tuesDoses)}
+        {makeTable("table-success", "Wed", wedDoses)}
+        {makeTable("table-light", "Thu", thurDoses)}
+        {makeTable("table-warning", "Fri", friDoses)}
+        {makeTable("table-info", "Sat", satDoses)}
+        {makeTable("table-danger", "Sun", sunDoses)}
+      </div>
     </div>
   );
 }
+
+
+{/*
+      <div class="d-flex justify-content-center">
+        <table className="table table-bordered table-fit">
+          <tbody>
+            {makeRow("table-primary", "Mon", monDoses)}
+            {makeRow("table-secondary", "Tue", tuesDoses)}
+            {makeRow("table-success", "Wed", wedDoses)}
+            {makeRow("table-light", "Thu", thurDoses)}
+            {makeRow("table-warning", "Fri", friDoses)}
+            {makeRow("table-info", "Sat", satDoses)}
+            {makeRow("table-danger", "Sun", sunDoses)}
+          </tbody>
+        </table>
+      </div>
+    </div>
+      
+  );
+}
+*/}
+const makeTable = (rowColor, dayString, doseArr) => {
+  return ( 
+    <table style={{width: 300}} className={rowColor + ' table table-sm mx-3 my-table-shadow rounded'}> {/* removed class table-fit */}
+      <tbody>
+        <tr>
+          <td className="day"><span class="h4 m-2">{dayString}</span></td>
+          <td>
+            <table className="table table-sm table-borderless">
+              <tbody>
+                {doseArr.map((el, i) => (
+                  <tr key={i}>
+                    <td><span>{el.medName}</span></td>
+                    <td>
+                      <div className={"float-right"}>{toTwelveHr(el.hour)}</div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  );
+}; // end function makeTable
