@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { UserContext } from "../Components/UserContext";
 
-export default function CalendarPage({ prescriptions }) {
+export default function CalendarPage() {
+  const {prescriptions} = useContext(UserContext);
   const [medications, setMedications] = useState([]);
   // A functions that sets Prescriptions to the calendar
   // For now it uses fetch API to get data. It may take props in the future.
@@ -92,7 +94,6 @@ const makeRow = (rowColor, dayString, doseArr) => {
 };
 
 //let testHour;
-
 function Chart(props) {
   const doses = props.doses;
   const monDoses = sortedDay(0, doses);
