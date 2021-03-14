@@ -1,10 +1,11 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
 import "./Login.css";
+import { UserContext } from "./UserContext";
 
 const required = (value) => {
   if (!value) {
@@ -27,6 +28,8 @@ const validEmail = (value) => {
 };
 
 const Login = (props) => {
+  //const {handleLogin, BASE_URL } = useContext(UserContext)
+
   const form = useRef();
   const checkBtn = useRef();
   let history = useHistory();
