@@ -72,6 +72,7 @@ function FinalStep({ prev, chosenMed, handleNewPrescription, existingPrescriptio
   function finish() {
     let newPrescriptionObj = {
       medName: medName,
+      fda_number: fda_number,
       description: "",
       weekdays: weekdays,
       hours: hours,
