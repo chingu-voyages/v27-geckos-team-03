@@ -99,7 +99,7 @@ function Step1(props) {
 
             <div className="row mt-5 d-flex justify-content-center">
               <div className="col text-center">
-              <Button style={{"padding-left": "11px", "padding-right": "11px"}} variant={'danger'} onClick={() => props.cancelOut()}>Start over</Button>
+              <Button style={{"paddingLeft": "11px", "paddingRight": "11px"}} variant={'danger'} onClick={() => props.cancelOut()}>Start over</Button>
               </div>
               <div className="col text-center">
               <Button variant={'primary'} onClick={() => validate()}>Proceed</Button>

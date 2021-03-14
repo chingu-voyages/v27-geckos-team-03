@@ -106,7 +106,8 @@ function App() {
   return (
     <div className="main-container">
       <Navbar loggedIn={loggedIn} handleLogout={handleLogout} />
-      <div id={loggedIn && "wrapper"}>
+      {/* <div id={loggedIn && "wrapper"}>  React complains/warns about recieving id=false} Lewis */}
+      <div id={loggedIn ? "wrapper" : undefined}>
         {loggedIn && <Sidebar prescriptions={prescriptions} />}
         <div className="display">
           <Switch>
@@ -137,12 +138,14 @@ function App() {
             <Route path="/friends" component={AccountabilityPartners} />
             <Route
               path="/medicine"
-              render={() => (
-                <MedicineCabinet
-                  medications={medications}
-                  deleteMedication={deleteMedication}
-                />
-              )}
+              render={() => {
+                return (
+                  medications ?
+                    <MedicineCabinet medications={medications} deleteMedication={deleteMedication} />
+                    :
+                    <p>Loading...</p>
+                )
+              }}
             />
             {/*
             <Route

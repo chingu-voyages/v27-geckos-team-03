@@ -56,17 +56,17 @@ const SearchMedication = ({ setchosenmed, setprescriptionexistsflag }) => {
   };
 
   // Passing input value
+  // Added check for blank because it needed it - Lewis
   useEffect(() => {
-    getFDARequest(searchValue);
+    if(searchValue !== '') 
+      getFDARequest(searchValue);
   }, [searchValue]);
 
   return (
     <Container>
       <Row className="mb-3">
         <Col className="d-flex justify-content-center">
-          
             <SearchBox searchValue={searchValue} setSearchValue={setSearchValue} />
-          
         </Col>
       </Row>
       <Row>

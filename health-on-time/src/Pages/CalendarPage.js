@@ -69,11 +69,11 @@ function toTwelveHr(hour) {
   if (hour <= 23) return `${hour - 12} PM`;
   return null;
 }
-
+/* Switched to make table for each row - Lewis
 const makeRow = (rowColor, dayString, doseArr) => {
   return (
     <tr className={rowColor}>
-      <td className="day"><span class="h4">{dayString}</span></td>
+      <td className="day"><span className="h4">{dayString}</span></td>
       <td>
         <table
           className="table table-sm table-borderless"
@@ -93,7 +93,7 @@ const makeRow = (rowColor, dayString, doseArr) => {
     </tr>
   );
 };
-
+*/
 //let testHour;
 
 function Chart(props) {
@@ -107,10 +107,10 @@ function Chart(props) {
   const sunDoses = sortedDay(6, doses);
 
   return (
-    <div class="container">
+    <div className="container">
       <h1 className="text-center">Calendar</h1>
 
-      <div class="d-flex flex-wrap justify-content-center">
+      <div className="d-flex flex-wrap justify-content-center">
         {makeTable("table-primary", "Mon", monDoses)}
         {makeTable("table-secondary", "Tue", tuesDoses)}
         {makeTable("table-success", "Wed", wedDoses)}
@@ -124,8 +124,8 @@ function Chart(props) {
 }
 
 
-{/*
-      <div class="d-flex justify-content-center">
+/*
+      <div className="d-flex justify-content-center">
         <table className="table table-bordered table-fit">
           <tbody>
             {makeRow("table-primary", "Mon", monDoses)}
@@ -142,19 +142,19 @@ function Chart(props) {
       
   );
 }
-*/}
+*/
 const makeTable = (rowColor, dayString, doseArr) => {
   return ( 
-    <table style={{width: 300}} className={rowColor + ' table table-sm mx-3 my-table-shadow rounded'}> {/* removed class table-fit */}
+    <table style={{width: 300}} className={rowColor + ' table table-sm mx-3 my-table-shadow rounded'}>
       <tbody>
         <tr>
-          <td className="day"><span class="h4 m-2">{dayString}</span></td>
+          <td className="day"><span className="h4 m-2">{dayString}</span></td>
           <td>
             <table className="table table-sm table-borderless">
               <tbody>
                 {doseArr.map((el, i) => (
                   <tr key={i}>
-                    <td><span>{el.medName}</span></td>
+                    <td>{el.medName}</td>
                     <td>
                       <div className={"float-right"}>{toTwelveHr(el.hour)}</div>
                     </td>

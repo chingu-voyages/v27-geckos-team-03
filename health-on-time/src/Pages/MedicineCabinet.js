@@ -6,33 +6,36 @@ function MedicineCabinet({ medications, deleteMedication }) {
   useEffect(() => {
     if (medications)
       setMedCards(
-        medications.map((med) => {
-          return (
-            <Card key={med.id}>
-              <GiMedicinePills size={36} />
+          medications.map((med) => {
+            return (
+              <Card style={{ minWidth: 225, maxWidth: 300 }} key={med.id}>
+                <GiMedicinePills size={36} />
 
-              <Card.Body>
-                <Card.Title>{med.name}</Card.Title>
-                <Card.Text>{med.description}</Card.Text>
-                <Button
-                  onClick={() => deleteMedication(med.id)}
-                  variant="danger"
-                >
-                  Delete Medication
-                </Button>
-              </Card.Body>
-            </Card>
-          );
-        })
+                <Card.Body>
+                  <Card.Title>{med.name}</Card.Title>
+                  <Card.Text>{med.description}</Card.Text>
+                  <Button
+                    onClick={() => deleteMedication(med.id)}
+                    variant="danger"
+                  >
+                    Delete Medication
+                  </Button>
+                </Card.Body>
+              </Card>
+            );
+          })
+          
       );
   }, [medications, deleteMedication]);
   /*Added deleteMedication to dependency array to get rid of warning - Lewis */
 
   return (
-    <div>
-      <h1>MedicineCabinet</h1>
+    <div className="container">
+      <h1 className="text-center">Medicine Cabinet</h1>
       {medications ? (
-        <CardDeck>{medCards}</CardDeck>
+        <div className="text-center">
+          <CardDeck>{medCards}</CardDeck>
+        </div>
       ) : (
         <h2>
           Currently no medications have been added. Please Click on "Search for
