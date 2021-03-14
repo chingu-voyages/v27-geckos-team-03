@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import SearchMedication from '../Components/SearchMedication';
 import { Container } from 'react-bootstrap';
 import MedSchedulerMain from '../Components/MedScheduler/MedSchedulerMain.js';
@@ -44,14 +44,14 @@ const AddMedication = ({ handleNewPrescription, prescriptions, token }) => {
               />
           </>
           :
-          <>
-            <p>
+          <div className="p-4">
+            <h6 className="mb-3">
               Here's where you can setup a schedule for any medication you take.
-              By answering a few simple questions, HealthOnTime can help you stay on schedule!
-            </p>
+              By answering a few simple questions, <i>HealthOnTime</i> can help you stay on schedule!
+            </h6>
             <p className="mb-4">Enter the name of the medication you would like to schedule in the search box to begin.</p>
             <SearchMedication setchosenmed={setchosenmed} setprescriptionexistsflag={setprescriptionexistsflag} />
-          </>
+          </div>
         }
          
       </Container>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Container, Col, Form } from "react-bootstrap";
+import { Button} from "react-bootstrap";
 
 const SearchBox = (props) => {
   // Change the state whenever there's change in the input fileld
@@ -40,14 +40,14 @@ const SearchBox = (props) => {
           onChange={
             event => setTitle(event.target.value)}
         />
-        <button
+        <Button
           type="submit"
           className="btn btn-primary mb-2"
           onClick={e =>{
             e.preventDefault();
             props.setSearchValue(title);
           }}
-        >Submit</button>
+        >Submit</Button>
       </form>
     </div>
   );

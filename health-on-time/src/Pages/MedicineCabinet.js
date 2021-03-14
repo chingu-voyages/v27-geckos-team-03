@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import SearchMedication from "../Components/SearchMedication";
 import { Button, Card, CardDeck } from "react-bootstrap";
 import { GiMedicinePills } from "react-icons/gi";
 function MedicineCabinet({ medications, deleteMedication }) {
@@ -26,7 +25,8 @@ function MedicineCabinet({ medications, deleteMedication }) {
           );
         })
       );
-  }, [medications]);
+  }, [medications, deleteMedication]);
+  /*Added deleteMedication to dependency array to get rid of warning - Lewis */
 
   return (
     <div>

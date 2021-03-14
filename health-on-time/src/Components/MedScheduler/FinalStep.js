@@ -25,7 +25,7 @@ function FinalStep({ prev, chosenMed, handleNewPrescription, existingPrescriptio
       <Container>
         <Row>
           <Col>
-            <p>Please confirm the details below and click "Finish" when ready. You may also use the "Previous" button to edit your days or times.</p>
+            <h6 className={'mb-4'}>Please confirm the details below and click "Finish" when ready. You may also use the "Previous" button to edit your days or times.</h6>
             <div className={"py-2 px-4 mb-4 rounded timeDisplay"} style={{ backgroundColor: "#39C0ED" }}>
               <p className={"mt-2"}>{medName} will be scheduled at the following times for these days of the week: <b>{displayArray(dayNames)}</b></p>
               <ListGroup horizontal={"sm"} className="my-2 justify-content-center">

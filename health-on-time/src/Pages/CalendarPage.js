@@ -70,24 +70,28 @@ function toTwelveHr(hour) {
 
 const makeRow = (rowColor, dayString, doseArr) => {
   return (
-    <tr className={rowColor}>
-      <td className="day">{dayString}</td>
-      <td>
-        <table
-          style={{ width: "200px" }}
-          className="table table-sm table-borderless"
-        >
-          {doseArr.map((el, i) => (
-            <tr key={i}>
-              <td>{el.medName}</td>
-              <td>
-                <div className={"float-right"}>{toTwelveHr(el.hour)}</div>
-              </td>
-            </tr>
-          ))}
-        </table>
-      </td>
-    </tr>
+    <tbody> {/* Added to get rid of warning that tr can't follow table - Lewis*/}
+      <tr className={rowColor}>
+        <td className="day">{dayString}</td>
+        <td>
+          <table
+            style={{ width: "200px" }}
+            className="table table-sm table-borderless"
+          >
+            <tbody> {/* Added to get rid of warning that tr can't follow table - Lewis*/}
+              {doseArr.map((el, i) => (
+                <tr key={i}>
+                  <td>{el.medName}</td>
+                  <td>
+                    <div className={"float-right"}>{toTwelveHr(el.hour)}</div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    </tbody>  
   );
 };
 
