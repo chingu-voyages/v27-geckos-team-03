@@ -78,7 +78,9 @@ function FinalStep({ prev, chosenMed, handleNewPrescription, existingPrescriptio
       hours: hours,
       userToken: token
     };
-    console.log(handleNewPrescription(newPrescriptionObj));
+    // console.log(handleNewPrescription(newPrescriptionObj)); console log will be undefined bc async POST
+    handleNewPrescription(newPrescriptionObj);
+    // Now what though?
   }
 } // end function FinalStep
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import '../Styles/Calendar.css';
+import { toTwelveHr } from "../Components/MedScheduler/helpers";
 
 
 export default function CalendarPage({ prescriptions }) {
@@ -62,7 +63,8 @@ function sortedDay(desiredDay, arr) {
   return dayDoses.sort((a, b) => a.hour > b.hour);
 }
 
-function toTwelveHr(hour) {
+
+function toTwelveHr2(hour) {
   if (hour === 0) return "12 AM";
   if (hour <= 11) return `${hour} AM`;
   if (hour === 12) return "12 PM";
@@ -157,6 +159,7 @@ const makeTable = (rowColor, dayString, doseArr) => {
                     <td>{el.medName}</td>
                     <td>
                       <div className={"float-right"}>{toTwelveHr(el.hour)}</div>
+                      {console.log("el.hour: " + String(el.hour) + ". after toTwelveHr: " + toTwelveHr(el.hour))}
                     </td>
                   </tr>
                 ))}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Card, CardDeck } from "react-bootstrap";
+import { Button, Card, CardDeck, Row, Col } from "react-bootstrap";
 import { GiMedicinePills } from "react-icons/gi";
 function MedicineCabinet({ medications, deleteMedication }) {
   const [medCards, setMedCards] = useState([]);
@@ -8,19 +8,43 @@ function MedicineCabinet({ medications, deleteMedication }) {
       setMedCards(
           medications.map((med) => {
             return (
-              <Card style={{ minWidth: 225, maxWidth: 300 }} key={med.id}>
-                <GiMedicinePills size={36} />
-
+              <Card style={{ minWidth: 225, maxWidth: 300, paddingBottom: 10, paddingTop: 15 }} key={med.id}>
+                <Card.Header>
+                  <Row>
+                    <Col>
+                      <GiMedicinePills className={""} size={36} />
+                    </Col>
+                  </Row>
+                  <span style={{ fontSize: "1.2rem", verticalAlign: "bottom" }}>{med.name}</span>
+                </Card.Header>
                 <Card.Body>
-                  <Card.Title>{med.name}</Card.Title>
-                  <Card.Text>{med.description}</Card.Text>
+                  <Card.Text className={"textJustify"}>
+                    
+                    <span>{med.description}</span>
+                  </Card.Text>
+                  {/*
+                  <Row>
+                    <Col xs={1} className={"ml-0"}><GiMedicinePills size={36} /></Col>
+                    <Col><Card.Text>{med.description}</Card.Text></Col>
+                  </Row>
+                  */}
+                </Card.Body>
+                <Card.Footer>
                   <Button
+                    style={{fontSize: "0.89rem"}}
                     onClick={() => deleteMedication(med.id)}
                     variant="danger"
+                    block
                   >
                     Delete Medication
                   </Button>
-                </Card.Body>
+                  <Button
+                    className="mt-2"
+                    style={{fontSize: "0.9rem"}}
+                    block>
+                      Edit schedule
+                  </Button>
+                </Card.Footer>
               </Card>
             );
           })

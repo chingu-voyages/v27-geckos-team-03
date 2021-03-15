@@ -2,10 +2,11 @@
 // input: number 0-23
 // output: 12AM thru 12PM 
 const toTwelveHr = hour => {
-    if (hour === 0) return "12 AM";
-    if (hour <= 11) return `${hour} AM`;
-    if (hour === 12) return "12 PM";
-    if (hour <= 23) return `${hour - 12} PM`;
+    let ahour = parseInt(hour);
+    if (ahour === 0) return "12 AM";
+    if (ahour <= 11) return `${ahour} AM`;
+    if (ahour === 12) return "12 PM";
+    if (ahour <= 23) return `${ahour - 12} PM`;
     return null;
 };
 

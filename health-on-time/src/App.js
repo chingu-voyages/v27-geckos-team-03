@@ -75,7 +75,9 @@ function App() {
         });
     }
   }, []);
-  
+  /********  
+  // Rewrote below to include using previous state in functional setState and 
+  // to update prescriptions along with the medications change
   let deleteMedication = (medicationID) => {
     console.log(medicationID, "med id");
     fetch(`${BASE_URL}medications/${medicationID}`, {
@@ -89,20 +91,44 @@ function App() {
         setMedications(copyOfMeds);
       });
   };
+  *******************////////////////////////////
+  let deleteMedication = (medicationID) => {
+    console.log(medicationID, "med id");
+    fetch(`${BASE_URL}medications/${medicationID}`, {
+      method: "DELETE",
+    })
+      .then((r) => r.json())
+      .then((deletedMedication) => {
+        setMedications(prevMeds => {
+          return prevMeds.filter(med => med.id !== medicationID);
+        })
+        setPrescriptions(prevPrescriptions => {
+          return prevPrescriptions.filter(prescr => prescr.medication.id !== medicationID);
+        })
+      });
+  };
+
   const handleNewPrescription = (newPrescriptionObj) => {
     fetch(`${BASE_URL}prescriptions`, {
-        method: "POST",
+      method: "POST",
       headers: {
         "content-type": "application/json",
         Authorization: `Bearer ${localStorage.token}`,
       },
-        body: JSON.stringify(newPrescriptionObj),
+      body: JSON.stringify(newPrescriptionObj),
     })
-        .then((r) => r.json())
-        .then((createdPrescriptionObj) => { // update locally w/ setPrescriptions
-            setPrescriptions([prescriptions, ...createdPrescriptionObj]);
-        }) // can check created object
-  }
+      .then((r) => r.json())
+      .then(data => { // update locally w/ setPrescriptions
+        setPrescriptions(prevPrescriptions => [...prevPrescriptions, data.prescription]);
+        console.log(prescriptions);
+        console.log(data.prescription);
+      }) // can check created object
+      .catch(error => {
+        console.log(error.name + ": " + error.message);
+        throw error; // or return error message?
+      });
+  } // end function handleNewPrescription
+
   return (
     <div className="main-container">
       <Navbar loggedIn={loggedIn} handleLogout={handleLogout} />
