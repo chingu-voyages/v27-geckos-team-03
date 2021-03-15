@@ -126,10 +126,8 @@ function App() {
   return (
     <div className="main-container">
       <Navbar loggedIn={loggedIn} handleLogout={handleLogout} />
-      {/* <div id={loggedIn && "wrapper"}>  React complains/warns about recieving id=false} Lewis */}
-      <div id={loggedIn ? "wrapper" : undefined}> 
-        {/* {loggedIn && <Sidebar prescriptions={prescriptions} />}  */}
-        {loggedIn && <Sidebar />}
+      <div id={loggedIn ? "wrapper" : "no-wrapper"}> {/* If not logged in, don't apply wrapper style */}
+        {loggedIn && <Sidebar />} {/* If not logged in, don't show sidebar */}
 
         <div className="display">
           <UserContext.Provider
