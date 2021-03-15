@@ -14,6 +14,10 @@ import AddMedication from "./Pages/AddMedication";
 import SettingsPage from "./Pages/Settings";
 import DashboardPage from "./Pages/Dashboard";
 import NotFoundPage from "./Pages/NotFoundPage";
+import PrivateRoute from "./Routes/PrivateRoutes";
+import PublicRoute from "./Routes/PublicRoutes";
+import { UserContext } from "./Components/UserContext";
+
 import "./Styles/App.css";
 import { faTruckLoading } from "@fortawesome/free-solid-svg-icons";
 
@@ -59,6 +63,7 @@ function App() {
     setUser(null);
     history.push("/");
   };
+
   useEffect(() => {
     if (localStorage.token) {
       fetch(`${BASE_URL}/autologin`, {
@@ -75,23 +80,11 @@ function App() {
         });
     }
   }, []);
+
   /********  
   // Rewrote below to include using previous state in functional setState and 
   // to update prescriptions along with the medications change
-  let deleteMedication = (medicationID) => {
-    console.log(medicationID, "med id");
-    fetch(`${BASE_URL}medications/${medicationID}`, {
-      method: "DELETE",
-    })
-      .then((r) => r.json())
-      .then((deletedMedication) => {
-        let copyOfMeds = medications.filter((med) => {
-          return med.id !== medicationID;
-        });
-        setMedications(copyOfMeds);
-      });
-  };
-  *******************////////////////////////////
+  */
   let deleteMedication = (medicationID) => {
     console.log(medicationID, "med id");
     fetch(`${BASE_URL}medications/${medicationID}`, {
@@ -133,80 +126,34 @@ function App() {
     <div className="main-container">
       <Navbar loggedIn={loggedIn} handleLogout={handleLogout} />
       {/* <div id={loggedIn && "wrapper"}>  React complains/warns about recieving id=false} Lewis */}
-      <div id={loggedIn ? "wrapper" : undefined}>
+      <div id={loggedIn ? "wrapper" : undefined}> 
         {loggedIn && <Sidebar prescriptions={prescriptions} />}
         <div className="display">
-          <Switch>
-            {loggedIn ? (
-              <Route
-                path="/"
-                render={() => (
-                  <DashboardPage profile_pic={profile_pic} name={name} />
-                )}
-                exact={true}
-              />
-            ) : (
-              <Route path="/" component={HomePage} exact />
-            )}
-
-            <Route
-              path="/login"
-              render={() => (
-                <Login handleLogin={handleLogin} BASE_URL={BASE_URL} />
-              )}
-            />
-            <Route
-              path="/signup"
-              render={() => (
-                <Register handleLogin={handleLogin} BASE_URL={BASE_URL} />
-              )}
-            />
-            <Route path="/friends" component={AccountabilityPartners} />
-            <Route
-              path="/medicine"
-              render={() => {
-                return (
-                  medications ?
-                    <MedicineCabinet medications={medications} deleteMedication={deleteMedication} />
-                    :
-                    <p>Loading...</p>
-                )
-              }}
-            />
-            {/*
-            <Route
-              exact path="/addmed"
-              component={AddMedication}
-              prescriptions={prescriptions}
-              medications={medications}
-            /> */}
-            <Route
-              exact path="/addmed"
-              render={() => 
-              { return (
-                prescriptions && medications && localStorage.token ?
-                  <AddMedication
-                    token={localStorage.token}
-                    prescriptions={prescriptions}
-                    handleNewPrescription={handleNewPrescription} />
-                  : 
-                  <p>Loading...</p>
-              )}}
-            />
-            <Route exact path="/settings" component={SettingsPage} />
-            <Route
-              path="/calendar"
-              render={() => {
-                return (
-                  prescriptions ?
-                    <CalendarPage prescriptions={prescriptions} />
-                    :
-                    <p>Loading...</p>
-                )
-              }}
-            />
-            <Route component={NotFoundPage} />
-          </Switch>
+          <UserContext.Provider
+            value={{
+              loggedIn,
+              medications,
+              deleteMedication,
+              prescriptions,
+              profile_pic,
+              name,
+              handleLogin,
+              BASE_URL,
+            }}
+          >
+            <Switch>
+              <PublicRoute path="/" children={HomePage} exact />
+              <PublicRoute path="/login" children={Login} />
+              <PublicRoute path="/signup" children={Register} />
+              <PrivateRoute path="/dashboard" children={DashboardPage} />
+              <PrivateRoute path="/friends" children={AccountabilityPartners} />
+              <PrivateRoute path="/medicine" children={MedicineCabinet} />
+              <PrivateRoute path="/addmed" children={AddMedication} />
+              <PrivateRoute path="/settings" children={SettingsPage} />
+              <PrivateRoute path="/calendar" children={CalendarPage} />
+              <Route component={NotFoundPage} />
+            </Switch>
+          </UserContext.Provider>
         </div>
       </div>
       <div style={{marginBottom: "100px"}}><img src="/spacer.gif" alt="spacer" /></div>

@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import '../Styles/Calendar.css';
 import { toTwelveHr } from "../Components/MedScheduler/helpers";
+import { UserContext } from "../Components/UserContext";
 
-
-export default function CalendarPage({ prescriptions }) {
+export default function CalendarPage() {
+  const {prescriptions} = useContext(UserContext);
   const [medications, setMedications] = useState([]);
   // A functions that sets Prescriptions to the calendar
   // For now it uses fetch API to get data. It may take props in the future.
@@ -62,33 +63,6 @@ function sortedDay(desiredDay, arr) {
   let dayDoses = arr.filter((el) => el.day === desiredDay);
   return dayDoses.sort((a, b) => a.hour > b.hour);
 }
-
-/* Switched to make table for each row - Lewis
-const makeRow = (rowColor, dayString, doseArr) => {
-  return (
-    <tr className={rowColor}>
-      <td className="day"><span className="h4">{dayString}</span></td>
-      <td>
-        <table
-          className="table table-sm table-borderless"
-        >
-          <tbody>
-            {doseArr.map((el, i) => (
-              <tr key={i}>
-                <td><span>{el.medName}</span></td>
-                <td>
-                  <div className={"float-right"}>{toTwelveHr(el.hour)}</div>
-                </td>
-              </tr>
-            ))}
-            </tbody>
-        </table>
-      </td>
-    </tr>
-  );
-};
-*/
-//let testHour;
 
 function Chart(props) {
   const doses = props.doses;

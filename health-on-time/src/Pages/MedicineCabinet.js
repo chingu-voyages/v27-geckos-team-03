@@ -1,8 +1,13 @@
-import React, { useEffect, useState } from "react";
+
+import React, { useContext, useEffect, useState } from "react";
 import { Button, Card, CardDeck, Row, Col } from "react-bootstrap";
 import { GiMedicinePills } from "react-icons/gi";
-function MedicineCabinet({ medications, deleteMedication }) {
+import { UserContext } from "../Components/UserContext";
+
+function MedicineCabinet() {
   const [medCards, setMedCards] = useState([]);
+  const { medications, deleteMedication } = useContext(UserContext);
+
   useEffect(() => {
     if (medications)
       setMedCards(

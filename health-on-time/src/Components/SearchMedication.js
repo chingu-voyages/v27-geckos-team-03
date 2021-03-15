@@ -20,7 +20,7 @@ const SearchMedication = ({ setchosenmed, setprescriptionexistsflag }) => {
 
   const getFDARequest = async (searchValue) => {
     const url = `https://api.fda.gov/drug/drugsfda.json?search=openfda.brand_name:"${searchValue}"&limit=5`;
-    //const url = `https://api.fda.gov/drug/drugsfda.json?search=openfda.generic_name:"methadone"&limit=5`;
+    //const url = `https://api.fda.gov/drug/drugsfda.json?search=openfda.generic_name:"tamiflu"&limit=5`;
     const response = await fetch(url);
     const responseJson = await response.json();
     // Clear previous search result
