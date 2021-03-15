@@ -1,10 +1,11 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { Link, useHistory } from "react-router-dom";
 import { isEmail, isMobilePhone } from "validator";
 import "./Login.css";
+import { UserContext } from "./UserContext";
 // import AuthService from "../services/auth.service";
 
 const required = (value) => {
@@ -57,7 +58,8 @@ const vpassword = (value) => {
   }
 };
 
-const Register = (props) => {
+const Register = () => {
+  const { handleLogin, BASE_URL } = useContext(UserContext);
   const form = useRef();
   const checkBtn = useRef();
   let history = useHistory();
@@ -102,7 +104,7 @@ const Register = (props) => {
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
-      fetch(`${props.BASE_URL}signup`, {
+      fetch(`${BASE_URL}signup`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -118,7 +120,7 @@ const Register = (props) => {
         .then((r) => r.json())
         .then((data) => {
           if (data.user) {
-            props.handleLogin(data);
+            handleLogin(data);
             history.push("/profile");
           } else {
             setMessage(data.error[0]);
