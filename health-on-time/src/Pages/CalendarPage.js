@@ -63,14 +63,6 @@ function sortedDay(desiredDay, arr) {
   return dayDoses.sort((a, b) => a.hour > b.hour);
 }
 
-
-function toTwelveHr2(hour) {
-  if (hour === 0) return "12 AM";
-  if (hour <= 11) return `${hour} AM`;
-  if (hour === 12) return "12 PM";
-  if (hour <= 23) return `${hour - 12} PM`;
-  return null;
-}
 /* Switched to make table for each row - Lewis
 const makeRow = (rowColor, dayString, doseArr) => {
   return (
@@ -125,26 +117,6 @@ function Chart(props) {
   );
 }
 
-
-/*
-      <div className="d-flex justify-content-center">
-        <table className="table table-bordered table-fit">
-          <tbody>
-            {makeRow("table-primary", "Mon", monDoses)}
-            {makeRow("table-secondary", "Tue", tuesDoses)}
-            {makeRow("table-success", "Wed", wedDoses)}
-            {makeRow("table-light", "Thu", thurDoses)}
-            {makeRow("table-warning", "Fri", friDoses)}
-            {makeRow("table-info", "Sat", satDoses)}
-            {makeRow("table-danger", "Sun", sunDoses)}
-          </tbody>
-        </table>
-      </div>
-    </div>
-      
-  );
-}
-*/
 const makeTable = (rowColor, dayString, doseArr) => {
   return ( 
     <table style={{width: 300}} className={rowColor + ' table table-sm mx-3 my-table-shadow rounded'}>
@@ -159,7 +131,6 @@ const makeTable = (rowColor, dayString, doseArr) => {
                     <td>{el.medName}</td>
                     <td>
                       <div className={"float-right"}>{toTwelveHr(el.hour)}</div>
-                      {console.log("el.hour: " + String(el.hour) + ". after toTwelveHr: " + toTwelveHr(el.hour))}
                     </td>
                   </tr>
                 ))}

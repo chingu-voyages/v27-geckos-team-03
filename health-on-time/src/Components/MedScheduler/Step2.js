@@ -34,7 +34,6 @@ export default function Step2(props){
 
         const hrToAdd = retrieveHour(timeValue); // extract the hour
 
-        //let currentMondayTimes = props.getState('mondayTimes');
         let currentTimes = props.getState('theTimes');
 
         if (!currentTimes) { // If theTimes not yet initialized, just add hrToAdd
@@ -56,18 +55,17 @@ export default function Step2(props){
             <Container>
                 <Row>
                     <Col>
-                        <div className={"py-2 px-4 mb-4 rounded timeDisplay"} style={{ backgroundColor: "#39C0ED" }}>
-                            <div>
-                                <span>Your doses of {fixCapitalization(props.chosenMed.brandName)} will be taken at: </span>
+                        <div className={"pt-2 pb-0 px-4 mb-4 rounded timeDisplay"} style={{ backgroundColor: "#39C0ED" }}>
+                            <div className="mb-2 text-center">
+                                <span style={{ fontSize: "1.1rem" }} className="text-light"><b>Your doses of {fixCapitalization(props.chosenMed.brandName)} will be taken at: </b></span>
                             </div>
-                            <br />
-                            <ListGroup horizontal={"sm"} className="justify-content-center">
+                            <div className="d-flex flex-wrap justify-content-around">
                                 {props.getState('theTimes').map((time, index) => 
-                                    <ListGroup.Item className={"ml-2 mr-2 mb-3"} variant={'secondary'} key={{ time } + '.' + index}>
+                                    <p style={{fontSize: "1.4rem"}}><span className={"badge mx-1 badge-secondary"} key={{ time } + '.' + index}>
                                         {toTwelveHr(time)}
-                                    </ListGroup.Item>
+                                    </span></p>
                                 )}
-                            </ListGroup>
+                            </div>
                         </div>
                     </Col>
                 </Row>
@@ -78,12 +76,12 @@ export default function Step2(props){
 
     return (
         <Container className="step-container">
-            <Row>
+            {/*<Row>
                 <Col>
                     {timesList()} 
                 </Col>
 
-            </Row>
+            </Row> */}
             <Row className="mt-3">
                 <Col md={4}>
                     <Card className={"timePickerCard"} style={{ marginTop: "0px" }} border={"info rounded"} bg={"light"}>
@@ -113,19 +111,19 @@ export default function Step2(props){
                     </Card>
                 </Col>
                 <Col md={8}>
+                    <div className="d-flex flex-wrap">
+                        {timesList()}
+                    </div>
                     <ListGroup className={"text-left"}>
                         <ListGroup.Item>
-                            Select a time in the time picker to the left. Make sure to click "OK" to select the time. 
+                            Select a time in the time picker & click "OK" to select the time. 
                             Then Click the blue "Add to schedule" button to save the time.
                         </ListGroup.Item>
                         <ListGroup.Item>
-                            Continue adding additional times to the schedule in the same way.
+                            Continue adding additional times to the schedule until you are finished.
                         </ListGroup.Item>
                         <ListGroup.Item>
-                            If you need to clear the times entered so far, click "Clear stored values".
-                        </ListGroup.Item>
-                        <ListGroup.Item>
-                            When you are finished entering the times for <b>{fixCapitalization(props.chosenMed.brandName)}</b>, click "Proceed" at the bottom to finish.
+                            When you are done entering the times for <b>{fixCapitalization(props.chosenMed.brandName)}</b>, click "Proceed" at the bottom to finish.
                         </ListGroup.Item>
 
                     </ListGroup>

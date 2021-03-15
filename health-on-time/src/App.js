@@ -120,13 +120,13 @@ function App() {
       .then((r) => r.json())
       .then(data => { // update locally w/ setPrescriptions
         setPrescriptions(prevPrescriptions => [...prevPrescriptions, data.prescription]);
-        console.log(prescriptions);
-        console.log(data.prescription);
+        setMedications(prevMeds => [...prevMeds, data.prescription.medication]);
       }) // can check created object
       .catch(error => {
         console.log(error.name + ": " + error.message);
         throw error; // or return error message?
       });
+    // PROBLEM: Medications not updated
   } // end function handleNewPrescription
 
   return (
