@@ -120,7 +120,6 @@ function App() {
         console.log(error.name + ": " + error.message);
         throw error; // or return error message?
       });
-    // PROBLEM: Medications not updated
   } // end function handleNewPrescription
 
   return (
