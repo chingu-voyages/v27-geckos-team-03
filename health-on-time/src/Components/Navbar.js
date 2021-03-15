@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+//import { NavLink } from "react-router-dom";
 import * as ReactBootStrap from "react-bootstrap";
 
 const Navbar = ({ loggedIn, handleLogout }) => {
@@ -11,11 +11,13 @@ const Navbar = ({ loggedIn, handleLogout }) => {
         bg="dark"
         variant="dark"
       >
-        <NavLink to="/" exact={true}>
+        {/* this results in warning for invalid DOM nesting: <a> cannot 
+        appear as a descendent of <a> Lewis */}
+        {/* <NavLink to="/" exact={true}> */}
           <ReactBootStrap.Navbar.Brand href="#home">
             Health on Time
           </ReactBootStrap.Navbar.Brand>
-        </NavLink>
+        {/* </NavLink> */}
         <ReactBootStrap.Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <ReactBootStrap.Navbar.Collapse id="responsive-navbar-nav">
           <ReactBootStrap.Nav className="mr-auto">
@@ -44,27 +46,23 @@ const Navbar = ({ loggedIn, handleLogout }) => {
             */}
           </ReactBootStrap.Nav>
           <ReactBootStrap.Nav>
-            <NavLink to="/" exact={true}>
+            {/*<NavLink to="/" exact={true}> */}
               <ReactBootStrap.Nav.Link href="#home">
                 Home
               </ReactBootStrap.Nav.Link>
-            </NavLink>
+            {/* </NavLink>  ANOTHER WARNING ISSUED HERE DUE TO <a> nested in an <a> - Lewis*/}
             {/*
             <ReactBootStrap.Nav.Link href="#about">
               About
             </ReactBootStrap.Nav.Link> */}
             {loggedIn ? (
-              <NavLink to="/" exact={true} onClick={handleLogout}>
-                <ReactBootStrap.Nav.Link eventKey={2} href="#">
+                <ReactBootStrap.Nav.Link eventKey={2} href="#" onClick={handleLogout}>
                   Logout
                 </ReactBootStrap.Nav.Link>
-              </NavLink>
             ) : (
-              <NavLink to="/signup" exact={true}>
                 <ReactBootStrap.Nav.Link eventKey={2} href="#signup">
                   Signup
                 </ReactBootStrap.Nav.Link>
-              </NavLink>
             )}
           </ReactBootStrap.Nav>
         </ReactBootStrap.Navbar.Collapse>

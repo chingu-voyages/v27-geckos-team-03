@@ -1,19 +1,29 @@
 import React from "react";
 import { Button, Card, CardDeck } from "react-bootstrap";
+import { fixCapitalization } from "./MedScheduler/helpers"
 
-const MedicationCard = ({ medications }) => {
+const MedicationCard = ({ medications, setchosenmed, setprescriptionexistsflag }) => {
+
   return (
-    <div>
+    <div className="text-center">
       <CardDeck>
         {medications.map((medication) => (
-          <Card key={medication.appNumber}>
+          <Card style={{ minWidth: 225, maxWidth: 300 }} key={medication.appNumber}>
             <Card.Body>
-              <Card.Title>{medication.brandName}</Card.Title>
-              <Card.Subtitle className="mb-2 text-muted">
-                {medication.manifacturer}
-              </Card.Subtitle>
-              <Card.Text>FDA-No: {medication.appNumber}</Card.Text>
-              <Button>Add</Button>
+               
+              <Card.Title>{fixCapitalization(medication.brandName)}</Card.Title>
+              { (medication.manifacturer && medication.appNumber) ?
+                <>
+                  <Card.Subtitle className="mb-1 text-muted">
+                    {medication.manifacturer}
+                  </Card.Subtitle>
+                  <Card.Text>FDA-No: {medication.appNumber}</Card.Text>
+                  <Button onClick={() => { setchosenmed(medication); setprescriptionexistsflag(medication); }}>Add</Button>
+                </>
+                :
+                null
+
+              }
             </Card.Body>
           </Card>
         ))}
