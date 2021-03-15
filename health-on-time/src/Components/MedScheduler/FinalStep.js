@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Container, Row, Col, ListGroup, Button } from 'react-bootstrap';
 import { toTwelveHr, fixCapitalization, getDays, getDayNames, displayArray } from './helpers';
 import "../../Styles/MedScheduler.css";
+import { UserContext } from "../../Components/UserContext";
 
-function FinalStep({ prev, chosenMed, handleNewPrescription, existingPrescription, cancelOut, getState, token }) {
+function FinalStep({ prev, chosenMed, existingPrescription, cancelOut, getState }) {
   let medName = fixCapitalization(chosenMed.brandName);
   let fda_number = chosenMed.appNumber;
 
+  const {handleNewPrescription, token} = useContext(UserContext)
   let mon = getState('monday');
   let tues = getState('tuesday');
   let wed = getState('wednesday');
@@ -78,7 +80,6 @@ function FinalStep({ prev, chosenMed, handleNewPrescription, existingPrescriptio
       hours: hours,
       userToken: token
     };
-    // console.log(handleNewPrescription(newPrescriptionObj)); console log will be undefined bc async POST
     handleNewPrescription(newPrescriptionObj);
     // Now what though?
   }

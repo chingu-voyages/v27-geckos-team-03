@@ -36,8 +36,6 @@ export default function MedSchedulerMain(props) {
           chosenMed={props.chosenMed}
         />
         <Step component={FinalStep}
-          handleNewPrescription={props.handleNewPrescription}
-          token={props.token}
           cancelOut={props.cancelOut}
           existingPrescription={props.existingPrescription}
           chosenMed={props.chosenMed}

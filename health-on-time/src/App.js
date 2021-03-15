@@ -53,7 +53,7 @@ function App() {
     setPatients(user.patients);
     setPrescriptions(user.prescriptions);
     setMedications(user.medications);
-    // setToken(token);
+    setToken(token);
     setLoggedIn(true);
   };
 
@@ -61,6 +61,7 @@ function App() {
     localStorage.removeItem("token");
     setLoggedIn(false);
     setUser(null);
+    //setToken(null);
     history.push("/");
   };
 
@@ -131,9 +132,11 @@ function App() {
         <div className="display">
           <UserContext.Provider
             value={{
+              token,
               loggedIn,
               medications,
               deleteMedication,
+              handleNewPrescription,
               prescriptions,
               profile_pic,
               name,
