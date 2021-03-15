@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import SearchMedication from '../Components/SearchMedication';
 import { Container } from 'react-bootstrap';
 import MedSchedulerMain from '../Components/MedScheduler/MedSchedulerMain.js';
+import { UserContext } from "../Components/UserContext";
 
 
-
-const AddMedication = ({ handleNewPrescription, prescriptions, token }) => {
-  
+const AddMedication = () => {
+  const {prescriptions} = useContext(UserContext)
   const [chosenMed, setchosenmed] = useState(); // set method passed as prop down to Medication card
   
   const [existingPrescription, setExistingPrescription] = useState(null);
@@ -36,8 +36,6 @@ const AddMedication = ({ handleNewPrescription, prescriptions, token }) => {
             { existingPrescription === true ? <p>Warning: continuing will remove your existing schedule for {chosenMed.brandName}</p> : null}
             {/* existingPrescription === false ? <p>Existing prescription is false</p> : null */}
             <MedSchedulerMain
-              handleNewPrescription={handleNewPrescription}
-              token={token}
               cancelOut={cancelOut}
               chosenMed={chosenMed}
               existingPrescription={existingPrescription}

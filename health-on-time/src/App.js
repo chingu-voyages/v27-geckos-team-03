@@ -128,7 +128,9 @@ function App() {
       <Navbar loggedIn={loggedIn} handleLogout={handleLogout} />
       {/* <div id={loggedIn && "wrapper"}>  React complains/warns about recieving id=false} Lewis */}
       <div id={loggedIn ? "wrapper" : undefined}> 
-        {loggedIn && <Sidebar prescriptions={prescriptions} />}
+        {/* {loggedIn && <Sidebar prescriptions={prescriptions} />}  */}
+        {loggedIn && <Sidebar />}
+
         <div className="display">
           <UserContext.Provider
             value={{
