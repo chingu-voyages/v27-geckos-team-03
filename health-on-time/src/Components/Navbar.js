@@ -16,7 +16,7 @@ const HealthNavbar = ({ loggedIn, handleLogout }) => {
         <Navbar.Brand className="d-flex" as={Link} to="/">
             
           <div className="d-inline-block">
-            <img src="timer-graphics/red_timer_v1.png" style={{ width: "40px" }} />
+            <img src="timer-graphics/red_timer_v1.png" alt="logo" style={{ width: "40px" }} />
           </div>  
           <div className="d-inline-block ml-2 align-self-end" style={{ fontSize: "1.4rem", marginBottom: "0.19rem" }}>
             Health on Time
