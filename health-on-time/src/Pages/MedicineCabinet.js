@@ -65,20 +65,20 @@ function MedicineCabinet() {
               </Card>
             );
           })
-          
       );
-  }, [medications, deleteMedication]);
+    function printDays(med) {
+      //console.log(med);
+      let thePrescr = prescriptions.find(el => el.medication.id === med.id);
+      return (dayNamesFromMed(thePrescr.weekdays, true)).map(el => <span key={el}>{el} </span>)  
+    }
+    function printHours(med) {
+      let thePrescr = prescriptions.find(el => el.medication.id === med.id);
+      return thePrescr.hours.map((hr, i) => <span className="d-block" key={hr + '.' + i}>{toTwelveHr(hr)} </span>)
+    }
+  }, [medications, deleteMedication, prescriptions]);
 
   
-  function printDays(med) {
-    //console.log(med);
-    let thePrescr = prescriptions.find(el => el.medication.id === med.id);
-    return (dayNamesFromMed(thePrescr.weekdays, true)).map(el => <span key={el}>{el} </span>)  
-  }
-  function printHours(med) {
-    let thePrescr = prescriptions.find(el => el.medication.id === med.id);
-    return thePrescr.hours.map((hr, i) => <span className="d-block" key={hr + '.' + i}>{toTwelveHr(hr)} </span>)
-  }
+  
 
   return (
     <div className="container">
