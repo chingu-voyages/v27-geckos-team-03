@@ -47,7 +47,7 @@ function getDayNames(everyDay,mon,tues,wed,thur,fri,sat,sun) {
 // wArr: weekdays array from prescription object (Example: [0,4,6])
 // short: boolean signifying whether you want abbreviations or not
 function dayNamesFromMed(wArr, short) {
-    return wArr.map(el => {
+    let res = wArr.map(el => {
         switch (parseInt(el)) {
             case 0: return (short ? "Mon" : "Monday"); 
             case 1: return (short ? "Tues" : "Tuesday");
@@ -59,6 +59,7 @@ function dayNamesFromMed(wArr, short) {
             default: return null;
         }
     })
+    console.log(res);
 }
 
 function displayArray(arr) {

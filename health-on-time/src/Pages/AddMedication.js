@@ -35,6 +35,7 @@ const AddMedication = () => {
           <>
             { existingPrescription === true ? <p>Warning: continuing will remove your existing schedule for {chosenMed.brandName}</p> : null}
             {/* existingPrescription === false ? <p>Existing prescription is false</p> : null */}
+            
             <MedSchedulerMain
               cancelOut={cancelOut}
               chosenMed={chosenMed}
