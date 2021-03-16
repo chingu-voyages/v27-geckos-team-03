@@ -7,13 +7,13 @@ import { Link } from "react-router-dom";
 const LandingPage = () => {
   return (
     <div className="App">
-      <main className="mt-3">
+      <main className="mt-3 container">
         <div>
           <div className="col logo-column mb-5">
             <img src="Health_on_time_logo.png" className="pl-4 pr-5 img-fluid" alt="Health on Time logo"/>
           </div>
         </div>
-        <img alt="hero" className="hero" src="/hero.jpg" />
+        <img alt="hero" className="hero img-fluid" src="/hero.jpg" />
         <Jumbotron className="jumbtron">
           <p>
             COVID has made it difficult to care of those we love, so we created
@@ -29,34 +29,34 @@ const LandingPage = () => {
             </Link>
           </p>
         </Jumbotron>
-        <h1>Why Choose Us ?</h1>
+        <h1 style={{marginBottom: "1.8rem"}}>Why Choose Us ?</h1>
         <CardDeck>
-          <Card>
-            <Card.Img variant="top" src="/planning.jpg" />
-            <Card.Body>
+          <Card style={{ minWidth: "12rem" }}>
+            <Card.Img variant="top" className="img-fluid" src="/planning-cc4.0-piqsels.com.jpg" />
+            <Card.Body style={{paddingBottom: "0px"}} >
               <Card.Title>Stay Organized</Card.Title>
-              <Card.Text>
+              <Card.Text className="card-text-landing">
                 This is a wider card with supporting text below as a natural
                 lead-in to additional content. This content is a little bit
                 longer.
               </Card.Text>
             </Card.Body>
           </Card>
-          <Card>
-            <Card.Img variant="top" src="/holdhands.jpg" />
-            <Card.Body>
+          <Card style={{ minWidth: "12rem" }}>
+            <Card.Img variant="top" className="img-fluid" src="/holdhands2.jpg" />
+            <Card.Body style={{paddingBottom: "0px"}}>
               <Card.Title>Hold one another accountable</Card.Title>
-              <Card.Text>
+              <Card.Text className="card-text-landing">
                 This card has supporting text below as a natural lead-in to
                 additional content.{" "}
               </Card.Text>
             </Card.Body>
           </Card>
-          <Card>
-            <Card.Img variant="top" src="/ontime.jpg" />
-            <Card.Body>
+          <Card style={{ minWidth: "12rem" }}>
+            <Card.Img variant="top" className="img-fluid" src="/ontime.jpg" />
+            <Card.Body style={{paddingBottom: "0px"}}>
               <Card.Title>Stay on time</Card.Title>
-              <Card.Text>
+              <Card.Text className="card-text-landing">
                 This is a wider card with supporting text below as a natural
                 lead-in to additional content. This card has even longer content
                 than the first to show that equal height action.

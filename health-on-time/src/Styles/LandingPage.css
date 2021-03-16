@@ -25,3 +25,7 @@ main {
   main button {
     margin: 1rem 0 0 1rem;
   }
+
+  .card-text-landing{
+    padding-bottom: 0px;
+  }
