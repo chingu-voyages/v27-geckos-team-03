@@ -1,57 +1,46 @@
 import React from "react";
 //import { NavLink } from "react-router-dom";
-import * as ReactBootStrap from "react-bootstrap";
-import { LinkContainer } from 'react-router-bootstrap'
+import {Navbar, Nav} from "react-bootstrap";
+import { Link } from 'react-router-dom';
 
-const Navbar = ({ loggedIn, handleLogout }) => {
+const HealthNavbar = ({ loggedIn, handleLogout }) => {
 
   return (
     <div className="Navbar">
-      <ReactBootStrap.Navbar
+      <Navbar
         collapseOnSelect
         expand="sm"
         bg="dark"
         variant="dark"
       >
-        <LinkContainer to="/">
-          <ReactBootStrap.Navbar.Brand>
+        <Navbar.Brand as={Link} to="/">
             Health on Time
-          </ReactBootStrap.Navbar.Brand>
-        </LinkContainer>
-        <ReactBootStrap.Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <ReactBootStrap.Navbar.Collapse id="responsive-navbar-nav">
-          <ReactBootStrap.Nav className="mr-auto">
-          </ReactBootStrap.Nav>
-          <ReactBootStrap.Nav>
-            <LinkContainer to="/">
-              <ReactBootStrap.Nav.Link eventKey={'0'} href="/">
-                Home
-              </ReactBootStrap.Nav.Link>
-            </LinkContainer>
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="mr-auto">
+          </Nav>
+          <Nav defaultActiveKey={'/'}>
+            <Nav.Link as={Link} to="/" eventKey={'/'}>Home</Nav.Link>
             {loggedIn ? (
-              <ReactBootStrap.Nav.Link eventKey={'home'} href="#" onClick={handleLogout}>
+              <Nav.Link as={Link} to="/" eventKey={'logout'} onClick={handleLogout}>
                   Logout
-                </ReactBootStrap.Nav.Link>
+              </Nav.Link>
             ) : (
                 <>
-                <LinkContainer to="login">
-                  <ReactBootStrap.Nav.Link eventKey={'login'}>
+                  <Nav.Link as={Link} to="/login" eventKey={'login'}>
                     Login
-                  </ReactBootStrap.Nav.Link>
-                </LinkContainer>
-
-                <LinkContainer to="/signup">
-                  <ReactBootStrap.Nav.Link eventKey={'signup'}>
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/signup" eventKey={'signup'}>
                     Sign up
-                  </ReactBootStrap.Nav.Link>
-                </LinkContainer>
+                  </Nav.Link>
                 </>
             )}
-          </ReactBootStrap.Nav>
-        </ReactBootStrap.Navbar.Collapse>
-      </ReactBootStrap.Navbar>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
     </div>
   );
 };
 
-export default Navbar;
+export default HealthNavbar;
