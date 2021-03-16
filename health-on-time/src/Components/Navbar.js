@@ -18,7 +18,7 @@ const HealthNavbar = ({ loggedIn, handleLogout }) => {
           <div className="d-inline-block">
             <img src="timer-graphics/red_timer_v1.png" alt="logo" style={{ width: "40px" }} />
           </div>  
-          <div className="d-inline-block ml-2 align-self-end" style={{ fontSize: "1.4rem", marginBottom: "0.19rem" }}>
+          <div className="d-inline-block ml-2 align-self-end" style={{ fontSize: "1.45rem", marginBottom: "0.08rem" }}>
             Health on Time
           </div>
             
