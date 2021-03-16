@@ -7,7 +7,12 @@ import { Link } from "react-router-dom";
 const LandingPage = () => {
   return (
     <div className="App">
-      <main>
+      <main className="mt-3">
+        <div>
+          <div className="col logo-column mb-5">
+            <img src="Health_on_time_logo.png" className="pl-4 pr-5 img-fluid" alt="Health on Time logo"/>
+          </div>
+        </div>
         <img alt="hero" className="hero" src="/hero.jpg" />
         <Jumbotron className="jumbtron">
           <p>
