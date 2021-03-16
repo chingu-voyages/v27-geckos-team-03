@@ -29,7 +29,8 @@ function getDays(everyDay,mon,tues,wed,thur,fri,sat,sun) {
     return days;
 }
 
-// Return array of string names of chosen days from booleans
+// Return array of string names of chosen days from booleans 
+// Used in Add Medicine form
 function getDayNames(everyDay,mon,tues,wed,thur,fri,sat,sun) {
   if (everyDay) return ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   let dayNames = [];
@@ -43,6 +44,23 @@ function getDayNames(everyDay,mon,tues,wed,thur,fri,sat,sun) {
   return dayNames;
 }
 
+// wArr: weekdays array from prescription object (Example: [0,4,6])
+// short: boolean signifying whether you want abbreviations or not
+function dayNamesFromMed(wArr, short) {
+    return wArr.map(el => {
+        switch (parseInt(el)) {
+            case 0: return (short ? "Mon" : "Monday"); 
+            case 1: return (short ? "Tues" : "Tuesday");
+            case 2: return (short ? "Wed" : "Wednesday");
+            case 3: return (short ? "Thur" : "Thursday"); 
+            case 4: return (short ? "Fri" : "Friday");
+            case 5: return (short ? "Sat" : "Saturday");
+            case 6: return (short ? "Sun" : "Sunday");
+            default: return null;
+        }
+    })
+}
+
 function displayArray(arr) {
     let myMap = arr.map((el, index, arr) => {
         let myKey = index + '.' + el;
@@ -54,5 +72,5 @@ function displayArray(arr) {
     return myMap;
 }
 
-export { toTwelveHr, fixCapitalization, getDays, getDayNames, displayArray }
+export { toTwelveHr, fixCapitalization, getDays, getDayNames, displayArray, dayNamesFromMed }
 
