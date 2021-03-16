@@ -144,7 +144,8 @@ function App() {
             }}
           >
             <Switch>
-              <PublicRoute path="/" children={HomePage} exact />
+              {/* changed from just exact to exact={true} to get navbar active link styling */}
+              <PublicRoute path="/" children={HomePage} exact={true} />
               <PublicRoute path="/login" children={Login} />
               <PublicRoute path="/signup" children={Register} />
               <PrivateRoute path="/dashboard" children={DashboardPage} />
