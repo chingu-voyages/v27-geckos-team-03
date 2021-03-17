@@ -9,9 +9,10 @@ import "../../Styles/MedScheduler.css"
 export default function Step2(props){
 
     const [modalShow, setModalShow] = React.useState(false);
-    //const theMedName = props.getState('medNameQ');
-    //const theDay = "Monday";
 
+    /*if (props.existingPrescription)
+        props.setState('theTimes', props.existingPrescription.hours);
+    */
     // timeValue: a 13 digit timestamp obtained from TimePicker
     const [timeValue, setTimeValue] = useState("");
 
@@ -29,26 +30,25 @@ export default function Step2(props){
      * Event listener for the timepicker
      *///////////////////////////////////////////////////////////////////////
     const addTime = () => {
-        if (timeValue === "") 
+        if (timeValue === "")
             return; // if user clicked "Add time" before choosing a time, just ignore
 
         const hrToAdd = retrieveHour(timeValue); // extract the hour
 
-        let currentTimes = props.getState('theTimes');
-
-        if (!currentTimes) { // If theTimes not yet initialized, just add hrToAdd
-            props.setState('theTimes', [hrToAdd]);
+        // If theTimes not yet initialized, just add hrToAdd
+        if (!props.theHoursX || props.theHoursX.length === 0) {
+            props.setTheHoursX([hrToAdd]);
         }
-       
-        /* If mondayTimes already exists and it doesn't already have that time, then add */
-        if ((currentTimes) && (!currentTimes.includes(hrToAdd))) {
-            let newTimes = [...currentTimes, hrToAdd].sort((a, b) => a - b);
-            props.setState('theTimes', newTimes);
+            
+        /* If theTimes already exists and it doesn't already have that time, then add */
+        if ((props.theHoursX) && (!props.theHoursX.includes(hrToAdd))) {
+            let newTimes = [...props.theHoursX, hrToAdd].sort((a, b) => a - b);
+            props.setTheHoursX(newTimes);
         }
     } // end function addTime
 
     function timesList() {
-        if (!props.getState('theTimes'))
+        if (!props.theHoursX)
             return null;
         
         return (
@@ -60,7 +60,7 @@ export default function Step2(props){
                                 <span style={{ fontSize: "1.1rem" }} className="text-light"><b>Your doses of {fixCapitalization(props.chosenMed.brandName)} will be taken at: </b></span>
                             </div>
                             <div className="d-flex flex-wrap justify-content-around">
-                                {props.getState('theTimes').map((time, index) => 
+                                {props.theHoursX.map((time, index) => 
                                     <p style={{fontSize: "1.4rem"}}><span className={"badge mx-1 badge-secondary"} key={{ time } + '.' + index}>
                                         {toTwelveHr(time)}
                                     </span></p>
@@ -103,7 +103,7 @@ export default function Step2(props){
                             <Row>
                                 <Col>
                                     <Button className={"mb-2"} onClick={addTime} block>Add to schedule</Button>
-                                    <Button variant={"danger"} block onClick={() => props.setState('theTimes', [])}>Clear stored values</Button>
+                                    <Button variant={"danger"} block onClick={() => props.setTheHoursX([])}>Clear stored values</Button>
                                 </Col>
                             </Row>
 
@@ -138,7 +138,7 @@ export default function Step2(props){
             </Row>
             <Row className={'mt-3'}>
                 <Col className="text-center">
-                    <Button variant={'danger'} onClick={props.cancelOut}>Cancel</Button>
+                    <Button variant={'danger'} onClick={props.cancelout}>Cancel</Button>
                 </Col>
                 <Col className="text-center">
                     <Button onClick={props.prev}>Previous</Button>
@@ -157,10 +157,10 @@ export default function Step2(props){
 
     // Check that user actually set some times to state
     function validate() {
-        const currTimes = props.getState('theTimes');
+        //const currTimes = props.getState('theTimes');
         /*if (!currMondayTimes || currMondayTimes.length === 0) {
         }*/
-        (currTimes && currTimes.length > 0) ?
+        (props.theHoursX && props.theHoursX.length > 0) ?
             (function () {
                 props.next();
             })()

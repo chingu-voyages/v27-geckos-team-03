@@ -4,11 +4,14 @@ import { toTwelveHr, fixCapitalization, getDays, getDayNames, displayArray } fro
 import "../../Styles/MedScheduler.css";
 import { UserContext } from "../../Components/UserContext";
 
-function FinalStep({ prev, chosenMed, existingPrescription, cancelOut, getState }) {
+function FinalStep({ monX, tueX, wedX, thuX, friX, satX, sunX, everyX, theHoursX, prev, chosenMed, existingPrescription, deleteMedication, cancelout, getState }) {
   let medName = fixCapitalization(chosenMed.brandName);
   let fda_number = chosenMed.appNumber;
 
-  const {handleNewPrescription, token} = useContext(UserContext)
+  console.log("Entering FinalStep: ");
+  
+  const { handleNewPrescription, token } = useContext(UserContext);
+  /*
   let mon = getState('monday');
   let tues = getState('tuesday');
   let wed = getState('wednesday');
@@ -17,10 +20,14 @@ function FinalStep({ prev, chosenMed, existingPrescription, cancelOut, getState 
   let sat = getState('saturday');
   let sun = getState('sunday');
   let every = getState('everyday');
+  */
+  console.log("[every, m-f]: ", everyX, monX, tueX, wedX, thuX, friX, satX, sunX);
 
-  let hours = getState('theTimes');
-  let weekdays = getDays(every, mon, tues, wed, thur, fri, sat, sun);
-  let dayNames = getDayNames(every, mon, tues, wed, thur, fri, sat, sun);
+  let hours = theHoursX;
+  console.log('hours: ' + hours);
+  
+  let weekdays = getDays(everyX, monX, tueX, wedX, thuX, friX, satX, sunX);
+  let dayNames = getDayNames(everyX, monX, tueX, wedX, thuX, friX, satX, sunX);
 
   return (
     <div>
@@ -31,7 +38,7 @@ function FinalStep({ prev, chosenMed, existingPrescription, cancelOut, getState 
             <div className={"py-2 px-4 mb-4 rounded timeDisplay"} style={{ backgroundColor: "#39C0ED" }}>
               <p className={"mt-2"}>{medName} will be scheduled at the following times for these days of the week: <b>{displayArray(dayNames)}</b></p>
               <ListGroup horizontal={"sm"} className="my-2 justify-content-center">
-                {getState('theTimes').map((time, index) =>
+                {theHoursX.map((time, index) =>
                   <ListGroup.Item className={"ml-2 mr-2 mb-2"} variant={'secondary'} key={{ time } + '.' + index}>
                     {toTwelveHr(time)}
                   </ListGroup.Item>
@@ -42,7 +49,7 @@ function FinalStep({ prev, chosenMed, existingPrescription, cancelOut, getState 
         </Row>
         <Row className={'mt-4'}>
           <Col className="text-center">
-            <Button variant={'danger'} onClick={cancelOut}>Cancel</Button>
+            <Button variant={'danger'} onClick={cancelout}>Cancel</Button>
           </Col>
           <Col className="text-center">
             <Button onClick={prev}>Previous</Button>
@@ -72,6 +79,10 @@ function FinalStep({ prev, chosenMed, existingPrescription, cancelOut, getState 
   );
 
   function finish() {
+    if (existingPrescription) {
+      deleteMedication(existingPrescription.medication.id);
+    }
+    
     let newPrescriptionObj = {
       medName: medName,
       fda_number: fda_number,

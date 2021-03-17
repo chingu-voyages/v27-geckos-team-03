@@ -28,6 +28,17 @@ function getDays(everyDay,mon,tues,wed,thur,fri,sat,sun) {
     if (sun) days.push(6);
     return days;
 }
+// Get array of booleans for each day of the week
+// Example input: [0, 2]. Example output: [true, false, true, false, false...]
+function getBoolsFromDays(weekdaysArr) {
+    let results = [];
+    for (let i = 0; i < 7; i++){
+        if (weekdaysArr.includes(i))
+            results[i] = true;
+        else results[i] = false;
+    }
+    return results;
+}
 
 // Return array of string names of chosen days from booleans 
 // Used in Add Medicine form
@@ -60,6 +71,7 @@ function dayNamesFromMed(wArr, short) {
         }
     })
     console.log(res);
+    return res;
 }
 
 function displayArray(arr) {
@@ -73,5 +85,5 @@ function displayArray(arr) {
     return myMap;
 }
 
-export { toTwelveHr, fixCapitalization, getDays, getDayNames, displayArray, dayNamesFromMed }
+export { getBoolsFromDays, toTwelveHr, fixCapitalization, getDays, getDayNames, displayArray, dayNamesFromMed }
 
