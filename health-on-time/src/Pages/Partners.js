@@ -1,22 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Card, CardColumns, CardDeck } from "react-bootstrap";
+import { UserContext } from "../Components/UserContext";
 
-const AccountabilityPartners = ({ partners, patients }) => {
+const AccountabilityPartners = () => {
+  const { partners, patients } = useContext(UserContext);
   const [partnerCards, setPartnerCards] = useState([]);
   const [patientCards, setPatientCards] = useState([]);
-  // function turnPartnerToCards(arrayOfObjects) {
-  //   arrayOfObjects.map((person) => {
-  //     return (
-  //       <Card key={person.id}>
-  //         <Card.Img variant="top" src={person.profile_pic} />
-  //         <Card.Body>
-  //           <Card.Title>{person.name}</Card.Title>
-  //           {/* <Card.Text>{person.description}</Card.Text> */}
-  //         </Card.Body>
-  //       </Card>
-  //     );
-  //   });
-  // }
+
   useEffect(() => {
     if (partners && patients) {
       setPartnerCards(

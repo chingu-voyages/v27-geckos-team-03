@@ -37,8 +37,8 @@ function App() {
   const [medications, setMedications] = useState(null);
 
   let history = useHistory();
-  const BASE_URL = "http://localhost:3000/";
-  // const BASE_URL = "https://health-on-time-api.herokuapp.com/";
+  // const BASE_URL = "http://localhost:3000/";
+  const BASE_URL = "https://health-on-time-api.herokuapp.com/";
   const handleLogin = (data) => {
     const { user, token } = data;
     console.log(user);
@@ -93,12 +93,14 @@ function App() {
     })
       .then((r) => r.json())
       .then((deletedMedication) => {
-        setMedications(prevMeds => {
-          return prevMeds.filter(med => med.id !== medicationID);
-        })
-        setPrescriptions(prevPrescriptions => {
-          return prevPrescriptions.filter(prescr => prescr.medication.id !== medicationID);
-        })
+        setMedications((prevMeds) => {
+          return prevMeds.filter((med) => med.id !== medicationID);
+        });
+        setPrescriptions((prevPrescriptions) => {
+          return prevPrescriptions.filter(
+            (prescr) => prescr.medication.id !== medicationID
+          );
+        });
       });
   };
 
@@ -112,22 +114,30 @@ function App() {
       body: JSON.stringify(newPrescriptionObj),
     })
       .then((r) => r.json())
-      .then(data => { // update locally w/ setPrescriptions
-        setPrescriptions(prevPrescriptions => [...prevPrescriptions, data.prescription]);
-        setMedications(prevMeds => [...prevMeds, data.prescription.medication]);
+      .then((data) => {
+        // update locally w/ setPrescriptions
+        setPrescriptions((prevPrescriptions) => [
+          ...prevPrescriptions,
+          data.prescription,
+        ]);
+        setMedications((prevMeds) => [
+          ...prevMeds,
+          data.prescription.medication,
+        ]);
       }) // can check created object
-      .catch(error => {
+      .catch((error) => {
         console.log(error.name + ": " + error.message);
         throw error; // or return error message?
       });
-  } // end function handleNewPrescription
+  }; // end function handleNewPrescription
 
   return (
     <div className="main-container">
       <Navbar loggedIn={loggedIn} handleLogout={handleLogout} />
-      <div id={loggedIn ? "wrapper" : "no-wrapper"}> {/* If not logged in, don't apply wrapper style */}
+      <div id={loggedIn ? "wrapper" : "no-wrapper"}>
+        {" "}
+        {/* If not logged in, don't apply wrapper style */}
         {loggedIn && <Sidebar />} {/* If not logged in, don't show sidebar */}
-
         <div className="display">
           <UserContext.Provider
             value={{
@@ -141,6 +151,8 @@ function App() {
               name,
               handleLogin,
               BASE_URL,
+              partners,
+              patients,
             }}
           >
             <Switch>
@@ -159,7 +171,9 @@ function App() {
           </UserContext.Provider>
         </div>
       </div>
-      <div style={{marginBottom: "100px"}}><img src="/spacer.gif" alt="spacer" /></div>
+      <div style={{ marginBottom: "100px" }}>
+        <img src="/spacer.gif" alt="spacer" />
+      </div>
       <Footer />
     </div>
   );
