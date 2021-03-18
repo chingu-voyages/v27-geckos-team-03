@@ -15,11 +15,17 @@ import Step2 from './Step2';
 import FinalStep from "./FinalStep"; // Confirm or back
 
 export default function MedSchedulerMain(props) {
+
   const exPres = props.existingPrescription;
+  console.log("19:MedSchedulerMain  props.existingPrescription: " + props.existingPrescription);
+  
+  // exDays: array of length 7 with booleans for each day of the week. Populated with
+  // trues for existing prescription days or to false for unset days 
   const exDays = exPres ?
     getBoolsFromDays(exPres.weekdays)
     :
     Array(7).fill(false);
+  
   
   const [monX, setMonX] = useState(exDays[0]);
   const [tueX, setTueX] = useState(exDays[1]);
@@ -34,13 +40,31 @@ export default function MedSchedulerMain(props) {
     exPres.hours
     :
     [];
-  const [theHoursX, setTheHoursX] = useState(someHours);
-
+  
+  const [theHoursX, setTheHoursX] = useState(someHours); // init state of theHoursX
   const every = monX && tueX && wedX && thuX && friX && satX && sunX;
-  const [everyX, setEveryX] = useState(every);
-  if (every === true) console.log("40 MedSchedulerMain every is true")
-  else console.log("41 MedSchedulerMain every is false")  
+  
+  if (every === true) console.log("40 MedSchedulerMain every is true") // CAN BE REMOVED
+  else console.log("41 MedSchedulerMain every is false") 
 
+  const [everyX, setEveryX] = useState(every); // init state everyX
+
+  // onChange handler for input checkbox "Every day" checkbox name: everyX)
+  const onChangeEveryX = () => {
+    const setAllDays = (bool) => {
+      setMonX(bool); setTueX(bool); setWedX(bool); setThuX(bool); 
+      setFriX(bool); setSatX(bool); setSunX(bool);
+    }
+    if (everyX === false) {
+      setEveryX(true);
+      setAllDays(true);
+    }
+    else {
+        setEveryX(false);
+        setAllDays(false);
+    }
+  }
+    
   return (
     <div className="mainFormDiv">
       <Steps>
@@ -52,8 +76,9 @@ export default function MedSchedulerMain(props) {
           friX={friX} setFriX={setFriX}
           satX={satX} setSatX={setSatX}
           sunX={sunX} setSunX={setSunX}
-          everyX={everyX} setEveryX={setEveryX}
-          
+          everyX={everyX}
+          onChangeEveryX={onChangeEveryX}
+        
           cancelout={props.cancelout}
           existingPrescription={props.existingPrescription}
           chosenMed={props.chosenMed}

@@ -1,16 +1,17 @@
 import React, { useState, useContext } from "react";
 import SearchMedication from '../Components/SearchMedication';
-import { Container } from 'react-bootstrap';
+import { Container, Alert } from 'react-bootstrap';
 import MedSchedulerMain from '../Components/MedScheduler/MedSchedulerMain.js';
 import { UserContext } from "../Components/UserContext";
 
+const AddMedication = ({ pageTitle }) => {
 
-const AddMedication = () => {
-  const {prescriptions} = useContext(UserContext)
-  const [chosenMed, setchosenmed] = useState(); // set method passed as prop down to Medication card
-  const [existingPrescription, setExistingPrescription] = useState();
+  const { prescriptions } = useContext(UserContext); // prescriptions: the user's prescriptions []
+  const [chosenMed, setchosenmed] = useState(); // chosenMed: med object chosen by search "Add" button
+  const [existingPrescription, setExistingPrescription] = useState(); // existingPrescription object
   const { deleteMedication } = useContext(UserContext);
 
+  // Reset the "Add med" process
   function cancelout() {
     setchosenmed(null);
     setExistingPrescription(null);
@@ -19,16 +20,17 @@ const AddMedication = () => {
   // this passed as prop all the way down to MedicationCard. When Med Card's onclick is triggered, 
   // run this to check for existing prescription and if so set state here.
   // After this function, existingPrescription is set to existing prescription object or undefined 
-  function checkprescriptionexists(medication){
+  function checkprescriptionexists(medication) {
+    console.dir(medication);
     let result = prescriptions.find(pres => pres.medication.fda_number === medication.appNumber) 
     setExistingPrescription(result); 
-    console.log("24 AddMedication - Setting existingPrescription :" + result);
+    console.log("24:AddMedication - Setting existingPrescription :" + result);
   }
 
   return (
     <div>
       <Container>
-        <h1 className={"text-center"}>Add Medications</h1>
+        <h1 className={"text-center"}>Add Medication</h1>
         
         {/* If user clicks "Add" button on a search result, then chosenMed is set */}
         {chosenMed ?
@@ -36,7 +38,9 @@ const AddMedication = () => {
             {
               existingPrescription ?
                 <div className="px-4">
-                  <h6 mt-2>We've found an existing HealthOnTime schedule for {chosenMed.brandName}. You can edit the schedule now if you wish.</h6>
+                  {console.log("41:AddMedication existingPrescription: " + String(existingPrescription))}
+                  {/* <h6 className="mt-2">We've found an existing HealthOnTime schedule for {chosenMed.brandName}. You can edit the schedule now if you wish.</h6>*/}
+                  <Alert variant={"danger"}>Attention! An existing HealthOnTime schedule was found for {chosenMed.brandName}. You can edit your schedule below. Or you can find the medication in your <a href="/medicine">Medicine Cabinet</a></Alert>
                 </div>
                 :
                 null

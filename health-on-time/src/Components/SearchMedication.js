@@ -3,7 +3,7 @@ import SearchBox from "./SearchBox";
 import MedicationCard from "./MedicationCard";
 import { Container, Col, Row } from 'react-bootstrap';
 
-const SearchMedication = ({ setchosenmed, setprescriptionexistsflag }) => {
+const SearchMedication = ({ setchosenmed, checkprescriptionexists }) => {
 
   
   
@@ -58,7 +58,7 @@ const SearchMedication = ({ setchosenmed, setprescriptionexistsflag }) => {
   // Passing input value
   // Added check for blank because it needed it - Lewis
   useEffect(() => {
-    if(searchValue !== '') 
+    if(searchValue !== '' && searchValue != null) 
       getFDARequest(searchValue);
   }, [searchValue]);
 
@@ -71,7 +71,15 @@ const SearchMedication = ({ setchosenmed, setprescriptionexistsflag }) => {
       </Row>
       <Row>
         <Col className="d-flex justify-content-center">
-          <MedicationCard medications={medications} setchosenmed={setchosenmed} setprescriptionexistsflag={setprescriptionexistsflag} />
+          { searchValue ? 
+              <MedicationCard
+                medications={medications}
+                setchosenmed={setchosenmed}
+                checkprescriptionexists={checkprescriptionexists}
+              />
+            :
+              null
+          }
         </Col>
       </Row>
     </Container>

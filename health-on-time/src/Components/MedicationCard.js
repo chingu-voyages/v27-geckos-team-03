@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Card, CardDeck } from "react-bootstrap";
 import { fixCapitalization } from "./MedScheduler/helpers"
 
-const MedicationCard = ({ medications, setchosenmed, setprescriptionexistsflag }) => {
+const MedicationCard = ({ medications, setchosenmed, checkprescriptionexists }) => {
 
   return (
     <div className="text-center">
@@ -18,7 +18,11 @@ const MedicationCard = ({ medications, setchosenmed, setprescriptionexistsflag }
                     {medication.manifacturer}
                   </Card.Subtitle>
                   <Card.Text>FDA-No: {medication.appNumber}</Card.Text>
-                  <Button onClick={() => { setchosenmed(medication); setprescriptionexistsflag(medication); }}>Add</Button>
+                  <Button onClick={() => {
+                    setchosenmed(medication);
+                    checkprescriptionexists(medication);
+                  }}>Add</Button>
+
                 </>
                 :
                 null

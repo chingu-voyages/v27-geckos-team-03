@@ -5,11 +5,14 @@ import { TimePicker } from "antd";
 import { Row, Col, Button, Container, Modal, ListGroup, Card } from 'react-bootstrap';
 import { fixCapitalization, toTwelveHr } from "./helpers"
 import "../../Styles/MedScheduler.css"
+import { getDayNames, displayArray } from './helpers';
 
-export default function Step2(props){
+export default function Step2(props) {
 
     const [modalShow, setModalShow] = React.useState(false);
-
+    const { chosenMed, everyX, monX, tueX, wedX, thuX, friX, satX, sunX } = props;
+    const dayNames = getDayNames(everyX, monX, tueX, wedX, thuX, friX, satX, sunX);
+        
     /*if (props.existingPrescription)
         props.setState('theTimes', props.existingPrescription.hours);
     */
@@ -48,22 +51,34 @@ export default function Step2(props){
     } // end function addTime
 
     function timesList() {
-        if (!props.theHoursX)
+        if (!props.theHoursX) // If no times set
             return null;
-        
+        const medName = fixCapitalization(chosenMed.brandName);
+
         return (
             <Container>
                 <Row>
                     <Col>
                         <div className={"pt-2 pb-0 px-4 mb-4 rounded timeDisplay"} style={{ backgroundColor: "#39C0ED" }}>
                             <div className="mb-2 text-center">
-                                <span style={{ fontSize: "1.1rem" }} className="text-light"><b>Your doses of {fixCapitalization(props.chosenMed.brandName)} will be taken at: </b></span>
+                                <p className={"mt-1 text-light"} style={{ fontSize: "1.3rem" }}><b>{medName}</b> will be scheduled for the following days:</p>
+                                <b><span style={{ fontSize: "1rem" }} className="text-dark">{displayArray(dayNames)}</span></b>
+                                <div>
+                                    {props.theHoursX && props.theHoursX.length !== 0 ?
+                                        <p className="mt-3">
+                                            <span style={{ fontSize: "1.1rem" }} className="text-light"><b>at the following times: </b></span>
+                                        </p>
+                                        :
+                                        null    
+                                    }
+                                </div>
                             </div>
-                            <div className="d-flex flex-wrap justify-content-around">
+                                
+                            <div className="d-flex pb-2 flex-wrap justify-content-around">
                                 {props.theHoursX.map((time, index) => 
-                                    <p style={{fontSize: "1.4rem"}}><span className={"badge mx-1 badge-secondary"} key={{ time } + '.' + index}>
-                                        {toTwelveHr(time)}
-                                    </span></p>
+                                    <div key={{ time } + '.' + index} style={{ fontSize: "1.4rem" }}>
+                                        <span className={"badge mx-1 badge-secondary"}>{toTwelveHr(time)}</span>
+                                    </div>
                                 )}
                             </div>
                         </div>
@@ -125,7 +140,6 @@ export default function Step2(props){
                         <ListGroup.Item>
                             When you are done entering the times for <b>{fixCapitalization(props.chosenMed.brandName)}</b>, click "Proceed" at the bottom to finish.
                         </ListGroup.Item>
-
                     </ListGroup>
                 </Col>
             </Row>
