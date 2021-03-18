@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from "react";
-import { Container, Row, Col, ListGroup, Button, Modal } from 'react-bootstrap';
+import React, { useContext } from "react";
+import { Container, Row, Col, Button, Modal } from 'react-bootstrap';
 import { toTwelveHr, fixCapitalization, getDays, getDayNames, displayArray } from './helpers';
 import "../../Styles/MedScheduler.css";
 import { UserContext } from "../../Components/UserContext";
@@ -16,16 +16,6 @@ function FinalStep({ monX, tueX, wedX, thuX, friX, satX, sunX, everyX, theHoursX
   console.log("Entering FinalStep: ");
   
   const { handleNewPrescription, token } = useContext(UserContext);
-  /*
-  let mon = getState('monday');
-  let tues = getState('tuesday');
-  let wed = getState('wednesday');
-  let thur = getState('thursday');
-  let fri = getState('friday');
-  let sat = getState('saturday');
-  let sun = getState('sunday');
-  let every = getState('everyday');
-  */
   console.log("[every, m-f]: ", everyX, monX, tueX, wedX, thuX, friX, satX, sunX);
 
   let hours = theHoursX;
@@ -39,19 +29,29 @@ function FinalStep({ monX, tueX, wedX, thuX, friX, satX, sunX, everyX, theHoursX
       <Container>
         <Row>
           <Col>
-            <h6 className={'mb-4 text-center'}>Please confirm the details below and click "Finish" when ready. You may also use the "Previous" button to edit your days or times.</h6>
-            <div className={"text-center py-2 px-4 mb-4 rounded timeDisplay"} style={{ backgroundColor: "#39C0ED" }}>
-              <p className={"mt-2"}>{medName} will be scheduled at the following times for these days of the week:<br />
-                <b>{displayArray(dayNames)}</b>
-              </p>
-              <ListGroup horizontal={"sm"} className="my-2 justify-content-center">
-                {theHoursX.map((time, index) =>
-                  <ListGroup.Item className={"ml-2 mr-2 mb-2"} variant={'secondary'} key={{ time } + '.' + index}>
-                    {toTwelveHr(time)}
-                  </ListGroup.Item>
-                )}
-              </ListGroup>
-            </div>
+              <div className={"pt-2 pb-0 px-4 mb-4 rounded timeDisplay"} style={{ backgroundColor: "#39C0ED" }}>
+                  <div className="mb-2 text-center">
+                      <p className={"mt-1 text-light"} style={{ fontSize: "1.3rem" }}><b>{medName}</b> will be scheduled for the following days:</p>
+                      <b><span style={{ fontSize: "1rem" }} className="text-dark">{displayArray(dayNames)}</span></b>
+                      <div>
+                          {hours && hours.length !== 0 ?
+                              <p className="mt-3">
+                                  <span style={{ fontSize: "1.1rem" }} className="text-light"><b>at the following times: </b></span>
+                              </p>
+                              :
+                              null    
+                          }
+                      </div>
+                  </div>
+                      
+                  <div className="d-flex pb-2 flex-wrap justify-content-around">
+                      {hours.map((time, index) => 
+                          <div key={{ time } + '.' + index} style={{ fontSize: "1.5rem" }}>
+                              <span className={"badge mx-1 mb-3 badge-secondary"}>{toTwelveHr(time)}</span>
+                          </div>
+                      )}
+                  </div>
+              </div>
           </Col>
         </Row>
         <Row className={'mt-4'}>
@@ -65,22 +65,7 @@ function FinalStep({ monX, tueX, wedX, thuX, friX, satX, sunX, everyX, theHoursX
             <Button variant={'success'} onClick={finish}>Confirm</Button>
           </Col>
         </Row>
-        <Row className={"mt-5"}>
-          <Col>
-            <hr />
-            <p>TESTING OUTPUT:</p>
-            <p>medName: {medName}</p>
-            <p>fda_number: {fda_number}</p>
-            <p>existingPrescription: {String(existingPrescription)}</p>
-            <p>hours:  [ {displayArray(hours)}]</p>
-            {/* <p>weekdays: {weekdays}</p> */}
-            <p>weekdays: [ {displayArray(weekdays)}]</p>
-            <p>dayNames: [ {displayArray(dayNames)}]</p>
-            <p>token: {token}</p>
-            <p>addResponse: {addResponse}</p>
-          </Col>
-        </Row>
-         
+
         <FinalStepModal
           show={ addResponse ? true : false }
           onHide={() => setModalShow(false)}
@@ -92,7 +77,6 @@ function FinalStep({ monX, tueX, wedX, thuX, friX, satX, sunX, everyX, theHoursX
   );
 
   function finish() {
-
     if (existingPrescription) {
       deleteMedication(existingPrescription.medication.id);
       // THIS IS PROBLEMATIC IF doAdd RUNS BEFORE old prescription is deleted!!!!! Can rewrite with callback.

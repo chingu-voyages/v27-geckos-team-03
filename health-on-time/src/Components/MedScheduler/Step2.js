@@ -77,7 +77,7 @@ export default function Step2(props) {
                             <div className="d-flex pb-2 flex-wrap justify-content-around">
                                 {props.theHoursX.map((time, index) => 
                                     <div key={{ time } + '.' + index} style={{ fontSize: "1.4rem" }}>
-                                        <span className={"badge mx-1 badge-secondary"}>{toTwelveHr(time)}</span>
+                                        <span className={"badge mx-1 mb-3 badge-secondary"}>{toTwelveHr(time)}</span>
                                     </div>
                                 )}
                             </div>
@@ -143,13 +143,6 @@ export default function Step2(props) {
                     </ListGroup>
                 </Col>
             </Row>
-            <Row>
-                <Col>
-                    
-                </Col>
-                <Col>
-                </Col>
-            </Row>
             <Row className={'mt-3'}>
                 <Col className="text-center">
                     <Button variant={'danger'} onClick={props.cancelout}>Cancel</Button>
@@ -171,9 +164,6 @@ export default function Step2(props) {
 
     // Check that user actually set some times to state
     function validate() {
-        //const currTimes = props.getState('theTimes');
-        /*if (!currMondayTimes || currMondayTimes.length === 0) {
-        }*/
         (props.theHoursX && props.theHoursX.length > 0) ?
             (function () {
                 props.next();
@@ -198,9 +188,6 @@ export default function Step2(props) {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={() => props.onHide()}>Return to Add times</Button>
-                    {/*<Button onClick={props.myJump(12)}>Continue Anyway</Button>*/}
-                    {/* <Button onClick={() => props.myjump(6)}>Continue Anyway</Button> */}
-
                 </Modal.Footer>
             </Modal>
         );
