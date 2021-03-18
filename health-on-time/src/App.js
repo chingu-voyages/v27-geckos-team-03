@@ -19,6 +19,7 @@ import PublicRoute from "./Routes/PublicRoutes";
 import { UserContext } from "./Components/UserContext";
 
 import "./Styles/App.css";
+import { faTruckLoading } from "@fortawesome/free-solid-svg-icons";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -52,7 +53,7 @@ function App() {
     setPatients(user.patients);
     setPrescriptions(user.prescriptions);
     setMedications(user.medications);
-    // setToken(token);
+    setToken(token);
     setLoggedIn(true);
   };
 
@@ -60,6 +61,7 @@ function App() {
     localStorage.removeItem("token");
     setLoggedIn(false);
     setUser(null);
+    //setToken(null);
     history.push("/");
   };
 
@@ -80,6 +82,10 @@ function App() {
     }
   }, []);
 
+  /********  
+  // Rewrote below to include using previous state in functional setState and 
+  // to update prescriptions along with the medications change
+  */
   let deleteMedication = (medicationID) => {
     console.log(medicationID, "med id");
     fetch(`${BASE_URL}medications/${medicationID}`, {
@@ -87,24 +93,49 @@ function App() {
     })
       .then((r) => r.json())
       .then((deletedMedication) => {
-        let copyOfMeds = medications.filter((med) => {
-          return med.id !== medicationID;
-        });
-        setMedications(copyOfMeds);
+        setMedications(prevMeds => {
+          return prevMeds.filter(med => med.id !== medicationID);
+        })
+        setPrescriptions(prevPrescriptions => {
+          return prevPrescriptions.filter(prescr => prescr.medication.id !== medicationID);
+        })
       });
   };
+
+  const handleNewPrescription = (newPrescriptionObj) => {
+    fetch(`${BASE_URL}prescriptions`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        Authorization: `Bearer ${localStorage.token}`,
+      },
+      body: JSON.stringify(newPrescriptionObj),
+    })
+      .then((r) => r.json())
+      .then(data => { // update locally w/ setPrescriptions
+        setPrescriptions(prevPrescriptions => [...prevPrescriptions, data.prescription]);
+        setMedications(prevMeds => [...prevMeds, data.prescription.medication]);
+      }) // can check created object
+      .catch(error => {
+        console.log(error.name + ": " + error.message);
+        throw error; // or return error message?
+      });
+  } // end function handleNewPrescription
 
   return (
     <div className="main-container">
       <Navbar loggedIn={loggedIn} handleLogout={handleLogout} />
-      <div id={loggedIn && "wrapper"}>
-        {loggedIn && <Sidebar prescriptions={prescriptions} />}
+      <div id={loggedIn ? "wrapper" : "no-wrapper"}> {/* If not logged in, don't apply wrapper style */}
+        {loggedIn && <Sidebar />} {/* If not logged in, don't show sidebar */}
+
         <div className="display">
           <UserContext.Provider
             value={{
+              token,
               loggedIn,
               medications,
               deleteMedication,
+              handleNewPrescription,
               prescriptions,
               profile_pic,
               name,
@@ -113,7 +144,8 @@ function App() {
             }}
           >
             <Switch>
-              <PublicRoute path="/" children={HomePage} exact />
+              {/* changed from just exact to exact={true} to get navbar active link styling */}
+              <PublicRoute path="/" children={HomePage} exact={true} />
               <PublicRoute path="/login" children={Login} />
               <PublicRoute path="/signup" children={Register} />
               <PrivateRoute path="/dashboard" children={DashboardPage} />
@@ -127,6 +159,7 @@ function App() {
           </UserContext.Provider>
         </div>
       </div>
+      <div style={{marginBottom: "100px"}}><img src="/spacer.gif" alt="spacer" /></div>
       <Footer />
     </div>
   );

@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import '../Styles/Calendar.css';
+import { toTwelveHr } from "../Components/MedScheduler/helpers";
 import { UserContext } from "../Components/UserContext";
 
 export default function CalendarPage() {
@@ -62,38 +64,6 @@ function sortedDay(desiredDay, arr) {
   return dayDoses.sort((a, b) => a.hour > b.hour);
 }
 
-function toTwelveHr(hour) {
-  if (hour === 0) return "12 AM";
-  if (hour <= 11) return `${hour} AM`;
-  if (hour === 12) return "12 PM";
-  if (hour <= 23) return `${hour - 12} PM`;
-  return null;
-}
-
-const makeRow = (rowColor, dayString, doseArr) => {
-  return (
-    <tr className={rowColor}>
-      <td className="day">{dayString}</td>
-      <td>
-        <table
-          style={{ width: "200px" }}
-          className="table table-sm table-borderless"
-        >
-          {doseArr.map((el, i) => (
-            <tr key={i}>
-              <td>{el.medName}</td>
-              <td>
-                <div className={"float-right"}>{toTwelveHr(el.hour)}</div>
-              </td>
-            </tr>
-          ))}
-        </table>
-      </td>
-    </tr>
-  );
-};
-
-//let testHour;
 function Chart(props) {
   const doses = props.doses;
   const monDoses = sortedDay(0, doses);
@@ -105,16 +75,44 @@ function Chart(props) {
   const sunDoses = sortedDay(6, doses);
 
   return (
-    <div>
-      <table className="table table-bordered">
-        {makeRow("table-primary", "Mon", monDoses)}
-        {makeRow("table-secondary", "Tue", tuesDoses)}
-        {makeRow("table-success", "Wed", wedDoses)}
-        {makeRow("table-light", "Thu", thurDoses)}
-        {makeRow("table-warning", "Fri", friDoses)}
-        {makeRow("table-info", "Sat", satDoses)}
-        {makeRow("table-danger", "Sun", sunDoses)}
-      </table>
+    <div className="container">
+      <h1 className="text-center">Calendar</h1>
+
+      <div className="d-flex flex-wrap justify-content-center">
+        {makeTable("table-primary", "Mon", monDoses)}
+        {makeTable("table-secondary", "Tue", tuesDoses)}
+        {makeTable("table-success", "Wed", wedDoses)}
+        {makeTable("table-light", "Thu", thurDoses)}
+        {makeTable("table-warning", "Fri", friDoses)}
+        {makeTable("table-info", "Sat", satDoses)}
+        {makeTable("table-danger", "Sun", sunDoses)}
+      </div>
     </div>
   );
 }
+
+const makeTable = (rowColor, dayString, doseArr) => {
+  return ( 
+    <table style={{width: 300}} className={rowColor + ' table table-sm mx-3 my-table-shadow rounded'}>
+      <tbody>
+        <tr>
+          <td className="day"><span className="h4 m-2">{dayString}</span></td>
+          <td>
+            <table className="table table-sm table-borderless">
+              <tbody>
+                {doseArr.map((el, i) => (
+                  <tr key={i}>
+                    <td>{el.medName}</td>
+                    <td>
+                      <div className={"float-right"}>{toTwelveHr(el.hour)}</div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  );
+}; // end function makeTable

@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import SearchBox from "./SearchBox";
 import MedicationCard from "./MedicationCard";
+import { Container, Col, Row } from 'react-bootstrap';
 
-const SearchMedication = () => {
+const SearchMedication = ({ setchosenmed, setprescriptionexistsflag }) => {
+
+  
+  
   const [medications, setMedications] = useState([
     {
       brandName: "Name of the medication",
@@ -43,7 +47,7 @@ const SearchMedication = () => {
       });
     } else {
       const nObj = {
-        brandName: "No medication found!",
+        brandName: "No medication found",
         manifacturer: "",
         appNumber: "",
       };
@@ -52,17 +56,25 @@ const SearchMedication = () => {
   };
 
   // Passing input value
+  // Added check for blank because it needed it - Lewis
   useEffect(() => {
-    getFDARequest(searchValue);
+    if(searchValue !== '') 
+      getFDARequest(searchValue);
   }, [searchValue]);
 
   return (
-    <div style={{ margin: "10rem 0" }}>
-      <h1>Search Medication</h1>
-      <SearchBox searchValue={searchValue} setSearchValue={setSearchValue} />
-      <MedicationCard medications={medications} />
-    </div>
+    <Container>
+      <Row className="mb-3">
+        <Col className="d-flex justify-content-center">
+            <SearchBox searchValue={searchValue} setSearchValue={setSearchValue} />
+        </Col>
+      </Row>
+      <Row>
+        <Col className="d-flex justify-content-center">
+          <MedicationCard medications={medications} setchosenmed={setchosenmed} setprescriptionexistsflag={setprescriptionexistsflag} />
+        </Col>
+      </Row>
+    </Container>
   );
 };
-
 export default SearchMedication;

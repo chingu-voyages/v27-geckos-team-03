@@ -194,6 +194,7 @@ const Register = () => {
                 <label htmlFor="password">Password</label>
                 <Input
                   type="password"
+                  autoComplete="off"
                   className="form-control"
                   name="password"
                   value={password}
