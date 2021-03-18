@@ -5,13 +5,17 @@ import { TimePicker } from "antd";
 import { Row, Col, Button, Container, Modal, ListGroup, Card } from 'react-bootstrap';
 import { fixCapitalization, toTwelveHr } from "./helpers"
 import "../../Styles/MedScheduler.css"
+import { getDayNames, displayArray } from './helpers';
 
-export default function Step2(props){
+export default function Step2(props) {
 
     const [modalShow, setModalShow] = React.useState(false);
-    //const theMedName = props.getState('medNameQ');
-    //const theDay = "Monday";
-
+    const { chosenMed, everyX, monX, tueX, wedX, thuX, friX, satX, sunX } = props;
+    const dayNames = getDayNames(everyX, monX, tueX, wedX, thuX, friX, satX, sunX);
+        
+    /*if (props.existingPrescription)
+        props.setState('theTimes', props.existingPrescription.hours);
+    */
     // timeValue: a 13 digit timestamp obtained from TimePicker
     const [timeValue, setTimeValue] = useState("");
 
@@ -29,41 +33,52 @@ export default function Step2(props){
      * Event listener for the timepicker
      *///////////////////////////////////////////////////////////////////////
     const addTime = () => {
-        if (timeValue === "") 
+        if (timeValue === "")
             return; // if user clicked "Add time" before choosing a time, just ignore
 
         const hrToAdd = retrieveHour(timeValue); // extract the hour
 
-        let currentTimes = props.getState('theTimes');
-
-        if (!currentTimes) { // If theTimes not yet initialized, just add hrToAdd
-            props.setState('theTimes', [hrToAdd]);
+        // If theTimes not yet initialized, just add hrToAdd
+        if (!props.theHoursX || props.theHoursX.length === 0) {
+            props.setTheHoursX([hrToAdd]);
         }
-       
-        /* If mondayTimes already exists and it doesn't already have that time, then add */
-        if ((currentTimes) && (!currentTimes.includes(hrToAdd))) {
-            let newTimes = [...currentTimes, hrToAdd].sort((a, b) => a - b);
-            props.setState('theTimes', newTimes);
+            
+        /* If theTimes already exists and it doesn't already have that time, then add */
+        if ((props.theHoursX) && (!props.theHoursX.includes(hrToAdd))) {
+            let newTimes = [...props.theHoursX, hrToAdd].sort((a, b) => a - b);
+            props.setTheHoursX(newTimes);
         }
     } // end function addTime
 
     function timesList() {
-        if (!props.getState('theTimes'))
+        if (!props.theHoursX) // If no times set
             return null;
-        
+        const medName = fixCapitalization(chosenMed.brandName);
+
         return (
             <Container>
                 <Row>
                     <Col>
                         <div className={"pt-2 pb-0 px-4 mb-4 rounded timeDisplay"} style={{ backgroundColor: "#39C0ED" }}>
                             <div className="mb-2 text-center">
-                                <span style={{ fontSize: "1.1rem" }} className="text-light"><b>Your doses of {fixCapitalization(props.chosenMed.brandName)} will be taken at: </b></span>
+                                <p className={"mt-1 text-light"} style={{ fontSize: "1.3rem" }}><b>{medName}</b> will be scheduled for the following days:</p>
+                                <b><span style={{ fontSize: "1rem" }} className="text-dark">{displayArray(dayNames)}</span></b>
+                                <div>
+                                    {props.theHoursX && props.theHoursX.length !== 0 ?
+                                        <p className="mt-3">
+                                            <span style={{ fontSize: "1.1rem" }} className="text-light"><b>at the following times: </b></span>
+                                        </p>
+                                        :
+                                        null    
+                                    }
+                                </div>
                             </div>
-                            <div className="d-flex flex-wrap justify-content-around">
-                                {props.getState('theTimes').map((time, index) => 
-                                    <p style={{fontSize: "1.4rem"}}><span className={"badge mx-1 badge-secondary"} key={{ time } + '.' + index}>
-                                        {toTwelveHr(time)}
-                                    </span></p>
+                                
+                            <div className="d-flex pb-2 flex-wrap justify-content-around">
+                                {props.theHoursX.map((time, index) => 
+                                    <div key={{ time } + '.' + index} style={{ fontSize: "1.4rem" }}>
+                                        <span className={"badge mx-1 mb-3 badge-secondary"}>{toTwelveHr(time)}</span>
+                                    </div>
                                 )}
                             </div>
                         </div>
@@ -103,7 +118,7 @@ export default function Step2(props){
                             <Row>
                                 <Col>
                                     <Button className={"mb-2"} onClick={addTime} block>Add to schedule</Button>
-                                    <Button variant={"danger"} block onClick={() => props.setState('theTimes', [])}>Clear stored values</Button>
+                                    <Button variant={"danger"} block onClick={() => props.setTheHoursX([])}>Clear stored values</Button>
                                 </Col>
                             </Row>
 
@@ -125,20 +140,12 @@ export default function Step2(props){
                         <ListGroup.Item>
                             When you are done entering the times for <b>{fixCapitalization(props.chosenMed.brandName)}</b>, click "Proceed" at the bottom to finish.
                         </ListGroup.Item>
-
                     </ListGroup>
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    
-                </Col>
-                <Col>
                 </Col>
             </Row>
             <Row className={'mt-3'}>
                 <Col className="text-center">
-                    <Button variant={'danger'} onClick={props.cancelOut}>Cancel</Button>
+                    <Button variant={'danger'} onClick={props.cancelout}>Cancel</Button>
                 </Col>
                 <Col className="text-center">
                     <Button onClick={props.prev}>Previous</Button>
@@ -157,10 +164,7 @@ export default function Step2(props){
 
     // Check that user actually set some times to state
     function validate() {
-        const currTimes = props.getState('theTimes');
-        /*if (!currMondayTimes || currMondayTimes.length === 0) {
-        }*/
-        (currTimes && currTimes.length > 0) ?
+        (props.theHoursX && props.theHoursX.length > 0) ?
             (function () {
                 props.next();
             })()
@@ -184,9 +188,6 @@ export default function Step2(props){
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={() => props.onHide()}>Return to Add times</Button>
-                    {/*<Button onClick={props.myJump(12)}>Continue Anyway</Button>*/}
-                    {/* <Button onClick={() => props.myjump(6)}>Continue Anyway</Button> */}
-
                 </Modal.Footer>
             </Modal>
         );

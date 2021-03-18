@@ -36,6 +36,8 @@ function App() {
   const [prescriptions, setPrescriptions] = useState(null);
   const [medications, setMedications] = useState(null);
 
+  const [addResponse, setAddResponse] = useState(null);
+
   let history = useHistory();
   // const BASE_URL = "http://localhost:3000/";
   const BASE_URL = "https://health-on-time-api.herokuapp.com/";
@@ -85,21 +87,23 @@ function App() {
   /********  
   // Rewrote below to include using previous state in functional setState and 
   // to update prescriptions along with the medications change
+  // Added onDelete callback function to return response code
   */
-  let deleteMedication = (medicationID) => {
+  let deleteMedication = (medicationID, onDelete) => {
     console.log(medicationID, "med id");
     fetch(`${BASE_URL}medications/${medicationID}`, {
       method: "DELETE",
     })
       .then((r) => r.json())
       .then((deletedMedication) => {
+        console.log('99:App deletedMedication: ' + deletedMedication);;
         setMedications(prevMeds => {
           return prevMeds.filter(med => med.id !== medicationID);
         })
         setPrescriptions(prevPrescriptions => {
           return prevPrescriptions.filter(prescr => prescr.medication.id !== medicationID);
         })
-      });
+      })
   };
 
   const handleNewPrescription = (newPrescriptionObj) => {
@@ -113,6 +117,7 @@ function App() {
     })
       .then((r) => r.json())
       .then(data => { // update locally w/ setPrescriptions
+        setAddResponse(data.prescription.medication.fda_number);
         setPrescriptions(prevPrescriptions => [...prevPrescriptions, data.prescription]);
         setMedications(prevMeds => [...prevMeds, data.prescription.medication]);
       }) // can check created object
@@ -141,6 +146,8 @@ function App() {
               name,
               handleLogin,
               BASE_URL,
+              addResponse,
+              setAddResponse
             }}
           >
             <Switch>
