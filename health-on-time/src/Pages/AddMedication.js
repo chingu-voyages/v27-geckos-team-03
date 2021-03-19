@@ -6,13 +6,14 @@ import { UserContext } from "../Components/UserContext";
 
 const AddMedication = ({ pageTitle }) => {
 
-  const { prescriptions } = useContext(UserContext); // prescriptions: the user's prescriptions []
+  const { prescriptions, setAddResponse } = useContext(UserContext); // prescriptions: the user's prescriptions []
   const [chosenMed, setchosenmed] = useState(); // chosenMed: med object chosen by search "Add" button
   const [existingPrescription, setExistingPrescription] = useState(); // existingPrescription object
   const { deleteMedication } = useContext(UserContext);
 
   // Reset the "Add med" process
   function cancelout() {
+    setAddResponse(null);
     setchosenmed(null);
     setExistingPrescription(null);
   }
