@@ -31,8 +31,8 @@ function App() {
   const [username, setUserName] = useState(null);
   const [email, setEmail] = useState(null);
   const [phone, setPhone] = useState(null);
-  const [partners, setPartners] = useState(null);
-  const [patients, setPatients] = useState(null);
+  const [partners, setPartners] = useState([]);
+  const [patients, setPatients] = useState([]);
   const [prescriptions, setPrescriptions] = useState(null);
   const [medications, setMedications] = useState(null);
 
@@ -96,6 +96,17 @@ function App() {
     })
       .then((r) => r.json())
       .then((deletedMedication) => {
+<<<<<<< HEAD
+        setMedications((prevMeds) => {
+          return prevMeds.filter((med) => med.id !== medicationID);
+        });
+        setPrescriptions((prevPrescriptions) => {
+          return prevPrescriptions.filter(
+            (prescr) => prescr.medication.id !== medicationID
+          );
+        });
+      });
+=======
         console.log('99:App deletedMedication: ' + deletedMedication);;
         setMedications(prevMeds => {
           return prevMeds.filter(med => med.id !== medicationID);
@@ -104,6 +115,7 @@ function App() {
           return prevPrescriptions.filter(prescr => prescr.medication.id !== medicationID);
         })
       })
+>>>>>>> d8caa5d96caba3566e35aa1c6e17fecc96fcfaef
   };
 
   const handleNewPrescription = (newPrescriptionObj) => {
@@ -116,23 +128,37 @@ function App() {
       body: JSON.stringify(newPrescriptionObj),
     })
       .then((r) => r.json())
+<<<<<<< HEAD
+      .then((data) => {
+        // update locally w/ setPrescriptions
+        setPrescriptions((prevPrescriptions) => [
+          ...prevPrescriptions,
+          data.prescription,
+        ]);
+        setMedications((prevMeds) => [
+          ...prevMeds,
+          data.prescription.medication,
+        ]);
+=======
       .then(data => { // update locally w/ setPrescriptions
         setAddResponse(data.prescription.medication.fda_number);
         setPrescriptions(prevPrescriptions => [...prevPrescriptions, data.prescription]);
         setMedications(prevMeds => [...prevMeds, data.prescription.medication]);
+>>>>>>> d8caa5d96caba3566e35aa1c6e17fecc96fcfaef
       }) // can check created object
-      .catch(error => {
+      .catch((error) => {
         console.log(error.name + ": " + error.message);
         throw error; // or return error message?
       });
-  } // end function handleNewPrescription
+  }; // end function handleNewPrescription
 
   return (
     <div className="main-container">
       <Navbar loggedIn={loggedIn} handleLogout={handleLogout} />
-      <div id={loggedIn ? "wrapper" : "no-wrapper"}> {/* If not logged in, don't apply wrapper style */}
+      <div id={loggedIn ? "wrapper" : "no-wrapper"}>
+        {" "}
+        {/* If not logged in, don't apply wrapper style */}
         {loggedIn && <Sidebar />} {/* If not logged in, don't show sidebar */}
-
         <div className="display">
           <UserContext.Provider
             value={{
@@ -146,8 +172,13 @@ function App() {
               name,
               handleLogin,
               BASE_URL,
+<<<<<<< HEAD
+              partners,
+              patients,
+=======
               addResponse,
               setAddResponse
+>>>>>>> d8caa5d96caba3566e35aa1c6e17fecc96fcfaef
             }}
           >
             <Switch>
@@ -166,7 +197,9 @@ function App() {
           </UserContext.Provider>
         </div>
       </div>
-      <div style={{marginBottom: "100px"}}><img src="/spacer.gif" alt="spacer" /></div>
+      <div style={{ marginBottom: "100px" }}>
+        <img src="/spacer.gif" alt="spacer" />
+      </div>
       <Footer />
     </div>
   );
