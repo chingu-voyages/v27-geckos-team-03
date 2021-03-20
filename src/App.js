@@ -96,7 +96,6 @@ function App() {
     })
       .then((r) => r.json())
       .then((deletedMedication) => {
-<<<<<<< HEAD:src/App.js
         console.log("99:App deletedMedication: " + deletedMedication);
         setMedications((prevMeds) => {
           return prevMeds.filter((med) => med.id !== medicationID);
@@ -107,16 +106,6 @@ function App() {
           );
         });
       });
-=======
-        console.log('99:App deletedMedication: ' + deletedMedication);;
-        setMedications(prevMeds => {
-          return prevMeds.filter(med => med.id !== medicationID);
-        })
-        setPrescriptions(prevPrescriptions => {
-          return prevPrescriptions.filter(prescr => prescr.medication.id !== medicationID);
-        })
-      })
->>>>>>> a4924f4bfb170ef23011212ff4fc7bd66312a175:health-on-time/src/App.js
   };
 
   const handleNewPrescription = (newPrescriptionObj) => {
@@ -129,7 +118,6 @@ function App() {
       body: JSON.stringify(newPrescriptionObj),
     })
       .then((r) => r.json())
-<<<<<<< HEAD:src/App.js
       .then((data) => {
         // update locally w/ setPrescriptions
         setAddResponse(data.prescription.medication.fda_number);
@@ -141,12 +129,6 @@ function App() {
           ...prevMeds,
           data.prescription.medication,
         ]);
-=======
-      .then(data => { // update locally w/ setPrescriptions
-        setAddResponse(data.prescription.medication.fda_number);
-        setPrescriptions(prevPrescriptions => [...prevPrescriptions, data.prescription]);
-        setMedications(prevMeds => [...prevMeds, data.prescription.medication]);
->>>>>>> a4924f4bfb170ef23011212ff4fc7bd66312a175:health-on-time/src/App.js
       }) // can check created object
       .catch((error) => {
         console.log(error.name + ": " + error.message);
@@ -174,17 +156,10 @@ function App() {
               name,
               handleLogin,
               BASE_URL,
-<<<<<<< HEAD:src/App.js
+              partners,
+              patients,
               addResponse,
               setAddResponse,
-              partners,
-              patients,
-=======
-              partners,
-              patients,
-              addResponse,
-              setAddResponse
->>>>>>> a4924f4bfb170ef23011212ff4fc7bd66312a175:health-on-time/src/App.js
             }}
           >
             <Switch>
