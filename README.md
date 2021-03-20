@@ -1,4 +1,39 @@
-# Getting Started with Create React App
+![Health On Time ](./public/Health_on_time_logo.png)
+
+## About the Project
+
+The purpose of the application to create a space online to be able to hold loved ones accountable to taking medication by allowing them to schedule their medication and have someone hold them accountable by notifying their accountability partner via email and reminding user.
+
+Deployed Link [Health on Time](https://health-on-time.herokuapp.com/)
+
+![](./public/Health-on-time.gif)
+
+## Built With
+
+- **Front end**
+  - JavaScript using React Library
+  - Styled with Custom CSS and [React Bootstrap](https://react-bootstrap.github.io/)
+- **Backend**
+  - Ruby on Rails
+- **Deployment**
+  - Heroku
+- **APIs**
+
+  - We used the [Drugs@FDA](https://open.fda.gov/apis/drug/drugsfda/) API to allow users to search for medications they want to schedule. The API includes drugs approved since 1939.
+  - [SendGrid](https://sendgrid.com/) (still being implemented )
+
+## Features
+
+- [x] Users can sign up and create an account
+- [x] Users can login
+- [x] Users can search for medications and schedule them
+- [x] Once a medication is scheduled user can see medications on the calendar page
+- [x] A user can see all current medications on the medicine cabinet page and delete them
+- [ ] User is notified to take medications via email/in app notification (coming soon)
+- [ ] User can invite someone to become an accountability partner (coming soon)
+- [ ] User can track the times they have taken or missed a dosage (coming soon)
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
