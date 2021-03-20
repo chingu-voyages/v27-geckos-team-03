@@ -21,7 +21,7 @@ const LandingPage = () => {
         <Jumbotron className="jumbtron">
           <p>
             COVID has made it difficult to care of those we love, so we created
-            APP NAME so we can hold one each other accountable on taking our
+            HealthOnTime so we can hold one each other accountable on taking our
             medication
           </p>
           <p>
